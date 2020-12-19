@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: vermolae
@@ -12,12 +13,12 @@
   <link rel="stylesheet"
         type="text/css"
         media="screen"
-        href="main.css"/>
-  <title>Simple Circumflex Application</title>
+        href="resources/main.css"/>
+  <title>index</title>
 </head>
 <body>
 <p align="center" style="color:#ff0099; font-size:30px">
-  Gesundheit!
+  Welcome to the page of Best Mobile Operator!
 </p>
 </body>
 </html>
