@@ -29,7 +29,9 @@ public class UserController {
 //            currentPage = 1;
 
         List<User> users = userService.getAll();
-
+//        for (User a_user:users){
+//            System.out.println(a_user.getRole());
+//        }
         model.addAttribute("users", users);
 
 //        model.addAttribute("noOfPages", nOfPages);

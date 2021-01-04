@@ -41,8 +41,8 @@ public class Dao<T> implements BaseData<T> {
 
     @Override
     public List<T> getAll() {
-        Query q = entityManager.createQuery(String.format("SELECT e FROM %s e", pojoClassName));
-//        Query q = entityManager.createQuery("SELECT e FROM User e");
+//        Query q = entityManager.createQuery(String.format("SELECT e FROM %s e", pojoClassName));
+        Query q = entityManager.createQuery("SELECT e FROM User e");
         return q.getResultList();
     }
 
