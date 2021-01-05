@@ -10,8 +10,12 @@
 
 <div id="layout">
     <h1>Welcome to Valera-mobile</h1>
+
     <button id="show-modal" class="btn">Login/Registration</button>
 </div>
+${contract.toString()}
+${contract.id}
+${contract.number}
 <div id="modal">
     <div id="login">
         <form class="login-form" action="login" method="post">
