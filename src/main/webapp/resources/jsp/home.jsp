@@ -13,13 +13,15 @@
 
     <button id="show-modal" class="btn">Login/Registration</button>
 </div>
-${contract.toString()}
-${contract.id}
-${contract.number}
+
 
 <form action="${pageContext.request.contextPath}/Users">
     <input type="submit" value="Users" />
 </form>
+<form action="${pageContext.request.contextPath}/log_reg">
+    <input type="submit" value="Login/Reg" />
+</form>
+
 
 <c:forEach items="${roles}" var="r">
     <tr>

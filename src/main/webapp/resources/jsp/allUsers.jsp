@@ -20,8 +20,6 @@
     </tr>
     </thead>
     <tbody>
-    ${user.toString()}
-    ${users}
     <c:forEach items="${users}" var="u">
         <tr>
             <td><c:out value="${u.firstname}"/></td>

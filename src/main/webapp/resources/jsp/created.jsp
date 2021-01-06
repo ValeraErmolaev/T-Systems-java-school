@@ -11,8 +11,12 @@
     <title>Title</title>
 </head>
 <body>
-${firstname}
-${lastname}
-${contract}
+Created:
+${user.id}
+${user.firstname}
+<form action="${pageContext.request.contextPath}/Users">
+    <input type="submit" value="Users" />
+</form>
+
 </body>
 </html>

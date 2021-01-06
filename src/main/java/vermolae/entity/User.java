@@ -34,8 +34,8 @@ public class User {
 //    @JoinColumn(name = "role")
 //    private Role role;
 
-//    @SequenceGenerator(name = "seq-gen", sequenceName = "hibernate_sequence", initialValue = 205, allocationSize = 12)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
+    @SequenceGenerator(name = "seq-gen", sequenceName = "hibernate_sequence", initialValue = 205, allocationSize = 12)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
     public Integer getId() {
         return id;
     }

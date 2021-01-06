@@ -10,12 +10,12 @@
 <head>
     <title>log_reg</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home_v2.css">
-    <script src="${pageContext.request.contextPath}/resources/js/log_reg.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/log_reg.css">
+
 </head>
 <body>
 <div class="login-page">
-    <div id="regID" class="form">
+    <div class="form">
         <form class="register-form">
             <input type="text" placeholder="name"/>
             <input type="password" placeholder="password"/>
@@ -23,27 +23,14 @@
             <button>create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
-        <form id="loginID" class="login-form">
+        <form class="login-form">
             <input type="text" placeholder="username"/>
             <input type="password" placeholder="password"/>
             <button>login</button>
-            <p id="showSignUp" class="message">Not registered? <a href="#">Create an account</a> </p>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
         </form>
     </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-<script>
-
-    $(document).ready(function(){
-        $("#showSignUp").click(function(){
-            $("#loginID").hide();
-            $("#regID").show();
-
-        });
-    });
-
-</script>
-
+  </div>
+<script src="${pageContext.request.contextPath}/resources/js/log_reg.js"></script>
 </body>
 </html>

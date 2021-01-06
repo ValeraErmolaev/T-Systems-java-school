@@ -32,7 +32,8 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
     @Override
     public void create(E entity) throws CustomDAOException {
         try {
-            entityManager.persist(entity);
+            entityManager.merge(entity);
+//            entityManager.persist(entity);
         } catch (PersistenceException e) {
             throw new CustomDAOException("Entity wasn't created: " + entity, e);
         }

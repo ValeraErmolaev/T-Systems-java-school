@@ -57,6 +57,7 @@
     <orderEntry type="library" name="Maven: org.jboss:jandex:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:4.3.11.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:jquery:3.5.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.1.2.RELEASE" level="project" />
