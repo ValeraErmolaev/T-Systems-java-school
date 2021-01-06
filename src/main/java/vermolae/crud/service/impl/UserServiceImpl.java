@@ -1,20 +1,23 @@
-package vermolae.crud.service.serviceImpl;
+package vermolae.crud.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
-import vermolae.crud.service.serviceApi.UserService;
-import vermolae.dao.dao_new.UserDAO;
-import vermolae.entity.Role;
+import vermolae.crud.dao.api.UserDAO;
+import vermolae.crud.service.api.UserService;
+//import vermolae.entity.Role;
 import vermolae.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
 
 import java.util.List;
 
+/**
+ * Created by Artyom Karnov on 8/27/16.
+ * artyom-karnov@yandex.ru
+ **/
 @Service("userService")
-@Transactional
 public class UserServiceImpl implements UserService {
 
     private final static Logger logger = Logger.getLogger(UserServiceImpl.class);
@@ -29,7 +32,7 @@ public class UserServiceImpl implements UserService {
      * @throws CustomDAOException if connect with DAO goes wrong
      */
     @Override
-//    @Transactional
+    @Transactional
     public void createEntity(User user) throws CustomDAOException {
 //        if (!isUserExists(user)) {
             userDAO.create(user);
@@ -44,8 +47,8 @@ public class UserServiceImpl implements UserService {
      * @throws CustomDAOException if connect with DAO goes wrong
      */
     @Override
-//    @Transactional
-    public User getEntityById(Long id) throws CustomDAOException {
+    @Transactional
+    public User getEntityById(Integer id) throws CustomDAOException {
         return userDAO.read(id);
     }
 
@@ -56,7 +59,7 @@ public class UserServiceImpl implements UserService {
      * @throws CustomDAOException if connect with DAO goes wrong
      */
     @Override
-//    @Transactional
+    @Transactional
     public void updateEntity(User entity) throws CustomDAOException {
         userDAO.update(entity);
     }
@@ -68,7 +71,7 @@ public class UserServiceImpl implements UserService {
      * @throws CustomDAOException if connect with DAO goes wrong
      */
     @Override
-//    @Transactional
+    @Transactional
     public void deleteEntity(User entity) throws CustomDAOException {
         userDAO.delete(entity);
     }
@@ -80,7 +83,7 @@ public class UserServiceImpl implements UserService {
      * @throws CustomDAOException if connect with DAO goes wrong
      */
     @Override
-//    @Transactional
+    @Transactional
     public List<User> getAll() throws CustomDAOException {
         return userDAO.getAll();
 
@@ -94,7 +97,7 @@ public class UserServiceImpl implements UserService {
      * @throws UserNotFoundException if user not found
      */
     @Override
-//    @Transactional
+    @Transactional
     public User getUserByNumber(String number) throws UserNotFoundException {
         return userDAO.getUserByNumber(number);
     }
@@ -106,11 +109,11 @@ public class UserServiceImpl implements UserService {
      * @return user with adjusted email
      * @throws UserNotFoundException if user not found
      */
-//    @Override
-//    @Transactional
-//    public User getUserByEMAil(String eMail) throws UserNotFoundException {
-//        return userDAO.getUserByEMAil(eMail);
-//    }
+    @Override
+    @Transactional
+    public User getUserByEMAil(String eMail) throws UserNotFoundException {
+        return userDAO.getUserByEMAil(eMail);
+    }
 
     /**
      * Checking user existing in base
@@ -133,13 +136,9 @@ public class UserServiceImpl implements UserService {
      * @param user        entity for changing level
      * @param role new level
      */
-//    public void cahngeUserAccessLevel(User user, AccessLevel accessLevel) {
-//        user.setAccessLevel(accessLevel);
+//    public void cahngeUserAccessLevel(User user, Role role) {
+////        user.setRole(role);
 //        updateEntity(user);
 //    }
-    public void cahngeUserAccessLevel(User user, Role role) {
-        user.setRole(role);
-        updateEntity(user);
-    }
 
 }

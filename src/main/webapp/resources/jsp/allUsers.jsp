@@ -20,12 +20,14 @@
     </tr>
     </thead>
     <tbody>
+    ${user.toString()}
+    ${users}
     <c:forEach items="${users}" var="u">
         <tr>
             <td><c:out value="${u.firstname}"/></td>
-            <td><c:out value="${u.lastname}"/></td>
-            <td><c:out value="${u.email}"/></td>
-            <td><c:out value="${u.role.getRole()}"/></td>
+<%--            <td><c:out value="${u.getLastname()}"/></td>--%>
+<%--            <td><c:out value="${u.getEmail}"/></td>--%>
+<%--            <td><c:out value="${u.getRole().getRole()}"/></td>--%>
             <td><a href='user/${u.id}/edit'>Edit</a></td>
             <td><a href='user/${u.id}/delete'>Delete</a></td>
         </tr>

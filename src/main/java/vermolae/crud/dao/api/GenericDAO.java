@@ -1,4 +1,4 @@
-package vermolae.dao.dao_new;
+package vermolae.crud.dao.api;
 
 import vermolae.exeptions.CustomDAOException;
 

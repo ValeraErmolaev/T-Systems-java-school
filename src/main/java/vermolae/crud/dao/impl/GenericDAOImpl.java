@@ -1,11 +1,11 @@
-package vermolae.dao.dao_new;
+package vermolae.crud.dao.impl;
 
+import vermolae.crud.dao.api.GenericDAO;
 import vermolae.exeptions.CustomDAOException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -33,9 +33,8 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
     public void create(E entity) throws CustomDAOException {
         try {
             entityManager.persist(entity);
-            entityManager.flush();
         } catch (PersistenceException e) {
-            throw new CustomDAOException("Entity wasn't created: " + entity.toString(), e);
+            throw new CustomDAOException("Entity wasn't created: " + entity, e);
         }
     }
 

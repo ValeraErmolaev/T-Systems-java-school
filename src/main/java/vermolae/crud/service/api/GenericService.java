@@ -1,9 +1,15 @@
-package vermolae.crud.service.serviceApi;
+package vermolae.crud.service.api;
+
+
+
 
 import vermolae.exeptions.CustomDAOException;
 
 import java.util.List;
 
+/**
+ * Interface for GenericService
+ */
 public interface GenericService<E, K> {
     public void createEntity(E entity) throws CustomDAOException;
 

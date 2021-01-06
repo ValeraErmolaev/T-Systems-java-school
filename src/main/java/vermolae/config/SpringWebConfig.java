@@ -8,10 +8,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@Configuration
 @EnableWebMvc
-@ComponentScan("vermolae")
-public class WebConfig extends WebMvcConfigurerAdapter {
+@Configuration
+@ComponentScan({ "vermolae" })
+public class SpringWebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public InternalResourceViewResolver resolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();

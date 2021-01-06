@@ -1,9 +1,9 @@
-package vermolae.crud.service.serviceApi;
+package vermolae.crud.service.api;
 
 import vermolae.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
-public interface UserService extends GenericService<User, Long> {
+public interface UserService extends GenericService<User, Integer> {
 
     /**
      * Getting user entity by number
@@ -21,6 +21,6 @@ public interface UserService extends GenericService<User, Long> {
      * @return user with adjusted email
      * @throws UserNotFoundException if user not found
      */
-//    public User getUserByEMAil(String eMail) throws UserNotFoundException;
+    public User getUserByEMAil(String eMail) throws UserNotFoundException;
 
 }

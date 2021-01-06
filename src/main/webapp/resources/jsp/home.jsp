@@ -2,7 +2,7 @@
 <head>
     <title>login</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/registration.css">
 </head>
@@ -16,6 +16,19 @@
 ${contract.toString()}
 ${contract.id}
 ${contract.number}
+
+<form action="${pageContext.request.contextPath}/Users">
+    <input type="submit" value="Users" />
+</form>
+
+<c:forEach items="${roles}" var="r">
+    <tr>
+        <td><c:out value="${r.id}"/></td>
+        <td><c:out value="${r.role}"/></td>
+        <td><a href='role/${u.id}/edit'>Edit</a></td>
+        <td><a href='role/${u.id}/delete'>Delete</a></td>
+    </tr>
+</c:forEach>
 <div id="modal">
     <div id="login">
         <form class="login-form" action="login" method="post">

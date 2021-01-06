@@ -39,12 +39,7 @@
 
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>${mysql-connector.version}</version>-->
-<!--        </dependency>-->
-        <dependency>
+      <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.18</version>
@@ -65,11 +60,7 @@
             <version>1.0.2.Final</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet.jsp.jstl</groupId>-->
-<!--            <artifactId>jstl</artifactId>-->
-<!--            <version>1.2</version>-->
-<!--        </dependency>-->
+
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -125,12 +116,7 @@
             <version>${spring-security.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok-mapstruct-binding</artifactId>-->
-<!--            <version>1.18.16</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -144,11 +130,7 @@
             <version>3.4.5</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.liquibase</groupId>-->
-<!--            <artifactId>liquibase-core</artifactId>-->
-<!--            <version>${liquibase.version}</version>-->
-<!--        </dependency>-->
+
 
         <dependency>
             <groupId>org.hibernate</groupId>

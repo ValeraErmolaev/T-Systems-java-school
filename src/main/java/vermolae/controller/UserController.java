@@ -1,44 +1,33 @@
 package vermolae.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import vermolae.crud.service.serviceImpl.UserServiceImpl;
-import vermolae.entity.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import vermolae.crud.service.api.UserService;
 
-import java.util.List;
 
 @Controller
 public class UserController {
 
+
     @Autowired
-    UserServiceImpl userService;
+    private UserService userService;
 
-    @RequestMapping(value = "/Users")
+//    @Autowired
+//    UserDAO userDAO;
+
+    @GetMapping(value = "/Users")
     public String getUsers(ModelMap model) {
-        final int recordsPerPage = 100;
+//        model.addAttribute("users", userDao.allUsers());
+        model.addAttribute("user",userService.getEntityById(1));
+        System.out.println(userService.getEntityById(1));
+        model.addAttribute("users", userService.getAll());
 
-//        long rows = userService.count();
-//        int nOfPages = (int)(rows / recordsPerPage);
-
-//        if (nOfPages % recordsPerPage > 0) {
-//            nOfPages++;
-//        }
-
-//        if(currentPage == null)
-//            currentPage = 1;
-
-        List<User> users = userService.getAll();
-//        for (User a_user:users){
-//            System.out.println(a_user.getRole());
-//        }
-        model.addAttribute("users", users);
-
-//        model.addAttribute("noOfPages", nOfPages);
-//        model.addAttribute("currentPage", currentPage);
-//        model.addAttribute("recordsPerPage", recordsPerPage);
-
+//        List<User> users = userRepositoryJPA.findAll();
+//        List<User> users = userService.getAll();
+//        model.addAttribute("users", users);
         return "allUsers";
     }
 }

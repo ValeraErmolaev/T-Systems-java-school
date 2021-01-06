@@ -1,8 +1,7 @@
-package vermolae.dao.daoImpl;
+package vermolae.crud.dao.impl;
 
 import org.springframework.stereotype.Repository;
-import vermolae.dao.dao_new.GenericDAOImpl;
-import vermolae.dao.dao_new.UserDAO;
+import vermolae.crud.dao.api.UserDAO;
 import vermolae.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
@@ -11,8 +10,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-@Repository
-public class UserDAOImpl extends GenericDAOImpl<User, Long> implements UserDAO {
+@Repository("userDAO")
+public class UserDAOImpl extends GenericDAOImpl<User, Integer> implements UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,8 +22,8 @@ public class UserDAOImpl extends GenericDAOImpl<User, Long> implements UserDAO {
      * @return user with adjusted number
      * @throws UserNotFoundException if user not found
      */
-//    @Override
-//    public User getUserByNumber(String number) throws UserNotFoundException {
+    @Override
+    public User getUserByNumber(String number) throws UserNotFoundException {
 //        try {
 //            Query query = entityManager.createQuery("select c.user from Contract c where c.number=:number")
 //                    .setParameter("number", number);
@@ -32,10 +31,6 @@ public class UserDAOImpl extends GenericDAOImpl<User, Long> implements UserDAO {
 //        } catch (PersistenceException e) {
 //            throw new UserNotFoundException("User " + number + " wasn't found", e);
 //        }
-//
-//    }
-    @Override
-    public User getUserByNumber(String number) throws UserNotFoundException {
         return null;
 
     }
@@ -61,3 +56,5 @@ public class UserDAOImpl extends GenericDAOImpl<User, Long> implements UserDAO {
 
 
 }
+
+
