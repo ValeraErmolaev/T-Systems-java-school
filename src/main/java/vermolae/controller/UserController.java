@@ -41,8 +41,8 @@ public class UserController {
         System.out.println(request.getParameter("user"));
 
         User user = new User();
-        user.setId(1);
-        user.setFirstname("Andrey");
+//        user.setId(1);
+        user.setFirstname("Alena");
         userService.createEntity(user);
         model.addAttribute(user);
         return "created";

@@ -16,7 +16,8 @@
 <table class="table">
     <thead>
     <tr>
-        <th>First name</th> <th>Last name</th> <th>Email</th> <th>Role</th>
+        <th>First name</th>
+<%--        <th>Last name</th> <th>Email</th> <th>Role</th>--%>
     </tr>
     </thead>
     <tbody>

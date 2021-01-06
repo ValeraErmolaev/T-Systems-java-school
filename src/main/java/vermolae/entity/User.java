@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -34,8 +34,8 @@ public class User {
 //    @JoinColumn(name = "role")
 //    private Role role;
 
-    @SequenceGenerator(name = "seq-gen", sequenceName = "hibernate_sequence", initialValue = 205, allocationSize = 12)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
+    //    @SequenceGenerator(name = "seq-gen", sequenceName = "hibernate_sequence", initialValue = 205, allocationSize = 12)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
     public Integer getId() {
         return id;
     }
@@ -79,9 +79,8 @@ public class User {
 //        this.role = role;
 //    }
 
-    public User(Integer id, String firstname) {
-        this.id = id;
-        this.firstname = firstname;
+    public User(String firstname) {
+       this.firstname = firstname;
     }
 
     public String getFirstname() {
