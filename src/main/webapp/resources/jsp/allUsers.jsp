@@ -16,8 +16,7 @@
 <table class="table">
     <thead>
     <tr>
-        <th>First name</th>
-<%--        <th>Last name</th> <th>Email</th> <th>Role</th>--%>
+        <th>First name</th> <th>Role</th>
     </tr>
     </thead>
     <tbody>
@@ -26,7 +25,7 @@
             <td><c:out value="${u.firstname}"/></td>
 <%--            <td><c:out value="${u.getLastname()}"/></td>--%>
 <%--            <td><c:out value="${u.getEmail}"/></td>--%>
-<%--            <td><c:out value="${u.getRole().getRole()}"/></td>--%>
+            <td><c:out value="${u.getRole().getRole_name()}"/></td>
             <td><a href='user/${u.id}/edit'>Edit</a></td>
             <td><a href='user/${u.id}/delete'>Delete</a></td>
         </tr>

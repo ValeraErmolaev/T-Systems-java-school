@@ -23,16 +23,24 @@ public class User {
     @Basic
     private String firstname;
 
-//    @Column(name = "lastname")
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    //    @Column(name = "lastname")
 //    private String lastname;
 //
 //    @Column(name = "email")
 //    private String email;
 //
 //    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-////    @ManyToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "role")
-//    private Role role;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "role")
+    private Role role;
 
     //    @SequenceGenerator(name = "seq-gen", sequenceName = "hibernate_sequence", initialValue = 205, allocationSize = 12)
 //    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
@@ -44,40 +52,6 @@ public class User {
         this.id = id;
     }
 
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//
-//    public Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(Role role) {
-//        this.role = role;
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", firstname='" + firstname + '\'' +
-//                ", lastname='" + lastname + '\'' +
-//                ", role=" + role +
-//                '}';
-//    }
-
-//    public User(String firstname, String lastname, String email, Role role) {
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.email = email;
-//        this.role = role;
-//    }
 
     public User(String firstname) {
        this.firstname = firstname;
@@ -98,15 +72,6 @@ public class User {
                 ", firstname='" + firstname + '\'' +
                 '}';
     }
-
-    //
-//    public String getLastname() {
-//        return lastname;
-//    }
-//
-//    public void setLastname(String lastname) {
-//        this.lastname = lastname;
-//    }
     public User() {
     }
 }
