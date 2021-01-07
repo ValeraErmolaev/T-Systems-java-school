@@ -2,7 +2,7 @@ package vermolae.crud.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import vermolae.crud.dao.api.UserDAO;
-import vermolae.entity.User;
+import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
 import javax.persistence.EntityManager;

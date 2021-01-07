@@ -2,12 +2,14 @@ package vermolae.crud.service.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.UserService;
-//import vermolae.entity.Role;
-import vermolae.entity.User;
+//import vermolae.model.entity.Role;
+import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
 
@@ -25,6 +27,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private RoleDAO roleDAO;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * Creating contract user in base
      *
@@ -35,6 +43,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void createEntity(User user) throws CustomDAOException {
 //        if (!isUserExists(user)) {
+
+        //TODO create throw DTO
+        //TODO does user exist?
+        //TODO set user default role!
+        user.setRole(roleDAO.getRoleByName("User"));
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+        //TODO passwordEncoder user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userDAO.create(user);
 
 //        }

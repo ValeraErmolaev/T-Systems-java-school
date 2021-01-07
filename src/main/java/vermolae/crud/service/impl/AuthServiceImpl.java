@@ -1,10 +1,8 @@
 package vermolae.crud.service.impl;
 
 
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.AuthService;
-import vermolae.entity.Role;
-import vermolae.entity.User;
+import vermolae.model.entity.Role;
+import vermolae.model.entity.User;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
     public class UserPrincipal implements UserDetails {
         private int id;
         private String password;
-        private String username;
+        private String username; //email
         private List<Role> authorities;
         private boolean enabled;
         private boolean accountNonExpired = true;
@@ -137,7 +135,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = null;
-
+        //username = email or phone
         if(username.contains("@")) {
             user = userDAO.getUserByEMAil(username);
 //        } else {

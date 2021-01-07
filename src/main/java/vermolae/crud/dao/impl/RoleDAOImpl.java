@@ -2,8 +2,7 @@ package vermolae.crud.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import vermolae.crud.dao.api.RoleDAO;
-import vermolae.entity.Role;
-import vermolae.entity.User;
+import vermolae.model.entity.Role;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.RoleNotFoundException;
 import vermolae.exeptions.UserNotFoundException;

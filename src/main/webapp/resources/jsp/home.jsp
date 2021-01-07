@@ -18,7 +18,7 @@
 <form action="${pageContext.request.contextPath}/Users">
     <input type="submit" value="Users" />
 </form>
-<form action="${pageContext.request.contextPath}/log_reg">
+<form action="${pageContext.request.contextPath}/registration">
     <input type="submit" value="Login/Reg" />
 </form>
 

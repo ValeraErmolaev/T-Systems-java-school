@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import vermolae.entity.User;
+import vermolae.model.entity.User;
 
 //import vermolae.crud.service.serviceApi.RoleService;
 

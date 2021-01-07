@@ -1,6 +1,6 @@
 package vermolae.crud.dao.api;
 
-import vermolae.entity.User;
+import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
 public interface UserDAO extends GenericDAO<User, Integer> {

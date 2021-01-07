@@ -1,6 +1,6 @@
 package vermolae.crud.service.api;
 
-import vermolae.entity.User;
+import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
 public interface UserService extends GenericService<User, Integer> {

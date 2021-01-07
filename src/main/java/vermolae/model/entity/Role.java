@@ -1,4 +1,4 @@
-package vermolae.entity;
+package vermolae.model.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

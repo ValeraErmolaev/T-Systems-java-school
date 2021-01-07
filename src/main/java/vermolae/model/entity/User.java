@@ -1,6 +1,4 @@
-package vermolae.entity;
-
-import lombok.*;
+package vermolae.model.entity;
 
 import javax.persistence.*;
 

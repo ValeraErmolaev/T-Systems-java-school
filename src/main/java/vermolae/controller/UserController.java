@@ -1,20 +1,15 @@
 package vermolae.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.service.api.UserService;
-import vermolae.entity.Role;
-import vermolae.entity.User;
+import vermolae.model.entity.User;
 
 
 @Controller
@@ -39,7 +34,7 @@ public class UserController {
     @RequestMapping(value = "/reg", method = RequestMethod.GET)
     public String showRegister(WebRequest request, Model model) {
 
-        model.addAttribute("user", new User());
+        model.addAttribute("userForm", new User());
         return "reg";
     }
 
