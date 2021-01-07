@@ -27,10 +27,16 @@
             <button>create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
-        <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
+        <form class="login-form" action="${pageContext.request.contextPath}/auth" method='POST'>
+            <input type="text" name='username' placeholder="username"/>
+            <input type="password" name='password' placeholder="password"/>
+            <c:if test="${not empty error}">
+                <div class="text-danger text-sm-center" role="alert">${error}</div>
+            </c:if>
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+            <button type="submit">login</button>
             <p class="message">Not registered? <a href="#">Create an account</a></p>
         </form>
     </div>

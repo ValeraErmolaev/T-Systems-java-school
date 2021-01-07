@@ -14,8 +14,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="sbb train page">
-    <meta name="author" content="Trofim Kremen">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <!-- Bootstrap CSS -->
 <%--    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">--%>

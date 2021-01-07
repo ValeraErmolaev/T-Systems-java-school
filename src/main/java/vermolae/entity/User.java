@@ -23,6 +23,46 @@ public class User {
     @Basic
     private String firstname;
 
+    @Column(name = "password")
+    @Basic
+    private String passwordHash;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "role")
+    private Role role;
+
+    @Column(name = "email")
+    @Basic
+    private String email;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Column(name = "enabled")
+    @Basic
+    private boolean enabled;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String password) {
+        this.passwordHash = password;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -31,19 +71,7 @@ public class User {
         this.role = role;
     }
 
-    //    @Column(name = "lastname")
-//    private String lastname;
-//
-//    @Column(name = "email")
-//    private String email;
-//
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "role")
-    private Role role;
 
-    //    @SequenceGenerator(name = "seq-gen", sequenceName = "hibernate_sequence", initialValue = 205, allocationSize = 12)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
     public Integer getId() {
         return id;
     }
@@ -54,7 +82,7 @@ public class User {
 
 
     public User(String firstname) {
-       this.firstname = firstname;
+        this.firstname = firstname;
     }
 
     public String getFirstname() {
@@ -68,10 +96,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
+                "firstname='" + firstname + '\'' +
+                ", role=" + role +
                 '}';
     }
+
     public User() {
     }
 }

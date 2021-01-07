@@ -14,6 +14,8 @@
 Created:
 ${user.id}
 ${user.firstname}
+${user.email}
+${user.passwordHash}
 <form action="${pageContext.request.contextPath}/Users">
     <input type="submit" value="Users" />
 </form>

@@ -10,13 +10,14 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/log_res.css">--%>
     <title>Title</title>
 </head>
 <body>
-<table class="table">
-    <thead>
+<table class="table table-bordered">
+    <thead class="thead-dark">
     <tr>
-        <th>First name</th> <th>Role</th>
+        <th>First name</th> <th>Role</th><th></th><th></th>
     </tr>
     </thead>
     <tbody>

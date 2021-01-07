@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.service.api.UserService;
+import vermolae.entity.Role;
 import vermolae.entity.User;
 
 
@@ -18,7 +21,11 @@ import vermolae.entity.User;
 public class UserController {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private UserService userService;
+    @Autowired
+    RoleDAO roleDAO;
 
     @GetMapping(value = "/Users")
     public String getUsers(ModelMap model) {
@@ -40,9 +47,17 @@ public class UserController {
     public String showCreated(WebRequest request, Model model) {
         System.out.println(request.getParameter("user"));
 
+//        User user = new User();
+////        user.setId(1);
+//        user.setFirstname("Alena");
+//        userService.createEntity(user);
+        //new user
+//        Role role = new Role().
         User user = new User();
-//        user.setId(1);
-        user.setFirstname("Alena");
+        user.setFirstname("UserFromController");
+        user.setEmail("user@email.com");
+        user.setPasswordHash(passwordEncoder.encode("12345"));
+        user.setRole(roleDAO.getRoleByName("User"));
         userService.createEntity(user);
         model.addAttribute(user);
         return "created";
