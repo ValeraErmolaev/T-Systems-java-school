@@ -28,7 +28,8 @@ public class HomeController {
     public String log_reg() {
 
 
-        return "log_reg";
+//        return "log_reg";
+        return "loginRegistration";
     }
 
 
