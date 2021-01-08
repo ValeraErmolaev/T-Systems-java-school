@@ -1,9 +1,11 @@
 package vermolae.model.dto.User;
 
+import lombok.Builder;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
+@Builder
 public class UserRegistrationForm implements Serializable {
 
     @NotBlank(message = "Set First name")
@@ -77,5 +79,16 @@ public class UserRegistrationForm implements Serializable {
         this.confirmEmail = confirmEmail;
         this.password = password;
         this.confirmPassword = confirmPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRegistrationForm{" +
+                "firstname='" + firstname + '\'' +
+                ", email='" + email + '\'' +
+                ", confirmEmail='" + confirmEmail + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                '}';
     }
 }

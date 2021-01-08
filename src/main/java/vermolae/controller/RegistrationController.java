@@ -8,42 +8,63 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import vermolae.crud.service.api.UserService;
+import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 
 @Controller
 public class RegistrationController {
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @ModelAttribute("user")
+    public UserRegistrationForm userDto() {
+        return UserRegistrationForm.builder().build();
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("user", new UserRegistrationForm());
 
         return "loginRegistration";
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
+    public String addUser(@ModelAttribute("user") UserRegistrationForm userDto, BindingResult result, Model model) {
+        User userValidate = null;
+        if (result.hasErrors()) {
+            return "loginRegistration";
         }
-//        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-//            model.addAttribute("passwordError", "Пароли не совпадают");
-//            return "registration";
+        try {
+           userValidate = userService.getUserByEMAil(userDto.getEmail());
+        } catch (Exception e) {
+            if (userValidate != null) {
+                model.addAttribute("emailIsNotUniqueError", "A user with this Email already exists");
+                return "loginRegistration";
+            }
+        }
+        //TODO email is not unique!
+
+        if (!userDto.getEmail().equals(userDto.getConfirmEmail())) {
+            model.addAttribute("emailsMutchError", "Emails don't match");
+            return "loginRegistration";
+        }
+
+        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+            model.addAttribute("passwordError", "Passwords don't match");
+            return "loginRegistration";
+        }
+//        userService.registerUser(userDto); TODO new method in services
+//        if (userService.getUserByEMAil(user.getEmail()) != null) {
+
 //        }
-        User user = userForm;
-        if (userService.getUserByEMAil(user.getEmail()) != null) {
-
-        }
-        System.out.println(user.toString());
+        System.out.println(userDto.toString());
 //        try { //TODO add try and exeptions
 //            userService.createEntity(userForm);
         //
 //            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "loginRegistration";
-        }
-
-
+        return "loginRegistration";
     }
+
+
+}
 
