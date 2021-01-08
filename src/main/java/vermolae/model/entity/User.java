@@ -23,7 +23,7 @@ public class User {
 
     @Column(name = "password")
     @Basic
-    private String passwordHash;
+    private String password;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "role")
@@ -53,12 +53,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String password) {
-        this.passwordHash = password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Role getRole() {

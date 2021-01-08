@@ -9,6 +9,7 @@ import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.UserService;
 //import vermolae.model.entity.Role;
+import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
@@ -44,15 +45,24 @@ public class UserServiceImpl implements UserService {
     public void createEntity(User user) throws CustomDAOException {
 //        if (!isUserExists(user)) {
 
-        //TODO create throw DTO
-        //TODO does user exist?
-        //TODO set user default role!
         user.setRole(roleDAO.getRoleByName("User"));
-        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         //TODO passwordEncoder user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userDAO.create(user);
 
 //        }
+    }
+    @Override
+    @Transactional
+    public UserRegistrationForm registerUser(UserRegistrationForm userDto) {
+        User user = new User();
+        user.setFirstname(userDto.getFirstname());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole(roleDAO.getRoleByName("User"));
+        userDAO.create(user);
+        return userDto;
+
     }
 
     /**
@@ -130,6 +140,8 @@ public class UserServiceImpl implements UserService {
     public User getUserByEMAil(String eMail) throws UserNotFoundException {
         return userDAO.getUserByEMAil(eMail);
     }
+
+
 
     /**
      * Checking user existing in base

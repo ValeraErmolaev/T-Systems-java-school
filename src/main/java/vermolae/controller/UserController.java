@@ -51,7 +51,7 @@ public class UserController {
         User user = new User();
         user.setFirstname("UserFromController");
         user.setEmail("user@email.com");
-        user.setPasswordHash(passwordEncoder.encode("12345"));
+        user.setPassword(passwordEncoder.encode("12345"));
         user.setRole(roleDAO.getRoleByName("User"));
         userService.createEntity(user);
         model.addAttribute(user);

@@ -125,7 +125,7 @@ public class AuthServiceImpl implements AuthService {
         UserPrincipal(User user) {
             this.id = user.getId();
             this.username = user.getEmail();
-            this.password = user.getPasswordHash();
+            this.password = user.getPassword();
             System.out.println("PASSWORD: "+ this.password);
             this.enabled = user.isEnabled();
             this.authorities = Arrays.asList(new Role(user.getRole().getRole_name()));

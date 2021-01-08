@@ -1,5 +1,6 @@
 package vermolae.crud.service.api;
 
+import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
@@ -23,4 +24,10 @@ public interface UserService extends GenericService<User, Integer> {
      */
     public User getUserByEMAil(String eMail) throws UserNotFoundException;
 
+    /**
+     *
+     * @param userDto
+     * @return
+     */
+    public UserRegistrationForm registerUser(UserRegistrationForm userDto);
 }

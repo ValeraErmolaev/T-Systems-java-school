@@ -53,13 +53,14 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Passwords don't match");
             return "loginRegistration";
         }
-//        userService.registerUser(userDto); TODO new method in services
+
+        userService.registerUser(userDto); //TODO new method in services
 //        if (userService.getUserByEMAil(user.getEmail()) != null) {
 
 //        }
-        System.out.println(userDto.toString());
+//        System.out.println(userDto.toString());
 //        try { //TODO add try and exeptions
-//            userService.createEntity(userForm);
+//
         //
 //            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
         return "loginRegistration";
