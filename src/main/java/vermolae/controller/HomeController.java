@@ -29,7 +29,7 @@ public class HomeController {
 
 
 //        return "log_reg";
-        return "loginRegistration";
+        return "login";
     }
 
 

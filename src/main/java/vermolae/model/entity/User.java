@@ -1,5 +1,9 @@
 package vermolae.model.entity;
 
+import lombok.Data;
+import vermolae.model.Role.Role;
+import vermolae.model.Role.Status;
+
 import javax.persistence.*;
 
 //@Entity
@@ -7,6 +11,7 @@ import javax.persistence.*;
 //@NamedQuery(name = "User.getAll", query = "SELECT u FROM User u")
 //@Getter
 //@Setter
+@Data
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "User.getAll", query = "SELECT u FROM User u")
@@ -25,32 +30,35 @@ public class User {
     @Basic
     private String password;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "role")
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "role")
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
     @Column(name = "email")
     @Basic
     private String email;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Column(name = "enabled")
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
     @Basic
-    private boolean enabled;
+    private Status status;
 
-    public String getEmail() {
-        return email;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getPassword() {
@@ -69,36 +77,19 @@ public class User {
         this.role = role;
     }
 
-
-    public Integer getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-
-    public User(String firstname) {
-        this.firstname = firstname;
+    public Status getStatus() {
+        return status;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstname='" + firstname + '\'' +
-                ", role=" + role +
-                '}';
-    }
-
-    public User() {
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

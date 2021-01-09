@@ -1,6 +1,7 @@
 package vermolae.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class UserController {
     public String getUsers(ModelMap model) {
 
         model.addAttribute("user", userService.getEntityById(1));
-        System.out.println(userService.getEntityById(1));
+//        System.out.println(userService.getEntityById(1));
         model.addAttribute("users", userService.getAll());
         return "allUsers";
     }

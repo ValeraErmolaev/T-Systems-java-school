@@ -16,54 +16,51 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("user")
-    public UserRegistrationForm userDto() {
-        return UserRegistrationForm.builder().build();
-    }
+//    @ModelAttribute("user")
+//    public UserRegistrationForm userDto() {
+//        return UserRegistrationForm.builder().build();
+//    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("user", new UserRegistrationForm());
 
-        return "loginRegistration";
+        return "registration";
     }
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("user") UserRegistrationForm userDto, BindingResult result, Model model) {
         User userValidate = null;
         if (result.hasErrors()) {
-            return "loginRegistration";
+            return "registration";
         }
         try {
            userValidate = userService.getUserByEMAil(userDto.getEmail());
         } catch (Exception e) {
             if (userValidate != null) {
                 model.addAttribute("emailIsNotUniqueError", "A user with this Email already exists");
-                return "loginRegistration";
+                return "registration";
             }
         }
-        //TODO email is not unique!
+       //TODO INPUT MUST BE NOT NULL
 
         if (!userDto.getEmail().equals(userDto.getConfirmEmail())) {
-            model.addAttribute("emailsMutchError", "Emails don't match");
-            return "loginRegistration";
+            model.addAttribute("emailsMatchError", "Emails don't match");
+            return "registration";
         }
 
         if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
             model.addAttribute("passwordError", "Passwords don't match");
-            return "loginRegistration";
+            return "registration";
         }
 
-        userService.registerUser(userDto); //TODO new method in services
-//        if (userService.getUserByEMAil(user.getEmail()) != null) {
+        userService.registerUser(userDto);
 
-//        }
-//        System.out.println(userDto.toString());
-//        try { //TODO add try and exeptions
-//
-        //
-//            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-        return "loginRegistration";
+        //  try { //TODO add try and exeptions
+
+        model.addAttribute("user",userDto);
+
+        return "account";
     }
 
 

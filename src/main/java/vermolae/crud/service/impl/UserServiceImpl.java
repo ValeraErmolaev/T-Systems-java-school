@@ -9,6 +9,8 @@ import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.UserService;
 //import vermolae.model.entity.Role;
+import vermolae.model.Role.Role;
+import vermolae.model.Role.Status;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
@@ -45,7 +47,8 @@ public class UserServiceImpl implements UserService {
     public void createEntity(User user) throws CustomDAOException {
 //        if (!isUserExists(user)) {
 
-        user.setRole(roleDAO.getRoleByName("User"));
+        user.setRole(Role.USER);
+        user.setStatus(Status.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //TODO passwordEncoder user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userDAO.create(user);
@@ -59,7 +62,8 @@ public class UserServiceImpl implements UserService {
         user.setFirstname(userDto.getFirstname());
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(roleDAO.getRoleByName("User"));
+        user.setRole(Role.USER);
+        user.setStatus(Status.ACTIVE);
         userDAO.create(user);
         return userDto;
 

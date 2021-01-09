@@ -7,8 +7,8 @@ import vermolae.model.entity.User;
 
 public interface AuthService extends UserDetailsService {
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-
-    public User getCurrentUser();
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+//
+//    public User getCurrentUser();
 }

@@ -2,10 +2,10 @@ package vermolae.crud.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import vermolae.crud.dao.api.RoleDAO;
-import vermolae.model.entity.Role;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.RoleNotFoundException;
 import vermolae.exeptions.UserNotFoundException;
+import vermolae.model.Role.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

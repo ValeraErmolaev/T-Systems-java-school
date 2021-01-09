@@ -1,36 +1,50 @@
+
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Регистрация</title>
-</head>
+    <title>Registration</title>
+<%--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/log_reg.css">
 
+</head>
 <body>
-<div>
-    <form:form method="POST" modelAttribute="userForm">
-        <h2>Регистрация</h2>
-        <div>
-            <form:input type="text" path="email" placeholder="Username"
-                        autofocus="true"></form:input>
-            <form:errors path="email"></form:errors>
-                ${usernameError}
-        </div>
-        <div>
-            <form:input type="password" path="passwordHash" placeholder="Password"></form:input>
-        </div>
-<%--        <div>--%>
-<%--            <form:input type="password" path="passwordConfirm"--%>
-<%--                        placeholder="Confirm your password"></form:input>--%>
-<%--            <form:errors path="password"></form:errors>--%>
-<%--                ${passwordError}--%>
-<%--        </div>--%>
-        <button type="submit">Зарегистрироваться</button>
-    </form:form>
-    <a href="/">Главная</a>
+<div class="login-page">
+    <%--    REGISTRATION PART--%>
+    <div class="form">
+        <form:form class="register-form" method="POST" modelAttribute="user">
+            <div>
+                <form:input pattern="[A-Za-z]*" title="Letters only, please." type="text" path="firstname" placeholder="First name" autofocus="true"></form:input>
+                <form:errors path="firstname"></form:errors>
+            </div>
+            <div>
+                <form:input pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address" type="text" path="email" placeholder="Email" autofocus="true"></form:input>
+                <form:errors path="email"></form:errors>
+                <span style="color: crimson">${emailIsNotUniqueError}</span>
+            </div>
+            <div>
+                <form:input type="text" path="confirmEmail" placeholder="Confirm email" autofocus="true"></form:input>
+                <form:errors path="confirmEmail"></form:errors>
+                <span style="color: crimson">${emailsMutchError}</span>
+            </div>
+            <div>
+                <form:input type="password" path="password" placeholder="Password" autofocus="true"></form:input>
+                <form:errors path="password"></form:errors>
+            </div>
+            <div>
+                <form:input type="password" path="confirmPassword" placeholder="Confirm Password" autofocus="true"></form:input>
+                <form:errors path="confirmPassword"></form:errors>
+                <span style="color: crimson">${passwordError}</span>
+            </div>
+            <button type="submit">Sign up</button>
+            <p class="message">Already registered? <a href="/auth/login">Sign In</a></p>
+        </form:form>
+<%--         <p class="message">Not registered? <a href="/auth/login">Create an account</a></p>--%>
+        </form>
+    </div>
 </div>
+<%--<script src="${pageContext.request.contextPath}/resources/js/log_reg.js"></script>--%>
 </body>
 </html>
