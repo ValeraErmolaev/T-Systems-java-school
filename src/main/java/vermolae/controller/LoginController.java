@@ -10,8 +10,6 @@ import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.User;
 import vermolae.security.UserDetailsServiceImpl;
 
-import java.security.Principal;
-
 @Controller
 public class LoginController {
     @Autowired
@@ -22,8 +20,6 @@ public class LoginController {
 
     @GetMapping("/auth/login")
     public String getLoginPage() {
-//        model.addAttribute("user", new User());
-        System.out.println("!!!!!!!! ");
         return "login";
     }
 
@@ -32,7 +28,6 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         User user = userDetailsService.getCurrentUser();
         UserAccountForm userAccForm = new UserAccountForm(user);
-//        model.addAttribute("userForm", new User());
         modelAndView.addObject("user", userAccForm);
         modelAndView.setViewName("account");
         return modelAndView;

@@ -13,17 +13,12 @@ import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 
-import java.security.Principal;
 
 @Controller
 public class RegistrationController {
+
     @Autowired
     private UserService userService;
-
-//    @ModelAttribute("user")
-//    public UserRegistrationForm userRegForm() {
-//        return UserRegistrationForm.builder().build();
-//    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -33,13 +28,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView addUser(@ModelAttribute("user") UserRegistrationForm userRegForm, BindingResult result, Model model) {
+    public ModelAndView addUser(@ModelAttribute("user") UserRegistrationForm userRegForm, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User userValidate = null;
-//        if (result.hasErrors()) {
-//            modelAndView.addObject()
-//            return "registration";
-//        }
         try {
             userValidate = userService.getUserByEMAil(userRegForm.getEmail());
             if (userValidate != null) {
@@ -49,11 +40,11 @@ public class RegistrationController {
             }
 
         } catch (Exception e) {
-            if (userValidate != null) {
-                modelAndView.setViewName("registration");
-                modelAndView.addObject("emailIsNotUniqueError", "A user with this Email already exists");
-                return modelAndView;
-            }
+//            if (userValidate != null) {
+//                modelAndView.setViewName("registration");
+//                modelAndView.addObject("emailIsNotUniqueError", "A user with this Email already exists");
+//                return modelAndView;
+//            }
         }
         //TODO INPUT MUST BE NOT NULL
 
@@ -73,10 +64,6 @@ public class RegistrationController {
 
         //  try { //TODO add try and exeptions
 
-//        modelAndView.addObject("user", userRegForm);
-//        User user = userService.getUserByEMAil(principal.getName());
-//        System.out.println(principal.getName());
-//        model.addAttribute("user",user);
         UserAccountForm userAccForm = new UserAccountForm(userRegForm);
         modelAndView.addObject("user",userAccForm);
         modelAndView.setViewName("account");
