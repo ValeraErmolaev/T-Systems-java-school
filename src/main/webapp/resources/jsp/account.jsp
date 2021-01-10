@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>${user.firstname}, U did this!</h1>
+<h1>Hello, ${user.firstname}</h1>
 <div class="container">
     <h1>Congrats!!! You did it!</h1>
     <form action="/auth/logout" method="POST">

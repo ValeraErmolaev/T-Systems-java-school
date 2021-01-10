@@ -18,16 +18,24 @@ public class SecurityUser implements UserDetails{
     @Autowired
     private RoleDAO roleDAO;
 
-    private final String username;
-    private final String password;
-    private final List<SimpleGrantedAuthority> authorities;
-    private final boolean isActive;
+//    private final String username;
+//    private final String password;
+//    private final List<SimpleGrantedAuthority> authorities;
+//    private final boolean isActive;
+    private long id;
+    private String password;
+    private String username;
+    private List<SimpleGrantedAuthority> authorities;
+    private boolean enabled;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
 
     public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
-        this.isActive = isActive;
+        this.enabled = isActive;
     }
 
     @Override
@@ -47,22 +55,22 @@ public class SecurityUser implements UserDetails{
 
     @Override
     public boolean isAccountNonExpired() {
-        return isActive;
+        return enabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isActive;
+        return enabled;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isActive;
+        return enabled;
     }
 
     @Override
     public boolean isEnabled() {
-        return isActive;
+        return enabled;
     }
     public static UserDetails fromUser(User user){
         return new org.springframework.security.core.userdetails.User(
@@ -75,4 +83,5 @@ public class SecurityUser implements UserDetails{
                 user.getRole().getAuthorities()
         );
     }
+
 }

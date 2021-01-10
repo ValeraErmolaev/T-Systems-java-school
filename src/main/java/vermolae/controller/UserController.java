@@ -2,6 +2,8 @@ package vermolae.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.service.api.UserService;
+import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.User;
+import vermolae.security.SecurityUser;
+import vermolae.security.UserDetailsServiceImpl;
+
+import java.security.Principal;
 
 
 @Controller
@@ -22,6 +29,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     RoleDAO roleDAO;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @GetMapping(value = "/Users")
     public String getUsers(ModelMap model) {
@@ -32,11 +41,22 @@ public class UserController {
         return "allUsers";
     }
 
-    @RequestMapping(value = "/reg", method = RequestMethod.GET)
-    public String showRegister(WebRequest request, Model model) {
-
-        model.addAttribute("userForm", new User());
-        return "reg";
+    @RequestMapping(value = "/account", method = RequestMethod.POST)
+    public String showRegisterPost(WebRequest request, Model model) {
+        User user = userDetailsService.getCurrentUser();
+        UserAccountForm userAccForm = new UserAccountForm(user);
+//        model.addAttribute("userForm", new User());
+        model.addAttribute("user", userAccForm);
+        return "account";
+    }
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
+    public String showAccountGet(WebRequest request, Model model) {
+        User user = userDetailsService.getCurrentUser();
+        UserAccountForm userAccForm = new UserAccountForm(user);
+//        model.addAttribute("userForm", new User());
+        model.addAttribute("user", userAccForm);
+//        model.addAttribute("userForm", new User());
+        return "account";
     }
 
     @RequestMapping(value = "/created", method = RequestMethod.POST)

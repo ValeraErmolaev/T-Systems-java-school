@@ -26,7 +26,6 @@ import com.google.common.base.Preconditions;
 @EnableTransactionManagement
 @PropertySource({ "classpath:application.properties" })
 @ComponentScan({ "vermolae" })
-//@EnableJpaRepositories(basePackages = "com.baeldung.persistence.dao")
 public class PersistenceJPAConfig {
 
     @Autowired

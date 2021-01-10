@@ -22,8 +22,8 @@
              <input type="submit" value="Users"/>
         </form:form>
 </security:authorize>
-        <form:form action="/auth/login">
-            <input type="submit" value="Login/Reg"/>
+        <form:form action="/account">
+            <input type="submit" value="My account"/>
         </form:form>
 <%--<security:authorize access="hasRole('ADMIN')">--%>
         <form:form action="admin">
