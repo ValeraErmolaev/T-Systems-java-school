@@ -11,6 +11,8 @@ import vermolae.crud.dao.api.UserDAO;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.User;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Service("userDetailsServiceImpl")
@@ -36,5 +38,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userDAO.getUserByEMAil(auth.getName());
         //TODO get user by email or by number!!!
         return user;
+    }
+    public void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {
+        try {
+            request.login(username, password);
+        } catch (ServletException e) {
+//            LOGGER.error("Error while login ", e);
+        }
     }
 }

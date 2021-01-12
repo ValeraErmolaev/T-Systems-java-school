@@ -3,7 +3,6 @@ package vermolae.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +11,9 @@ import vermolae.crud.service.api.UserService;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
+import vermolae.security.UserDetailsServiceImpl;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -19,6 +21,9 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -28,7 +33,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView addUser(@ModelAttribute("user") UserRegistrationForm userRegForm, Model model) {
+    public ModelAndView addUser(@ModelAttribute("user") UserRegistrationForm userRegForm, Model model,HttpServletRequest request) {
+        //TODO Controller must be 2-3 rows!
         ModelAndView modelAndView = new ModelAndView();
         User userValidate = null;
         try {
@@ -67,6 +73,12 @@ public class RegistrationController {
         UserAccountForm userAccForm = new UserAccountForm(userRegForm);
         modelAndView.addObject("user",userAccForm);
         modelAndView.setViewName("account");
+        try {
+            userDetailsService.authWithHttpServletRequest(request, userRegForm.getEmail(), userRegForm.getPassword());
+        }catch (Exception e){
+            //TODO LOGGER
+            System.out.println("EXCEPTION");
+        }
         return modelAndView;
     }
 
