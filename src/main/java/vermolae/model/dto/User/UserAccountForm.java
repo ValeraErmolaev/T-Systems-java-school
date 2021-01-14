@@ -1,7 +1,7 @@
 package vermolae.model.dto.User;
 
-import vermolae.model.Role.Role;
-import vermolae.model.Role.Status;
+import vermolae.model.Enum.Role;
+import vermolae.model.Enum.Status;
 import vermolae.model.entity.User;
 
 public class UserAccountForm {

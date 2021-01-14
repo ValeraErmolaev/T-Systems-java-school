@@ -1,4 +1,4 @@
-package vermolae.model.Role;
+package vermolae.model.Enum;
 
 public enum Status {
     ACTIVE,

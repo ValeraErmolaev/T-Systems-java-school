@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import vermolae.crud.dao.api.RoleDAO;
-import vermolae.model.Role.Status;
+import vermolae.model.Enum.Status;
 import vermolae.model.entity.User;
 
 import java.util.*;

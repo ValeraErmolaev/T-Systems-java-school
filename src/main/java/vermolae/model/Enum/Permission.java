@@ -1,4 +1,4 @@
-package vermolae.model.Role;
+package vermolae.model.Enum;
 
 public enum Permission {
     USER_READ("users:read"),

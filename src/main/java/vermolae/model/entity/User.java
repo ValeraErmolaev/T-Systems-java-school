@@ -1,16 +1,14 @@
 package vermolae.model.entity;
 
 import lombok.Data;
-import vermolae.model.Role.Role;
-import vermolae.model.Role.Status;
+import vermolae.model.Enum.Role;
+import vermolae.model.Enum.Status;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
-//@Table(name = "users")
-//@NamedQuery(name = "User.getAll", query = "SELECT u FROM User u")
-//@Getter
-//@Setter
+
 @Data
 @Entity
 @Table(name = "users")
@@ -44,6 +42,9 @@ public class User {
     @Column(name = "status")
     @Basic
     private Status status;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    private final List<Contract> contracts = new ArrayList();
 
     public Integer getId() {
         return id;
@@ -91,5 +92,9 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
     }
 }

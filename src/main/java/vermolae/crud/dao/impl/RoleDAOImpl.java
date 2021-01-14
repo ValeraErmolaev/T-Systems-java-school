@@ -5,7 +5,7 @@ import vermolae.crud.dao.api.RoleDAO;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.RoleNotFoundException;
 import vermolae.exeptions.UserNotFoundException;
-import vermolae.model.Role.Role;
+import vermolae.model.Enum.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

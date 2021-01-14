@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import vermolae.model.Role.Permission;
+import vermolae.model.Enum.Permission;
 
 import javax.sql.DataSource;
 
@@ -56,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/test").permitAll()
                 .antMatchers("/map").permitAll()
                 .antMatchers("/tariff").permitAll()
                 .antMatchers("/registration*").permitAll()

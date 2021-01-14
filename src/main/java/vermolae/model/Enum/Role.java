@@ -1,7 +1,7 @@
-package vermolae.model.Role;
+package vermolae.model.Enum;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import vermolae.model.Role.Permission;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 

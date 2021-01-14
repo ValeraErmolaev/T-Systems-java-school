@@ -10,7 +10,7 @@ Vue.component("carousel", {
         {name: 'Tariff 2', tag: ["cool tariff"]},
         {name: 'Tariff 3', tag: ["cool tariff"]},
         {name: 'Tariff 4', tag: ["cool tariff"]},
-        {name: 'Tariff 5', tag: ["Scool tariff"]},
+        {name: 'Tariff 5', tag: ["cool tariff"]},
         {name: 'Tariff 6', tag: ["cool tariff"]},
         {name: 'Tariff 7', tag: ["cool tariff"]},
       ]
