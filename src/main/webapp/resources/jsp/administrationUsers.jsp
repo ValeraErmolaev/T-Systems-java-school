@@ -20,7 +20,7 @@
 
     <a href="/">Home</a>
     <a href="/account">My account</a>
-<form:form class="form-inline" method="post" action="/test"  modelAttribute="emailOrContract">
+<form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="emailOrContract">
     <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                value="" path="email"></form:input>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>

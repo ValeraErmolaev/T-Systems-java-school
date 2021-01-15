@@ -6,30 +6,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import vermolae.crud.service.api.UserService;
-import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
 import vermolae.model.entity.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Controller
 
-public class TestController {
+public class AdministrationUsersController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    @RequestMapping(value = "/administration/users",method = RequestMethod.GET)
     String getUserList(Model model){
         UserSearch emailOrContract = new UserSearch();
         model.addAttribute("emailOrContract",emailOrContract);
 //        model.addAttribute("users",userService.getAll());
-        return "test";
+        return "administrationUsers";
     }
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
+    @RequestMapping(value = "/administration/users",method = RequestMethod.POST)
     String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch emailOrContract, Model model){
         String cond = emailOrContract.getEmail();
         System.out.println(emailOrContract);
@@ -46,7 +43,7 @@ public class TestController {
             model.addAttribute("users", users);
         }
 
-        return "test";
+        return "administrationUsers";
     }
     @RequestMapping(value = "/test/{id}/edit",method = RequestMethod.GET)
     String editUser(Model model){

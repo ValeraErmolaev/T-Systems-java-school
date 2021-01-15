@@ -27,7 +27,7 @@ public class TariffController {
     }
 
     @PostMapping("/tariff")
-    public @ResponseBody List<Tariff> getAjaxUsers () {
+    public @ResponseBody List<Tariff> getAjaxTariffs () {
         List<Tariff>   tariffs = tariffService.getAll();
             return tariffs;
         }
