@@ -40,6 +40,8 @@
 
     </tr>
     </thead>
+    <c:if test="${users.size() !=0}" >
+
     <c:forEach items="${users}" var="user">
         <tr>
         <td><c:out value="${user.firstname}"/></td>
@@ -61,10 +63,11 @@
             </c:otherwise>
         </c:choose>
 
-        <td><a href='user/${user.id}/edit'>Edit</a></td>
-        <td><a href='user/${user.id}/delete'>Delete</a></td>
+        <td><a href='test/${user.id}/edit'>Edit</a></td>
+        <td><a href='test/${user.id}/delete'>Delete</a></td>
         </tr>
     </c:forEach>
+    </c:if>
 </table>
 </body>
 </html>

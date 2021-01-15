@@ -24,14 +24,13 @@ public class UserDAOImpl extends GenericDAOImpl<User, Integer> implements UserDA
      */
     @Override
     public User getUserByNumber(String number) throws UserNotFoundException {
-//        try {
-//            Query query = entityManager.createQuery("select c.user from Contract c where c.number=:number")
-//                    .setParameter("number", number);
-//            return (User) query.getSingleResult();
-//        } catch (PersistenceException e) {
-//            throw new UserNotFoundException("User " + number + " wasn't found", e);
-//        }
-        return null;
+        try {
+            Query query = entityManager.createQuery("select c.user from Contract c where c.number=:number")
+                    .setParameter("number", number);
+            return (User) query.getSingleResult();
+        } catch (PersistenceException e) {
+            throw new UserNotFoundException("User " + number + " wasn't found", e);
+        }
 
     }
 
@@ -52,6 +51,14 @@ public class UserDAOImpl extends GenericDAOImpl<User, Integer> implements UserDA
             throw new UserNotFoundException("User with email " + eMail + " not found!", ex);
         }
 
+    }
+
+    @Override
+    public User getUserByLogin(String login) throws UserNotFoundException {
+        if (login.contains("@")) {
+            return getUserByEMAil(login);
+        }
+        return getUserByNumber(login);
     }
 
 

@@ -1,3 +1,21 @@
+let myMap = new Map();
+  $.ajax({
+    type : 'POST',
+    url : '/tariff',
+    success : function(response) {
+      for ( var i = 0; i < response.length; i++){
+          myMap.set( response[i].id,response[i].name);
+
+      }
+     ;
+    },
+    error : function() {
+      alert("opps error occured");
+    }
+
+  });
+// });
+console.log(myMap.get(1));
 Vue.component("carousel", {
   template: "#v-carousel",
   data() {
@@ -6,10 +24,10 @@ Vue.component("carousel", {
       windowSize: 3,
       paginationFactor: 220,
       items: [
-        {name: 'Tariff 1', tag: ["cool tariff"]},
-        {name: 'Tariff 2', tag: ["cool tariff"]},
-        {name: 'Tariff 3', tag: ["cool tariff"]},
-        {name: 'Tariff 4', tag: ["cool tariff"]},
+        {name: myMap.get(1), tag: ["cool tariff"]},
+        {name: myMap.get(1), tag: ["cool tariff"]},
+        {name: myMap.get(1), tag: ["cool tariff"]},
+        {name: 2345, tag: ["cool tariff"]},
         {name: 'Tariff 5', tag: ["cool tariff"]},
         {name: 'Tariff 6', tag: ["cool tariff"]},
         {name: 'Tariff 7', tag: ["cool tariff"]},

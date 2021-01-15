@@ -69,6 +69,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    @Transactional
+    public User userByLogin(String login) {
+        return userDAO.getUserByLogin(login);
+    }
+
     /**
      * Get user entity by id
      *

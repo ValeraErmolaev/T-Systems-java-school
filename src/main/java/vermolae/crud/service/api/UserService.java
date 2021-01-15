@@ -30,4 +30,11 @@ public interface UserService extends GenericService<User, Integer> {
      * @return
      */
     public UserRegistrationForm registerUser(UserRegistrationForm userDto);
+
+    /**
+     *
+     * @param login
+     * @return
+     */
+    public User userByLogin(String login);
 }

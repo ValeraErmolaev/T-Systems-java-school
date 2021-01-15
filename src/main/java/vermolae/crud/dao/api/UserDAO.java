@@ -23,4 +23,11 @@ public interface UserDAO extends GenericDAO<User, Integer> {
      */
     public User getUserByEMAil(String eMail) throws UserNotFoundException;
 
+    /**
+     * Getting user by login
+     * @param login
+     * @return
+     * @throws UserNotFoundException
+     */
+    public User getUserByLogin(String login) throws UserNotFoundException;
 }

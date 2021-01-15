@@ -26,19 +26,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        //TODO try {} catch
-        User user = userDAO.getUserByEMAil(email);
-//        System.out.println(user.toString());
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+
+        User user = userDAO.getUserByLogin(login);
         return SecurityUser.fromUser(user);
     }
 
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userDAO.getUserByEMAil(auth.getName());
-        //TODO get user by email or by number!!!
+        User user = userDAO.getUserByLogin(auth.getName());
         return user;
     }
+
     public void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {
         try {
             request.login(username, password);

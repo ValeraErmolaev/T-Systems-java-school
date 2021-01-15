@@ -26,14 +26,11 @@ public class TestController {
     String getUserList(Model model){
         UserSearch emailOrContract = new UserSearch();
         model.addAttribute("emailOrContract",emailOrContract);
-        model.addAttribute("users",userService.getAll());
+//        model.addAttribute("users",userService.getAll());
         return "test";
     }
     @RequestMapping(value = "/test",method = RequestMethod.POST)
     String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch emailOrContract, Model model){
-//        UserSearch emailOrContract = new UserSearch();
-//        ModelAndView mav  = new ModelAndView();
-
         String cond = emailOrContract.getEmail();
         System.out.println(emailOrContract);
         System.out.println(cond);
@@ -42,7 +39,7 @@ public class TestController {
         }else {
             ArrayList<User> users = new ArrayList<>();
             try {
-                users.add(userService.getUserByEMAil(cond));
+                users.add(userService.userByLogin(cond));
             }catch (Exception e){
                 model.addAttribute("users", users);
             }
@@ -51,5 +48,13 @@ public class TestController {
 
         return "test";
     }
+    @RequestMapping(value = "/test/{id}/edit",method = RequestMethod.GET)
+    String editUser(Model model){
+        UserSearch emailOrContract = new UserSearch();
+        model.addAttribute("emailOrContract",emailOrContract);
+        model.addAttribute("users",userService.getAll());
+        return "admin/edit";
+    }
+
 
 }
