@@ -11,6 +11,7 @@ import vermolae.crud.service.api.UserService;
 //import vermolae.model.entity.Role;
 import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
+import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
@@ -90,6 +91,17 @@ public class UserServiceImpl implements UserService {
             return users;
         }
         return users;
+    }
+
+    @Override
+    @Transactional
+    public ArrayList<UserAccountForm> userAccListByCond(String cond) {
+        List<User> users = userListByCond(cond);
+        ArrayList<UserAccountForm> usersDTO = new ArrayList<>();
+        for (User user:users){
+            usersDTO.add(new UserAccountForm(user));
+        }
+        return usersDTO;
     }
 
     /**

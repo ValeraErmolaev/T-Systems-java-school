@@ -1,10 +1,12 @@
 package vermolae.crud.service.api;
 
+import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserService extends GenericService<User, Integer> {
 
@@ -46,4 +48,11 @@ public interface UserService extends GenericService<User, Integer> {
      * @return
      */
    public ArrayList<User> userListByCond(String emailOrNumber);
+
+    /**
+     * list account form users (dto)
+     * @param emailOrNumber
+     * @return
+     */
+   public ArrayList<UserAccountForm> userAccListByCond(String emailOrNumber);
 }

@@ -16,6 +16,7 @@ public class UserRegistrationForm implements Serializable {
     private Date date;
     private String passport;
     private String email;
+    private String address;
 
 
     private String confirmEmail;
@@ -25,6 +26,30 @@ public class UserRegistrationForm implements Serializable {
 
 
     private String confirmPassword;
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -66,15 +91,24 @@ public class UserRegistrationForm implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public UserRegistrationForm() {
     }
 
-    public UserRegistrationForm(String firstname, String lastname, Date date, String passport, String email, String confirmEmail, String password, String confirmPassword) {
+    public UserRegistrationForm(String firstname, String lastname, Date date, String passport, String email, String address, String confirmEmail, String password, String confirmPassword) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.date = date;
         this.passport = passport;
         this.email = email;
+        this.address = address;
         this.confirmEmail = confirmEmail;
         this.password = password;
         this.confirmPassword = confirmPassword;

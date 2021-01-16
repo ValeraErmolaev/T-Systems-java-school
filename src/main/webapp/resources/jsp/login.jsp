@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Login</title>
     <link href="<spring:url value='/resources/css/log_reg.css'/>" rel="stylesheet">
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/log_reg.css">--%>
+<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/addNewUser.css">--%>
 
 </head>
 <body>

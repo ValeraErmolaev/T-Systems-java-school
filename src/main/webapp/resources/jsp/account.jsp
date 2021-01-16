@@ -24,7 +24,7 @@
         <a href="/map">Map</a>
     </nav>
 </header>
-<h1>Hello, ${user.firstname}</h1>
+<h1>Hello, ${user.fullname}</h1>
 <div class="container">
     <form action="/auth/logout" method="POST">
         <button type="submit">Logout</button>

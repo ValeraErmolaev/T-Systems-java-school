@@ -11,11 +11,12 @@
 <html>
 <head>
     <title>Account</title>
-    <link href="<spring:url value='/resources/css/header.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/resources/css/adminHeader.css'/>" rel="stylesheet">
+
 </head>
 <body>
 <header>
-    <h1>eCare</h1>
+    <h1>Administration</h1>
     <nav>
         <a href="/">Home</a>
         <a href="/administration/users">User editor</a>
@@ -23,7 +24,7 @@
         <a href="/map">Map</a>
     </nav>
 </header>
-<h1>Hello, ${user.firstname}</h1>
+<h1>Hello, ${user.fullname}</h1>
 <div class="container">
     <form action="/auth/logout" method="POST">
         <button type="submit">Logout</button>

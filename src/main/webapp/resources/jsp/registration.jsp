@@ -7,7 +7,7 @@
 <head>
     <title>Registration</title>
 <%--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>--%>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/log_reg.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/addNewUser.css">
 
 </head>
 <body>

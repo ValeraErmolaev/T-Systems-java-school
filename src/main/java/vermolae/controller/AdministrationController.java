@@ -41,7 +41,7 @@ public class AdministrationController {
     @RequestMapping(value = "/administration/users", method = RequestMethod.POST)
     String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch userSearchDTO, Model model) {
         String cond = userSearchDTO.getCondition();
-        ArrayList<User> users = userService.userListByCond(cond);
+        ArrayList<UserAccountForm> users = userService.userAccListByCond(cond);
         model.addAttribute("users", users);
         return "administration/users";
     }
