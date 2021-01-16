@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import vermolae.crud.service.api.UserService;
 import vermolae.model.dto.User.UserAccountForm;
@@ -29,7 +30,11 @@ public class LoginController {
         User user = userDetailsService.getCurrentUser();
         UserAccountForm userAccForm = new UserAccountForm(user);
         modelAndView.addObject("user", userAccForm);
-        modelAndView.setViewName("account");
+        if (user.getRole().name().equals("ADMIN")) {
+            modelAndView.setViewName("administration/admin");
+        } else {
+            modelAndView.setViewName("account");
+        }
         return modelAndView;
     }
 }

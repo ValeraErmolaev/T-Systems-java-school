@@ -4,6 +4,8 @@ import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
+import java.util.ArrayList;
+
 public interface UserService extends GenericService<User, Integer> {
 
     /**
@@ -37,4 +39,11 @@ public interface UserService extends GenericService<User, Integer> {
      * @return
      */
     public User userByLogin(String login);
+
+    /**
+     *
+     * @param emailOrNumber
+     * @return
+     */
+   public ArrayList<User> userListByCond(String emailOrNumber);
 }

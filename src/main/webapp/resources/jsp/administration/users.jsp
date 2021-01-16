@@ -19,10 +19,11 @@
 <nav class="navbar navbar-dark bg-dark">
 
     <a href="/">Home</a>
-    <a href="/account">My account</a>
+    <a href="/auth/success">My account</a>
+    <a href="/administration/registration">Add new user</a>
 <form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="emailOrContract">
     <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-               value="" path="email"></form:input>
+               value="" path="condition"></form:input>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
 </form:form>
 

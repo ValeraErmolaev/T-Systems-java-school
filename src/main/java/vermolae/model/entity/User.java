@@ -24,6 +24,10 @@ public class User {
     @Basic
     private String firstname;
 
+    @Column(name = "lastname")
+    @Basic
+    private String lastname;
+
     @Column(name = "password")
     @Basic
     private String password;
@@ -96,5 +100,13 @@ public class User {
 
     public List<Contract> getContracts() {
         return contracts;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }

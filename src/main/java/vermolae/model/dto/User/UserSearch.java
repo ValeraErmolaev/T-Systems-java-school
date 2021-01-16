@@ -1,18 +1,18 @@
 package vermolae.model.dto.User;
 
 public class UserSearch {
-    private String email;
+    private String condition;
 
-    public String getEmail() {
-        return email;
+    public String getCondition() {
+        return condition;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCondition(String email) {
+        this.condition = email;
     }
 
-    public UserSearch(String email) {
-        this.email = email;
+    public UserSearch(String condition) {
+        this.condition = condition;
     }
 
     public UserSearch() {

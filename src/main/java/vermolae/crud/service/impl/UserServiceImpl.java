@@ -16,6 +16,7 @@ import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,10 +52,11 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Status.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //TODO passwordEncoder user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userDAO.create(user);
+        userDAO.create(user);
 
 //        }
     }
+
     @Override
     @Transactional
     public UserRegistrationForm registerUser(UserRegistrationForm userDto) {
@@ -73,6 +75,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User userByLogin(String login) {
         return userDAO.getUserByLogin(login);
+    }
+
+    @Override
+    @Transactional
+    public ArrayList<User> userListByCond(String emailOrNumber) {
+        if (emailOrNumber == "") {
+            return (ArrayList<User>) userDAO.getAll();
+        }
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            users.add(userByLogin(emailOrNumber));
+        } catch (Exception e) {
+            return users;
+        }
+        return users;
     }
 
     /**
@@ -150,7 +167,6 @@ public class UserServiceImpl implements UserService {
     public User getUserByEMAil(String eMail) throws UserNotFoundException {
         return userDAO.getUserByEMAil(eMail);
     }
-
 
 
     /**

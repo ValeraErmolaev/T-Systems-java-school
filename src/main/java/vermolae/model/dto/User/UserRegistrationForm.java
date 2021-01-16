@@ -1,31 +1,29 @@
 package vermolae.model.dto.User;
 
 import lombok.Builder;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Builder
 public class UserRegistrationForm implements Serializable {
 
-    @NotBlank(message = "Set First name")
-    @Pattern(regexp = "[a-zA-Z]", message = "Latin letters are allowed")
-    private String firstname;
 
-    @NotBlank(message = "Set email")
-    @Pattern(regexp = "^([A-Za-z0-9+_.-]+@(.+))?$",
-            message = "Latin letters, digits, dashes, underscores and points are allowed")
+    private String firstname;
+    private String lastname;
+    private Date date;
+    private String passport;
     private String email;
 
-    @NotBlank(message = "Confirm email")
-    @Pattern(regexp = "^([A-Za-z0-9+_.-]+@(.+))?$",
-            message = "Latin letters, digits, dashes, underscores and points are allowed")
+
     private String confirmEmail;
 
-    @NotBlank(message = "Set password")
+
     private String password;
 
-    @NotBlank(message = "Confirm password")
+
     private String confirmPassword;
 
     public String getFirstname() {
@@ -71,10 +69,11 @@ public class UserRegistrationForm implements Serializable {
     public UserRegistrationForm() {
     }
 
-    public UserRegistrationForm(@NotBlank(message = "Set First name") @Pattern(regexp = "[a-zA-Z]", message = "Latin letters are allowed") String firstname, @NotBlank(message = "Set email") @Pattern(regexp = "^([A-Za-z0-9+_.-]+@(.+))?$",
-            message = "Latin letters, digits, dashes, underscores and points are allowed") String email, @NotBlank(message = "Confirm email") @Pattern(regexp = "^([A-Za-z0-9+_.-]+@(.+))?$",
-            message = "Latin letters, digits, dashes, underscores and points are allowed") String confirmEmail, @NotBlank(message = "Set password") String password, @NotBlank(message = "Confirm password") String confirmPassword) {
+    public UserRegistrationForm(String firstname, String lastname, Date date, String passport, String email, String confirmEmail, String password, String confirmPassword) {
         this.firstname = firstname;
+        this.lastname = lastname;
+        this.date = date;
+        this.passport = passport;
         this.email = email;
         this.confirmEmail = confirmEmail;
         this.password = password;
