@@ -33,6 +33,9 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Autowired
+    private ContractServiceImpl contractService;
+
+    @Autowired
     private RoleDAO roleDAO;
 
     @Autowired
@@ -63,9 +66,17 @@ public class UserServiceImpl implements UserService {
     public UserRegistrationForm registerUser(UserRegistrationForm userDto) {
         User user = new User();
         user.setFirstname(userDto.getFirstname());
+        user.setLastname(userDto.getLastname());
         user.setEmail(userDto.getEmail());
+        user.setBirthdate(userDto.getDate());
+        user.setAddress(userDto.getAddress());
+        user.setPassport(userDto.getPassport());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(Role.USER);
+        if (userDto.getRole() == null) {
+            user.setRole(Role.USER);
+        } else {
+            user.setRole(userDto.getRole());
+        }
         user.setStatus(Status.ACTIVE);
         userDAO.create(user);
         return userDto;
@@ -96,12 +107,32 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public ArrayList<UserAccountForm> userAccListByCond(String cond) {
-        List<User> users = userListByCond(cond);
         ArrayList<UserAccountForm> usersDTO = new ArrayList<>();
-        for (User user:users){
-            usersDTO.add(new UserAccountForm(user));
+        if (cond.equals("")) {
+            List<User> users = userDAO.getAll();
+            for (User user : users) {
+                usersDTO.add(new UserAccountForm(user));
+            }
+        } else {
+            List<User> users = userListByCond(cond);
+            for (User user : users) {
+                usersDTO.add(new UserAccountForm(user));
+            }
         }
+
         return usersDTO;
+    }
+
+    /**
+     * create new number and add it to user
+     */
+    @Override
+    @Transactional
+    public void createAndAddNewContract(User user) {
+        String number = contractService.getRandomNumber();
+        contractService.createNewDefaultContract(user, number);
+
+
     }
 
     /**

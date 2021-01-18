@@ -55,4 +55,9 @@ public interface UserService extends GenericService<User, Integer> {
      * @return
      */
    public ArrayList<UserAccountForm> userAccListByCond(String emailOrNumber);
+
+    /**
+ * create new number and insert in user contracts
+     */
+   public void createAndAddNewContract(User user);
 }

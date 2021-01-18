@@ -5,6 +5,7 @@ import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,15 @@ public class User {
     @Column(name = "email")
     @Basic
     private String email;
+
+    @Column(name = "birthdate")
+    private Date birthdate;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "passport")
+    private String passport;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
@@ -108,5 +118,29 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 }

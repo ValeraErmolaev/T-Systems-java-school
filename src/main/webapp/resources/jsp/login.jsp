@@ -4,15 +4,15 @@
 <head>
     <meta charset="utf-8">
     <title>Login</title>
-    <link href="<spring:url value='/resources/css/log_reg.css'/>" rel="stylesheet">
-<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/addNewUser.css">--%>
+    <link href="<spring:url value='/resources/css/registration.css'/>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/registration.css">
 
 </head>
 <body>
 <div class="login-page">
 <div class="form">
     <form:form class="login-form" action="/auth/login" method='POST'>
-        <h2 class="form-signin-heading">Login</h2>
+        <h2 class="form-signin-heading"></h2>
         <input type="text" name='username' placeholder="username" />
         <input type="password" name='password' placeholder="password"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

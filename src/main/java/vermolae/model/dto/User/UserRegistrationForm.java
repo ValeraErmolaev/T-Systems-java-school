@@ -1,6 +1,7 @@
 package vermolae.model.dto.User;
 
 import lombok.Builder;
+import vermolae.model.Enum.Role;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -17,6 +18,7 @@ public class UserRegistrationForm implements Serializable {
     private String passport;
     private String email;
     private String address;
+    private Role role;
 
 
     private String confirmEmail;
@@ -102,13 +104,22 @@ public class UserRegistrationForm implements Serializable {
     public UserRegistrationForm() {
     }
 
-    public UserRegistrationForm(String firstname, String lastname, Date date, String passport, String email, String address, String confirmEmail, String password, String confirmPassword) {
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public UserRegistrationForm(String firstname, String lastname, Date date, String passport, String email, String address, Role role, String confirmEmail, String password, String confirmPassword) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.date = date;
         this.passport = passport;
         this.email = email;
         this.address = address;
+        this.role = role;
         this.confirmEmail = confirmEmail;
         this.password = password;
         this.confirmPassword = confirmPassword;
@@ -118,10 +129,11 @@ public class UserRegistrationForm implements Serializable {
     public String toString() {
         return "UserRegistrationForm{" +
                 "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", date=" + date +
                 ", email='" + email + '\'' +
-                ", confirmEmail='" + confirmEmail + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
+                ", address='" + address + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

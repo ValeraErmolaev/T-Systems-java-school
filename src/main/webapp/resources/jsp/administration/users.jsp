@@ -36,6 +36,9 @@
     <tr>
         <th>Full name</th>
         <th>Email</th>
+        <th>Birth date</th>
+        <th>Passport</th>
+        <th>Address</th>
         <th>Status</th>
         <th>Role</th>
         <th>Contracts</th>
@@ -50,8 +53,9 @@
         <tr>
         <td><c:out value="${user.fullname}"/></td>
         <td><c:out value="${user.email}"/></td>
-<%--        <td><c:out value="${user.birthday}"/></td>--%>
-<%--        <td><c:out value="${user.address}"/></td>--%>
+        <td><c:out value="${user.date}"/></td>
+        <td><c:out value="${user.passport}"/></td>
+        <td><c:out value="${user.address}"/></td>
         <td><c:out value="${user.status}"/></td>
         <td><c:out value="${user.role}"/></td>
         <c:choose>
@@ -69,8 +73,8 @@
             </c:otherwise>
         </c:choose>
 
-        <td><a href='test/${user.id}/edit'>Edit</a></td>
-        <td><a href='test/${user.id}/delete'>Delete</a></td>
+        <td><a href='/administration/editor/user/${user.id}'>Edit</a></td>
+        <td><a href='administration/users/${user.id}/delete'>Delete</a></td>
         </tr>
     </c:forEach>
     </c:if>

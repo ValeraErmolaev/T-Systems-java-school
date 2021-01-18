@@ -26,6 +26,15 @@
     box-sizing: border-box;
     font-size: 14px;
 }
+.form select{
+
+    display: inline-block;
+    width: 160px;
+    height: 34px;
+    line-height: 30px;
+    position: relative;
+
+}
 .form button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -97,4 +106,10 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.selectpicker form-control{
+    margin-bottom: 20px;
+}
+#role{
+    margin-bottom: 20px;
 }

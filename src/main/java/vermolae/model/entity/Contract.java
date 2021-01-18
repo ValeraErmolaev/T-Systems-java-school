@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "contracts")
-//@NamedQuery(name = "Contract.getAll", query = "SELECT c FROM Contract c")
+@NamedQuery(name = "Contract.getAll", query = "SELECT c FROM Contract c")
 public class Contract {
 
     @Id
@@ -20,6 +20,10 @@ public class Contract {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="tariff_id")
+    private Tariff tariff;
 
 
     public Contract() {
@@ -50,5 +54,11 @@ public class Contract {
         this.user = user;
     }
 
+    public Tariff getTariff() {
+        return tariff;
+    }
 
+    public void setTariff(Tariff tariff) {
+        this.tariff = tariff;
+    }
 }

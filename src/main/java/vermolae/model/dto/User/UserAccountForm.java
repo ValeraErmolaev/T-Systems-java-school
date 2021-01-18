@@ -18,6 +18,9 @@ public class UserAccountForm {
     private String email;
 
     private Date date;
+    private String passport;
+
+    private String address;
 
     private List<Contract> contracts;
 
@@ -75,7 +78,10 @@ public class UserAccountForm {
         this.email = user.getEmail();
         this.status = user.getStatus();
         this.role = user.getRole();
+        this.date = user.getBirthdate();
+        this.passport = user.getPassport();
         this.contracts=user.getContracts();
+        this.address = user.getAddress();
     }
 
     public UserAccountForm(UserRegistrationForm userRegForm) {
@@ -83,7 +89,9 @@ public class UserAccountForm {
         this.fullname = userRegForm.getFirstname().concat(" ").concat(userRegForm.getLastname());
         this.email = userRegForm.getEmail();
         this.role = Role.USER;
+        this.passport = userRegForm.getPassport();
         this.status = Status.ACTIVE;
+        this.date = userRegForm.getDate();
     }
 
     public List<Contract> getContracts() {
@@ -92,5 +100,29 @@ public class UserAccountForm {
 
     public void setContracts(List<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 }
