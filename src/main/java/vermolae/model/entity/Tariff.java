@@ -77,4 +77,16 @@ public class Tariff {
     public void turnonprice(double turnOnPrice) {
         this.turnonprice = turnOnPrice;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getTurnonprice() {
+        return turnonprice;
+    }
+
+    public void setTurnonprice(double turnonprice) {
+        this.turnonprice = turnonprice;
+    }
 }

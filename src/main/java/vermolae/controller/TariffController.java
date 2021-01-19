@@ -22,7 +22,7 @@ public class TariffController {
     @GetMapping("/tariff")
     public String getTariffsPage(Model model) {
         List<Tariff>   tariffs = tariffService.getAll();
-        model.addAttribute("tariffslist",tariffs );
+        model.addAttribute("tariffs",tariffs );
         return "tariffs";
     }
 
