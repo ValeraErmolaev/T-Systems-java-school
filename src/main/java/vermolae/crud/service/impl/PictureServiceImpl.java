@@ -20,20 +20,21 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     @Transactional
-    public void saveNewPicture(Picture picture) throws IOException {
-//        Picture picture = new Picture();
-//        picture.setName(name);
-//        picture.setPictureBytes(file.getBytes());
+    public void saveNewPicture(String name, MultipartFile file) throws IOException {
+        Picture picture = new Picture();
+        picture.setName(name);
+        picture.setPictureBytes(file.getBytes());
         pictureDAO.create(picture);
-
     }
 
     @Override
+    @Transactional
     public Picture getPictureByName(String name) throws Exception {
         return pictureDAO.getPictureByName(name);
     }
 
     @Override
+    @Transactional
     public void createEntity(Picture entity) throws CustomDAOException {
         pictureDAO.create(entity);
     }
@@ -49,8 +50,9 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
+    @Transactional
     public void deleteEntity(Picture entity) throws CustomDAOException {
-
+        pictureDAO.delete(entity);
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public interface PictureService extends GenericService<Picture, Integer>{
-    public void saveNewPicture(Picture picture) throws IOException;
+    public void saveNewPicture(String name, MultipartFile file) throws IOException;
 
     public Picture getPictureByName(String name) throws Exception;
 }

@@ -43,7 +43,7 @@
     <td></td>
     <td>
         <img src="${tariff.pictureUrl}"/>
-        <h3>File Upload:</h3>
+        <h3>Change the image:</h3>
         Select a file to upload: <br />
         <form action = "/administration/editor/tariff/${tariff.id}/image" method = "post"
               enctype = "multipart/form-data" >

@@ -38,7 +38,7 @@
                       <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
                             <div class="card-carousel--card" v-for="item in items" :key="item.id">
                                   <div class="card-carousel--card--footer">
-                                             <img :src="item.imgUrl"/>
+                                             <img :src="item.imgUrl" width=200px height=120px/>
                                              <p>{{item.name}}</p>
                                               <p>{{item.description}}</p>
 <%--                                              <p class="tag" v-for="(tag,index) in item.tag" :class="index &gt; 0 ? 'secondary' : ''">{{ tag }}</p>--%>

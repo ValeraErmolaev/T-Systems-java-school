@@ -105,34 +105,14 @@ String getTariffList(Model model) {
     String editTariff(Model model, @PathVariable int id) {
         TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(id));
         model.addAttribute("tariff", tariffViewForm);
-        PictureDTO pictureDTO = new PictureDTO();
-        model.addAttribute("pictureDTO", pictureDTO);
         return "/administration/editor/tariff";
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/image", method = RequestMethod.POST)
     String loadNewTariffImage(@RequestParam("file") MultipartFile file, ModelMap modelMap, @PathVariable int id) throws Exception {
-        String filename=file.getOriginalFilename();
-        PictureDTO pictureDTO = new PictureDTO();
-        pictureDTO.setPictureBytes(file.getBytes());
-        pictureDTO.setUrl("data:image/jpeg;base64," + Base64.getEncoder().encodeToString(file.getBytes()));
-        Picture picture = new Picture();
-        picture.setName(filename);
-        picture.setPictureBytes(file.getBytes());
-        pictureService.saveNewPicture(picture);
-        Picture picture1 = pictureService.getPictureByName(filename);
-        Tariff tariff = tariffService.getEntityById(id);
-        tariff.setPicture(picture1);
-        tariffService.updateTariff(tariff);
-
-        System.out.println("filename = "+filename);
-        System.out.println(file.toString());
-        System.out.println(file.getOriginalFilename());
-
-
+        Tariff tariff = tariffService.updateTariffImage(id,file);
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
-//        modelMap.addAttribute("urlTest",pictureDTO.getUrl());
         modelMap.addAttribute("tariff", tariffViewForm);
-        return "/administration/editor/tariff";
+        return "redirect:/administration/editor/tariff/{id}";
     }
 }
