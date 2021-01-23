@@ -29,6 +29,10 @@ public class Tariff {
     @Basic
     private double turnonprice;
 
+    @OneToOne
+    @JoinColumn(name="picture_id")
+    private Picture picture;
+
     //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
 //    @Column(name = "fieldForOptions")
 //    @Basic
@@ -88,5 +92,13 @@ public class Tariff {
 
     public void setTurnonprice(double turnonprice) {
         this.turnonprice = turnonprice;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 }

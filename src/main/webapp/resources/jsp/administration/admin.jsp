@@ -20,7 +20,7 @@
     <nav>
         <a href="/">Home</a>
         <a href="/administration/users">Users menu</a>
-        <a href="/administration/tariffs">Tariff editor</a>
+        <a href="/administration/tariffs">Tariff menu</a>
         <a href="/map">Map</a>
     </nav>
 </header>

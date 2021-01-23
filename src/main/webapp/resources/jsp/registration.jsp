@@ -7,6 +7,8 @@
 <head>
     <title>Registration</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/registration.css">
 
 </head>
@@ -38,13 +40,17 @@
                 <form:errors path="confirmPassword"></form:errors>
                 <span style="color: crimson">${passwordError}</span>
             </div>
-            <button type="submit">Sign up</button>
+            <div>
+                <button type="submit">Sign up</button>
+            </div>
             <p class="message">Already registered? <a href="/auth/login">Sign In</a></p>
-        </form:form>
+<%--        </form:form>--%>
 <%--         <p class="message">Not registered? <a href="/auth/login">Create an account</a></p>--%>
-        </form>
+<%--        </form>--%>
+        </form:form>
     </div>
 </div>
+
 <%--<script src="${pageContext.request.contextPath}/resources/js/log_reg.js"></script>--%>
 </body>
 </html>

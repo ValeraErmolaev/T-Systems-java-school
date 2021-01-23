@@ -3,24 +3,40 @@ package vermolae.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import vermolae.crud.service.api.PictureService;
+import vermolae.crud.service.api.TariffService;
 import vermolae.crud.service.api.UserService;
-import vermolae.crud.service.impl.UserServiceImpl;
+import vermolae.model.dto.Picture.PictureDTO;
+import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
+import vermolae.model.entity.Picture;
+import vermolae.model.entity.Tariff;
 import vermolae.security.UserDetailsServiceImpl;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 @Controller
 public class AdministrationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TariffService tariffService;
+
+    @Autowired
+    private PictureService pictureService;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -67,6 +83,7 @@ public class AdministrationController {
 //        UserSearch emailOrContract = new UserSearch();
         UserAccountForm userAccForm = new UserAccountForm(userService.getEntityById(id));
 //        model.addAttribute("emailOrContract", emailOrContract);
+
         model.addAttribute("user", userAccForm);
         return "/administration/editor/user";
     }
@@ -76,5 +93,46 @@ public class AdministrationController {
         return "redirect:/administration/editor/user/{id}";
     }
 
+//TARIFFS
+@RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
+String getTariffList(Model model) {
+        List<Tariff> tariffs = tariffService.getAll();
+    List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
+    model.addAttribute("tariffs", tariffsDTO);
+    return "administration/tariffs";
+}
+    @RequestMapping(value = "/administration/editor/tariff/{id}", method = RequestMethod.GET)
+    String editTariff(Model model, @PathVariable int id) {
+        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(id));
+        model.addAttribute("tariff", tariffViewForm);
+        PictureDTO pictureDTO = new PictureDTO();
+        model.addAttribute("pictureDTO", pictureDTO);
+        return "/administration/editor/tariff";
+    }
 
+    @RequestMapping(value = "/administration/editor/tariff/{id}/image", method = RequestMethod.POST)
+    String loadNewTariffImage(@RequestParam("file") MultipartFile file, ModelMap modelMap, @PathVariable int id) throws Exception {
+        String filename=file.getOriginalFilename();
+        PictureDTO pictureDTO = new PictureDTO();
+        pictureDTO.setPictureBytes(file.getBytes());
+        pictureDTO.setUrl("data:image/jpeg;base64," + Base64.getEncoder().encodeToString(file.getBytes()));
+        Picture picture = new Picture();
+        picture.setName(filename);
+        picture.setPictureBytes(file.getBytes());
+        pictureService.saveNewPicture(picture);
+        Picture picture1 = pictureService.getPictureByName(filename);
+        Tariff tariff = tariffService.getEntityById(id);
+        tariff.setPicture(picture1);
+        tariffService.updateTariff(tariff);
+
+        System.out.println("filename = "+filename);
+        System.out.println(file.toString());
+        System.out.println(file.getOriginalFilename());
+
+
+        TariffViewForm tariffViewForm = new TariffViewForm(tariff);
+//        modelMap.addAttribute("urlTest",pictureDTO.getUrl());
+        modelMap.addAttribute("tariff", tariffViewForm);
+        return "/administration/editor/tariff";
+    }
 }

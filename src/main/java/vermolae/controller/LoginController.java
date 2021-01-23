@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import vermolae.crud.service.api.UserService;
+import vermolae.model.Enum.Role;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.User;
 import vermolae.security.UserDetailsServiceImpl;
@@ -30,7 +31,7 @@ public class LoginController {
         User user = userDetailsService.getCurrentUser();
         UserAccountForm userAccForm = new UserAccountForm(user);
         modelAndView.addObject("user", userAccForm);
-        if (user.getRole().name().equals("ADMIN")) {
+        if (user.getRole().name().equals(Role.ADMIN.name())) {
             modelAndView.setViewName("administration/admin");
         } else {
             modelAndView.setViewName("account");

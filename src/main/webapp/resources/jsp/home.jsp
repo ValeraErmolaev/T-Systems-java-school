@@ -27,6 +27,7 @@
         <a href="/map">Map</a>
     </nav>
 </header>
+
 <div class="wrapper">
     <section id='steezy'>
         <h2> This is some steezy stuff</h2>
