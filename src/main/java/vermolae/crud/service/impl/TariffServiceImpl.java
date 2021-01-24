@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import vermolae.crud.dao.api.TariffDAO;
+import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.PictureService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.model.dto.Tariff.TariffViewForm;
+import vermolae.model.entity.Option;
 import vermolae.model.entity.Picture;
 import vermolae.model.entity.Tariff;
 
@@ -25,6 +27,9 @@ public class TariffServiceImpl implements TariffService {
     @Autowired
     private PictureService pictureService;
 
+    @Autowired
+    private OptionService optionService;
+
     @Override
     public void createEntity(Tariff entity) throws CustomDAOException {
 
@@ -36,8 +41,9 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
+    @Transactional
     public void updateEntity(Tariff entity) throws CustomDAOException {
-
+        tariffDAO.update(entity);
     }
 
     @Override
@@ -85,5 +91,12 @@ public class TariffServiceImpl implements TariffService {
 //            //todo logger
 //        }
        return tariff;
+    }
+
+    @Override
+    @Transactional
+    public void addOption(Tariff tariff, Option option) {
+        tariff.addOption(option);
+        updateEntity(tariff);
     }
 }

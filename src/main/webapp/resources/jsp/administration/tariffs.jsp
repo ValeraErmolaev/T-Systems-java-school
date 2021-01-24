@@ -23,7 +23,7 @@
 
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
-    <a href="/administration/registration">Add new user</a>
+<%--    <a href="/administration/registration">Add new user</a>--%>
 <%--    <form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="tariffs">--%>
 <%--        <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"--%>
 <%--                    value="" path="condition"></form:input>--%>
@@ -51,8 +51,22 @@
                 <td><c:out value="${tariff.name}"/></td>
                 <td><c:out value="${tariff.description}"/></td>
                 <td><c:out value="${tariff.turnOnPrice}"/></td>
-                <td></td>
-<%--                <td><c:out value="${tariff.options}"/></td>--%>
+<%--                <td></td>--%>
+<%--                <td><c:out value="${tariff.options.size()}"/></td>--%>
+                <c:choose>
+                    <c:when test="${tariff.options.size() > 0}">
+                        <td>
+                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">
+                                <table class="table table-bordered">
+                                    <tr><c:out value="${tariff.options[index].name}"/></tr>
+                                </table>
+                            </c:forEach>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td></td>
+                    </c:otherwise>
+                </c:choose>
                 <td><img src="${tariff.pictureUrl}"/></td>
 <%--                <c:choose>--%>
 <%--                    <c:when test="${user.contracts.size() > 0}">--%>

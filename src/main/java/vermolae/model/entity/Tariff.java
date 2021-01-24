@@ -3,6 +3,10 @@ package vermolae.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Data
 @Entity
 @NamedQuery(name = "Tariff.getAll", query = "SELECT t FROM Tariff t")
@@ -37,7 +41,25 @@ public class Tariff {
 //    @Column(name = "fieldForOptions")
 //    @Basic
 //    private double fieldForOptions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "possible_options",
+            joinColumns = @JoinColumn(name = "tariff_id"),
+            inverseJoinColumns = @JoinColumn(name = "option_id")
+    )
+    private List<Option> options = new ArrayList<>();
 
+    public void addOption(Option option){
+        options.add(option);
+        option.getTariffs().add(this);
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
+    }
 
     public Tariff() {
     }

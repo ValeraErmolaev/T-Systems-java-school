@@ -1,8 +1,10 @@
 package vermolae.model.dto.Tariff;
 
+import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
 
 import java.util.Base64;
+import java.util.List;
 
 public class TariffViewForm {
     private int id;
@@ -10,14 +12,14 @@ public class TariffViewForm {
     private String description;
     private double turnOnPrice;
     private String pictureUrl;
+    private List<Option> options;
 
     public TariffViewForm(Tariff tariff) {
         this.id = tariff.getId();
         this.name = tariff.getName();
         this.description = tariff.getDescription();
         this.turnOnPrice = tariff.getPrice();
-//        String encodedString = Base64.getEncoder().encodeToString(pic.getPicture());
-//        String url = "data:image/jpeg;base64," + encodedString;
+        this.options = tariff.getOptions();
         this.pictureUrl = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(tariff.getPicture().getPictureBytes());
     }
 
@@ -59,5 +61,13 @@ public class TariffViewForm {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 }

@@ -1,6 +1,9 @@
 package vermolae.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "options")
@@ -23,6 +26,18 @@ public class Option {
 
     @Column(name = "price")
     private double price;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "possible_options",
+            joinColumns = @JoinColumn(name = "option_id"),
+            inverseJoinColumns = @JoinColumn(name = "tariff_id")
+    )
+    private List<Tariff> tariffs = new ArrayList<>();
+
+    public void addTariff(Tariff tariff){
+        tariffs.add(tariff);
+        tariff.getOptions().add(this);
+    }
 
     public Option() {
     }
@@ -65,5 +80,13 @@ public class Option {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Tariff> getTariffs() {
+        return tariffs;
+    }
+
+    public void setTariffs(List<Tariff> tariffs) {
+        this.tariffs = tariffs;
     }
 }

@@ -24,7 +24,7 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public Option getEntityById(Integer id) throws CustomDAOException {
-        return null;
+        return optionDAO.read(id);
     }
 
     @Override

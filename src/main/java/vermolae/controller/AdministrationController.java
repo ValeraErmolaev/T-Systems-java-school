@@ -91,6 +91,10 @@ public class AdministrationController {
     //TARIFFS
     @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
     String getTariffList(Model model) {
+//        Option option = optionService.getEntityById(1);
+//        Tariff tariff = tariffService.getEntityById(1);
+//        tariffService.addOption(tariff,option);
+//        tariffService.updateTariff(tariff);
         List<Tariff> tariffs = tariffService.getAll();
         List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
         model.addAttribute("tariffs", tariffsDTO);
