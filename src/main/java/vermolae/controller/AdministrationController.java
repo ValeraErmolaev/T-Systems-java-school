@@ -116,6 +116,15 @@ public class AdministrationController {
         return "redirect:/administration/editor/tariff/{id}";
     }
 
+    @RequestMapping(value = "/administration/editor/tariff/{id}/addOption", method = RequestMethod.POST)
+    String addNewOptionToTariff(ModelMap modelMap, @PathVariable int id) throws Exception {
+        Tariff tariff = tariffService.getEntityById(id);
+
+        TariffViewForm tariffViewForm = new TariffViewForm(tariff);
+        modelMap.addAttribute("tariff", tariffViewForm);
+        return "redirect:/administration/editor/tariff/{id}";
+    }
+
     //OPTIONS
     @RequestMapping(value = "/administration/options", method = RequestMethod.GET)
     String getOptionList(Model model) {
@@ -124,4 +133,7 @@ public class AdministrationController {
         model.addAttribute("options", options);
         return "administration/options";
     }
+
+
+
 }

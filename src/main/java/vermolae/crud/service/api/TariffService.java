@@ -17,5 +17,6 @@ public interface TariffService extends GenericService<Tariff, Integer>{
     void updateTariff (Tariff tariff);
 
     public Tariff updateTariffImage(int TariffId, MultipartFile file) throws Exception;
+
     public void addOption(Tariff tariff,Option option);
 }

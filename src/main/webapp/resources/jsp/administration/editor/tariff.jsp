@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="<spring:url value='/resources/css/adminUsers.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/resources/css/tariffEditor.css'/>" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
@@ -43,7 +44,36 @@
     <td><c:out value="${tariff.name}"/></td>
     <td><c:out value="${tariff.description}"/></td>
     <td><c:out value="${tariff.turnOnPrice}"/></td>
-    <td></td>
+    <c:choose>
+        <c:when test="${tariff.options.size() > 0}">
+            <td>
+                <div class="options-container">
+                <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">
+                    <div class="one-option">
+                        <span><c:out value="${tariff.options[index].name}"/></span>
+                        <span>
+                            <form action = "/administration/editor/tariff/${tariff.options[index].id}/delete" method = "post">
+                            <input type = "submit" value = "Delete" />
+                        </form>
+                            </span>
+                    </div>
+                </c:forEach>
+                    <span>
+                         <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "post">
+                            <input type = "submit" value = "Add option" />
+                         </form>
+                    </span>
+                </div>
+            </td>
+        </c:when>
+        <c:otherwise>
+            <td>
+                <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "post">
+                    <input type = "submit" value = "Add option" />
+                </form>
+            </td>
+        </c:otherwise>
+    </c:choose>
     <td>
         <img src="${tariff.pictureUrl}"/>
         <h3>Change the image:</h3>
