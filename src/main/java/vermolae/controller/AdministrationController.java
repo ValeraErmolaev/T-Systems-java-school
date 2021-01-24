@@ -91,10 +91,6 @@ public class AdministrationController {
     //TARIFFS
     @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
     String getTariffList(Model model) {
-//        Option option = optionService.getEntityById(1);
-//        Tariff tariff = tariffService.getEntityById(1);
-//        tariffService.addOption(tariff,option);
-//        tariffService.updateTariff(tariff);
         List<Tariff> tariffs = tariffService.getAll();
         List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
         model.addAttribute("tariffs", tariffsDTO);
@@ -116,14 +112,36 @@ public class AdministrationController {
         return "redirect:/administration/editor/tariff/{id}";
     }
 
-    @RequestMapping(value = "/administration/editor/tariff/{id}/addOption", method = RequestMethod.POST)
-    String addNewOptionToTariff(ModelMap modelMap, @PathVariable int id) throws Exception {
+    @RequestMapping(value = "/administration/editor/tariff/{id}/addOption", method = RequestMethod.GET)
+    String addNewOptionToTariff(Model model, @PathVariable int id) throws Exception {
         Tariff tariff = tariffService.getEntityById(id);
-
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
-        modelMap.addAttribute("tariff", tariffViewForm);
+        model.addAttribute("tariff", tariffViewForm);
+        //TODO optionsDTO
+        List<Option> options = optionService.getAll();
+        model.addAttribute("options", options);
+        return "/administration/editor/addPossibleOption";
+    }
+    @RequestMapping(value = "/administration/editor/tariff/{id}/addOption/{option_id}", method = RequestMethod.POST)
+    String addNewOptionToTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+        Tariff tariff = tariffService.getEntityById(id);
+        Option option = optionService.getEntityById(option_id);
+        tariffService.addOption(tariff,option);
+        TariffViewForm tariffViewForm = new TariffViewForm(tariff);
+        model.addAttribute("tariff", tariffViewForm);
         return "redirect:/administration/editor/tariff/{id}";
     }
+
+
+        @RequestMapping(value = "/administration/editor/tariff/{id}/delete/{option_id}", method = RequestMethod.POST)
+        String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+            Tariff tariff = tariffService.getEntityById(id);
+            Option option = optionService.getEntityById(option_id);
+            tariffService.deleteOption(tariff,option);
+            TariffViewForm tariffViewForm = new TariffViewForm(tariff);
+            model.addAttribute("tariff", tariffViewForm);
+            return "redirect:/administration/editor/tariff/{id}";
+        }
 
     //OPTIONS
     @RequestMapping(value = "/administration/options", method = RequestMethod.GET)

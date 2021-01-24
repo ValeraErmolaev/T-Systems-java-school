@@ -41,7 +41,9 @@
     </thead>
     <tbody>
         <tr>
-            <td><c:out value="${user.fullname}"/></td>
+            <td>
+                <c:out value="${user.fullname}"/>
+            </td>
             <c:choose>
                 <c:when test="${user.contracts.size() > 0}">
                     <td>

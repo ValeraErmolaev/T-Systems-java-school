@@ -23,6 +23,7 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
+    @Transactional
     public Option getEntityById(Integer id) throws CustomDAOException {
         return optionDAO.read(id);
     }
@@ -38,6 +39,7 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
+    @Transactional
     public List<Option> getAll() throws CustomDAOException {
         return optionDAO.getAll();
     }

@@ -52,14 +52,14 @@
                     <div class="one-option">
                         <span><c:out value="${tariff.options[index].name}"/></span>
                         <span>
-                            <form action = "/administration/editor/tariff/${tariff.options[index].id}/delete" method = "post">
+                            <form action = "/administration/editor/tariff/${tariff.id}/delete/${tariff.options[index].id}" method = "POST">
                             <input type = "submit" value = "Delete" />
                         </form>
                             </span>
                     </div>
                 </c:forEach>
                     <span>
-                         <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "post">
+                         <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "get">
                             <input type = "submit" value = "Add option" />
                          </form>
                     </span>
@@ -68,7 +68,7 @@
         </c:when>
         <c:otherwise>
             <td>
-                <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "post">
+                <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "get">
                     <input type = "submit" value = "Add option" />
                 </form>
             </td>

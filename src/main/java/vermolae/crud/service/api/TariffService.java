@@ -9,14 +9,16 @@ import java.io.IOException;
 import java.util.List;
 
 
-public interface TariffService extends GenericService<Tariff, Integer>{
+public interface TariffService extends GenericService<Tariff, Integer> {
 
     //get tariff by contract
     List<TariffViewForm> getTariffViewList(List<Tariff> tariffs);
 
-    void updateTariff (Tariff tariff);
+    void updateTariff(Tariff tariff);
 
     public Tariff updateTariffImage(int TariffId, MultipartFile file) throws Exception;
 
-    public void addOption(Tariff tariff,Option option);
+    public void addOption(Tariff tariff, Option option);
+
+    public void deleteOption(Tariff tariff, Option option);
 }

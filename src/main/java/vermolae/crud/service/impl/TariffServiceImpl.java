@@ -36,6 +36,7 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
+    @Transactional
     public Tariff getEntityById(Integer id) throws CustomDAOException {
         return tariffDAO.read(id);
     }
@@ -98,5 +99,12 @@ public class TariffServiceImpl implements TariffService {
     public void addOption(Tariff tariff, Option option) {
         tariff.addOption(option);
         updateEntity(tariff);
+    }
+
+    @Override
+    @Transactional
+    public void deleteOption(Tariff tariff, Option option) {
+        tariff.getOptions().remove(option);
+        tariffDAO.update(tariff);
     }
 }
