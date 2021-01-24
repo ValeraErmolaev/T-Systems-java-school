@@ -70,7 +70,8 @@ public class ContractServiceImpl implements ContractService {
         Contract contract = new Contract();
         contract.setNumber(number);
         contract.setTariff(tariffDAO.read(1));
-        contract.setUser(user);
+//        contract.setUser(user);
         createEntity(contract);
+        user.addContract(contract);
     }
 }

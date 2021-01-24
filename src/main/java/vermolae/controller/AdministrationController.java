@@ -19,6 +19,7 @@ import vermolae.model.dto.User.UserSearch;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Picture;
 import vermolae.model.entity.Tariff;
+import vermolae.model.entity.User;
 import vermolae.security.UserDetailsServiceImpl;
 
 import javax.servlet.http.HttpSession;
@@ -69,16 +70,17 @@ public class AdministrationController {
     @RequestMapping(value = "/administration/users", method = RequestMethod.POST)
     String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch userSearchDTO, Model model) {
         String cond = userSearchDTO.getCondition();
-
         ArrayList<UserAccountForm> users = userService.userAccListByCond(cond);
         model.addAttribute("users", users);
         return "administration/users";
     }
 
     @RequestMapping(value = "/administration/editor/user/{id}", method = RequestMethod.GET)
-    String editUser(Model model, @PathVariable int id) {
-        UserAccountForm userAccForm = new UserAccountForm(userService.getEntityById(id));
-        model.addAttribute("user", userAccForm);
+    String editUser(ModelMap model, @PathVariable int id) {
+        UserAccountForm user = new UserAccountForm(userService.getEntityById(id));
+//        User user = userService.getEntityById(id);
+        model.addAttribute("user", user);
+
         return "/administration/editor/user";
     }
 

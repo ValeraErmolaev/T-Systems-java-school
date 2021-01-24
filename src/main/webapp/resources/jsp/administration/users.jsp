@@ -24,11 +24,11 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/registration">Add new user</a>
-<form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="emailOrContract">
-    <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-               value="" path="condition"></form:input>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
-</form:form>
+    <form:form class="form-inline" method="post" action="/administration/users" modelAttribute="emailOrContract">
+        <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                    value="" path="condition"></form:input>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form:form>
 
 </nav>
 <table class="table table-bordered">
@@ -47,36 +47,36 @@
 
     </tr>
     </thead>
-    <c:if test="${users.size() !=0}" >
+    <c:if test="${users.size() !=0}">
 
-    <c:forEach items="${users}" var="user">
-        <tr>
-        <td><c:out value="${user.fullname}"/></td>
-        <td><c:out value="${user.email}"/></td>
-        <td><c:out value="${user.date}"/></td>
-        <td><c:out value="${user.passport}"/></td>
-        <td><c:out value="${user.address}"/></td>
-        <td><c:out value="${user.status}"/></td>
-        <td><c:out value="${user.role}"/></td>
-        <c:choose>
-            <c:when test="${user.contracts.size() > 0}">
-                <td>
-                    <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">
-                        <table class="table table-bordered">
-                            <tr><c:out value="${user.contracts[index].number}"/></tr>
-                        </table>
-                    </c:forEach>
-                </td>
-            </c:when>
-            <c:otherwise>
-                <td></td>
-            </c:otherwise>
-        </c:choose>
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td><c:out value="${user.fullname}"/></td>
+                <td><c:out value="${user.email}"/></td>
+                <td><c:out value="${user.date}"/></td>
+                <td><c:out value="${user.passport}"/></td>
+                <td><c:out value="${user.address}"/></td>
+                <td><c:out value="${user.status}"/></td>
+                <td><c:out value="${user.role}"/></td>
+                <c:choose>
+                    <c:when test="${user.contracts.size() > 0}">
+                        <td>
+                            <c:forEach items="${user.contracts}" var="contract">
+                                <table class="table table-bordered">
+                                    <c:out value="${contract.number}"/>
+                                </table>
+                            </c:forEach>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td></td>
+                    </c:otherwise>
+                </c:choose>
 
-        <td><a href='/administration/editor/user/${user.id}'>Edit</a></td>
-        <td><a href='administration/users/${user.id}/delete'>Delete</a></td>
-        </tr>
-    </c:forEach>
+                <td><a href='/administration/editor/user/${user.id}'>Edit</a></td>
+                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>
+            </tr>
+        </c:forEach>
     </c:if>
 </table>
 </body>

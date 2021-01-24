@@ -25,46 +25,43 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/users">Back</a>
-    <form action="/administration/editor/user/${user.id}/addContract", method="get">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new default contract</button>
+    <form action="/administration/editor/user/${user.id}/addContract" , method="get">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new default contract</button>
     </form>
 
 </nav>
 <table class="table table-bordered">
     <thead class="thead-dark">
-        <tr>
-            <th>Full name</th>
-            <th>Contracts</th>
-            <th>Tariff</th>
-            <th>Options</th>
-        </tr>
+    <tr>
+        <th>Full name</th>
+        <th>Contracts information</th>
+        <th></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>
-                <c:out value="${user.fullname}"/>
-            </td>
-            <c:choose>
-                <c:when test="${user.contracts.size() > 0}">
-                    <td>
-                        <div class="contracts-container">
-                            <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">
-                                <div class="one-contract">
-                                    <span><c:out value="${user.contracts[index].number}"/></span>
-                                    <span><c:out value="${user.contracts[index].tariff.name}"/></span>
-                                    <div class="options-list">
-
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </td>
-                </c:when>
-                <c:otherwise>
-                    <td></td>
-                </c:otherwise>
-            </c:choose>
-        </tr>
+    <tr>
+        <td>
+            <c:out value="${user.fullname}"/>
+        </td>
+        <c:choose>
+            <c:when test="${user.contracts.size() > 0}">
+                <td>
+                    <div class="contracts-container">
+                        <c:forEach items="${user.contracts}" var="contract">
+                            <div class="one-contract">
+                                <span><c:out value="${contract.number}"/></span>
+                                <span><c:out value="${contract.tariff.name}"/></span>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </td>
+            </c:when>
+            <c:otherwise>
+                <td></td>
+            </c:otherwise>
+        </c:choose>
+    </tr>
     </tbody>
 </table>
 </body>

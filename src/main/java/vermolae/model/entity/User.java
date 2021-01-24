@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -58,7 +59,12 @@ public class User {
     private Status status;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-    private final List<Contract> contracts = new ArrayList();
+    private Set<Contract> contracts;
+
+    public void addContract(Contract contract){
+        contracts.add(contract);
+        contract.setUser(this);
+    }
 
     public Integer getId() {
         return id;
@@ -108,7 +114,7 @@ public class User {
         this.status = status;
     }
 
-    public List<Contract> getContracts() {
+    public Set<Contract> getContracts() {
         return contracts;
     }
 

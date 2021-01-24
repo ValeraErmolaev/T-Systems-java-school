@@ -22,7 +22,7 @@ public class UserAccountForm {
 
     private String address;
 
-    private List<Contract> contracts;
+    private Set<Contract> contracts;
 
     private Status status;
 
@@ -94,11 +94,11 @@ public class UserAccountForm {
         this.date = userRegForm.getDate();
     }
 
-    public List<Contract> getContracts() {
+    public Set<Contract> getContracts() {
         return contracts;
     }
 
-    public void setContracts(List<Contract> contracts) {
+    public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
     }
 
