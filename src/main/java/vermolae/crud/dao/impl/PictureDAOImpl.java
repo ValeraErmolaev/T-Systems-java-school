@@ -1,22 +1,13 @@
 package vermolae.crud.dao.impl;
 
-
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import vermolae.crud.dao.api.PictureDAO;
-import vermolae.crud.dao.api.TariffDAO;
-import vermolae.exeptions.UserNotFoundException;
 import vermolae.model.entity.Picture;
-import vermolae.model.entity.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import java.io.File;
-import java.util.Base64;
 
 @Repository("pictureDAO")
 public class PictureDAOImpl extends GenericDAOImpl<Picture, Integer> implements PictureDAO {
@@ -32,6 +23,7 @@ public class PictureDAOImpl extends GenericDAOImpl<Picture, Integer> implements 
 //        String encodedString = Base64.getEncoder().encodeToString(fileContent);
 //        String url = "data:image/jpeg;base64,"+ encodedString;
     }
+    //TODO delete this
     @Override
     @Transactional
     public String urlPicture(int id){

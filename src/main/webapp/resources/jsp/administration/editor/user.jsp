@@ -14,6 +14,10 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="<spring:url value='/resources/css/adminUsers.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/resources/css/userContracts.css'/>" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
@@ -28,30 +32,38 @@
 </nav>
 <table class="table table-bordered">
     <thead class="thead-dark">
-    <tr>
-        <th>Full name</th>
-        <th>Contracts</th>
-    </tr>
+        <tr>
+            <th>Full name</th>
+            <th>Contracts</th>
+            <th>Tariff</th>
+            <th>Options</th>
+        </tr>
     </thead>
-        <td><c:out value="${user.fullname}"/></td>
-        <c:choose>
-            <c:when test="${user.contracts.size() > 0}">
-                <td>
-                    <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">
-                        <table class="table table-bordered">
-                            <tr><c:out value="${user.contracts[index].number}"/></tr>
-                            <tr><c:out value="${user.contracts[index].tariff.name}"/></tr>
-                            <tr><c:out value="${user.contracts[index].tariff.description}"/></tr>
-                        </table>
-                    </c:forEach>
-                </td>
-            </c:when>
-            <c:otherwise>
-                <td></td>
-            </c:otherwise>
-        </c:choose>
+    <tbody>
+        <tr>
+            <td><c:out value="${user.fullname}"/></td>
+            <c:choose>
+                <c:when test="${user.contracts.size() > 0}">
+                    <td>
+                        <div class="contracts-container">
+                            <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">
+                                <div class="one-contract">
+                                    <span><c:out value="${user.contracts[index].number}"/></span>
+                                    <span><c:out value="${user.contracts[index].tariff.name}"/></span>
+                                    <div class="options-list">
 
-
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td></td>
+                </c:otherwise>
+            </c:choose>
+        </tr>
+    </tbody>
 </table>
 </body>
 </html>

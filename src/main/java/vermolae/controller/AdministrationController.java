@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.PictureService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.crud.service.api.UserService;
@@ -15,6 +16,7 @@ import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
+import vermolae.model.entity.Option;
 import vermolae.model.entity.Picture;
 import vermolae.model.entity.Tariff;
 import vermolae.security.UserDetailsServiceImpl;
@@ -36,10 +38,7 @@ public class AdministrationController {
     private TariffService tariffService;
 
     @Autowired
-    private PictureService pictureService;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private OptionService optionService;
 
     @RequestMapping(value = "/administration/registration", method = RequestMethod.GET)
     String getAdminPage(Model model) {
@@ -56,11 +55,9 @@ public class AdministrationController {
         emailOrContractDTO.setCondition(userRegForm.getEmail());
         ArrayList<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
         model.addAttribute("emailOrContract", emailOrContractDTO);
-        model.addAttribute("users",users);
+        model.addAttribute("users", users);
         return "redirect:/administration/users";
     }
-
-  //  @RequestBody
 
     @RequestMapping(value = "/administration/users", method = RequestMethod.GET)
     String getUserList(Model model) {
@@ -80,27 +77,26 @@ public class AdministrationController {
 
     @RequestMapping(value = "/administration/editor/user/{id}", method = RequestMethod.GET)
     String editUser(Model model, @PathVariable int id) {
-//        UserSearch emailOrContract = new UserSearch();
         UserAccountForm userAccForm = new UserAccountForm(userService.getEntityById(id));
-//        model.addAttribute("emailOrContract", emailOrContract);
-
         model.addAttribute("user", userAccForm);
         return "/administration/editor/user";
     }
+
     @RequestMapping(value = "/administration/editor/user/{id}/addContract", method = RequestMethod.GET)
-    String addNewContract(Model model, @PathVariable int id){
+    String addNewContract(Model model, @PathVariable int id) {
         userService.createAndAddNewContract(userService.getEntityById(id));
         return "redirect:/administration/editor/user/{id}";
     }
 
-//TARIFFS
-@RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
-String getTariffList(Model model) {
+    //TARIFFS
+    @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
+    String getTariffList(Model model) {
         List<Tariff> tariffs = tariffService.getAll();
-    List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
-    model.addAttribute("tariffs", tariffsDTO);
-    return "administration/tariffs";
-}
+        List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
+        model.addAttribute("tariffs", tariffsDTO);
+        return "administration/tariffs";
+    }
+
     @RequestMapping(value = "/administration/editor/tariff/{id}", method = RequestMethod.GET)
     String editTariff(Model model, @PathVariable int id) {
         TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(id));
@@ -110,9 +106,18 @@ String getTariffList(Model model) {
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/image", method = RequestMethod.POST)
     String loadNewTariffImage(@RequestParam("file") MultipartFile file, ModelMap modelMap, @PathVariable int id) throws Exception {
-        Tariff tariff = tariffService.updateTariffImage(id,file);
+        Tariff tariff = tariffService.updateTariffImage(id, file);
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
         modelMap.addAttribute("tariff", tariffViewForm);
         return "redirect:/administration/editor/tariff/{id}";
+    }
+
+    //OPTIONS
+    @RequestMapping(value = "/administration/options", method = RequestMethod.GET)
+    String getOptionList(Model model) {
+        List<Option> options = optionService.getAll();
+        //TODO optionsDTO
+        model.addAttribute("options", options);
+        return "administration/options";
     }
 }

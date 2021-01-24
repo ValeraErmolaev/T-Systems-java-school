@@ -8,10 +8,9 @@ import vermolae.crud.dao.api.PictureDAO;
 import vermolae.crud.service.api.PictureService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.model.entity.Picture;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 @Service("pictureService")
 public class PictureServiceImpl implements PictureService {
 

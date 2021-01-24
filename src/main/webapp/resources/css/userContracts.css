@@ -1,0 +1,38 @@
+.contracts-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    height: 100%;
+}
+.contracts-container .one-contract {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #ff0000;
+    width: 100%;
+    /*height: 60px;*/
+    margin-bottom: 10px;
+}
+.contracts-container .one-contract:last-child {
+    margin-bottom: 0px;
+}
+.contracts-container .one-contract .options-list{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: rgba(0,0,0,0.1);
+    width: 200px;
+    height: 100px;
+}
+.one-contract>span {
+    margin-right: 10px;
+}
+

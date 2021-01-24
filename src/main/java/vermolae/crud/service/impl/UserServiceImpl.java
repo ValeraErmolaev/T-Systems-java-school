@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.UserService;
-//import vermolae.model.entity.Role;
 import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
 import vermolae.model.dto.User.UserAccountForm;
@@ -20,10 +19,7 @@ import vermolae.exeptions.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Artyom Karnov on 8/27/16.
- * artyom-karnov@yandex.ru
- **/
+
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
