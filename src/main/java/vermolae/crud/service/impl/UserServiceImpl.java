@@ -13,6 +13,7 @@ import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
+import vermolae.model.entity.Contract;
 import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
@@ -130,6 +131,41 @@ public class UserServiceImpl implements UserService {
         contractService.createNewDefaultContract(user, number);
 
 
+    }
+
+    @Override
+    @Transactional
+    public void blockContract(int user_id, int contract_id) {
+        User user = getEntityById(user_id);
+        Contract contract = contractService.getEntityById(contract_id);
+        if (user.getContracts().contains(contract)) {
+            contract.setIs_blocked(true);
+            contractService.updateEntity(contract);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void unBlockContract(int user_id, int contract_id) {
+        User user = getEntityById(user_id);
+        Contract contract = contractService.getEntityById(contract_id);
+        if (user.getContracts().contains(contract)) {
+            contract.setIs_blocked(false);
+            contractService.updateEntity(contract);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void changeUserStatus(int user_id) {
+        User user = getEntityById(user_id);
+        Status currentStatus = user.getStatus();
+        if (currentStatus == Status.BANNED) {
+            user.setStatus(Status.ACTIVE);
+        } else {
+            user.setStatus(Status.BANNED);
+        }
+        updateEntity(user);
     }
 
     /**

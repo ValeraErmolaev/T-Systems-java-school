@@ -34,6 +34,7 @@
     <thead class="thead-dark">
     <tr>
         <th>Full name</th>
+        <th>Status</th>
         <th>Contracts information</th>
         <th></th>
         <th></th>
@@ -43,6 +44,18 @@
     <tr>
         <td>
             <c:out value="${user.fullname}"/>
+        </td>
+        <td>
+            <div class="contracts-container">
+                <div class="one-contract">
+                    <span> <c:out value="${user.status}"/></span>
+                    <span>
+                        <form action="/administration/user/${user.id}/changeStatus" method="post">
+                            <button type="submit" value="Change">Change Status</button>
+                        </form>
+                    </span>
+                </div>
+            </div>
         </td>
         <c:choose>
             <c:when test="${user.contracts.size() > 0}">

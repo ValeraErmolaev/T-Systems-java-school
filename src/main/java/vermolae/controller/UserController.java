@@ -52,22 +52,12 @@ public class UserController {
 
     @RequestMapping(value = "/user/{user_id}/contract/{id}/block", method = RequestMethod.POST)
     public String blockControllerById(@PathVariable int id,@PathVariable int user_id) {
-        User user = userService.getEntityById(user_id);
-        Contract contract = contractService.getEntityById(id);
-        if (user.getContracts().contains(contract)){
-            contract.setIs_blocked(true);
-            contractService.updateEntity(contract);
-        }
+        userService.blockContract(user_id,id);
         return "redirect:/auth/success";
     }
     @RequestMapping(value = "/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
     public String unBlockControllerById(@PathVariable int id,@PathVariable int user_id) {
-        User user = userService.getEntityById(user_id);
-        Contract contract = contractService.getEntityById(id);
-        if (user.getContracts().contains(contract)){
-            contract.setIs_blocked(false);
-            contractService.updateEntity(contract);
-        }
+        userService.unBlockContract(user_id,id);
         return "redirect:/auth/success";
     }
 

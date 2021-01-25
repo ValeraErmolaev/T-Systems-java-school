@@ -60,4 +60,10 @@ public interface UserService extends GenericService<User, Integer> {
  * create new number and insert in user contracts
      */
    public void createAndAddNewContract(User user);
+
+   public void blockContract(int user_id,int contract_id);
+
+   public void unBlockContract(int user_id,int contract_id);
+
+   public void changeUserStatus(int user_id);
 }

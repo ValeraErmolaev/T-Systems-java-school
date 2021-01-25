@@ -79,6 +79,11 @@ public class AdministrationController {
         return "redirect:/administration/editor/user/{id}";
     }
 
+    @RequestMapping(value = "/administration/user/{id}/changeStatus", method = RequestMethod.POST)
+    String changeUserStatus(@PathVariable int id) {
+        userService.changeUserStatus(id);
+        return "redirect:/administration/editor/user/{id}";
+    }
     //TARIFFS
     @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
     String getTariffList(Model model) {
