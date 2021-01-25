@@ -15,6 +15,7 @@ import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class AdministrationController {
         userService.changeUserStatus(id);
         return "redirect:/administration/editor/user/{id}";
     }
+
     //TARIFFS
     @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
     String getTariffList(Model model) {
@@ -118,26 +120,27 @@ public class AdministrationController {
         model.addAttribute("options", options);
         return "/administration/editor/addPossibleOption";
     }
+
     @RequestMapping(value = "/administration/editor/tariff/{id}/addOption/{option_id}", method = RequestMethod.POST)
     String addNewOptionToTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
         Tariff tariff = tariffService.getEntityById(id);
         Option option = optionService.getEntityById(option_id);
-        tariffService.addOption(tariff,option);
+        tariffService.addOption(tariff, option);
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
         model.addAttribute("tariff", tariffViewForm);
         return "redirect:/administration/editor/tariff/{id}";
     }
 
 
-        @RequestMapping(value = "/administration/editor/tariff/{id}/delete/{option_id}", method = RequestMethod.POST)
-        String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
-            Tariff tariff = tariffService.getEntityById(id);
-            Option option = optionService.getEntityById(option_id);
-            tariffService.deleteOption(tariff,option);
-            TariffViewForm tariffViewForm = new TariffViewForm(tariff);
-            model.addAttribute("tariff", tariffViewForm);
-            return "redirect:/administration/editor/tariff/{id}";
-        }
+    @RequestMapping(value = "/administration/editor/tariff/{id}/delete/{option_id}", method = RequestMethod.POST)
+    String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+        Tariff tariff = tariffService.getEntityById(id);
+        Option option = optionService.getEntityById(option_id);
+        tariffService.deleteOption(tariff, option);
+        TariffViewForm tariffViewForm = new TariffViewForm(tariff);
+        model.addAttribute("tariff", tariffViewForm);
+        return "redirect:/administration/editor/tariff/{id}";
+    }
 
     //OPTIONS
     @RequestMapping(value = "/administration/options", method = RequestMethod.GET)
@@ -149,5 +152,14 @@ public class AdministrationController {
     }
 
 
-
+    @RequestMapping(value = "/administration/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
+    String unblockContract(@PathVariable int user_id, @PathVariable int id) {
+        userService.unblockContractByAdmin(id);
+        return "redirect:/administration/editor/user/{user_id}";
+    }
+    @RequestMapping(value = "/administration/user/{user_id}/contract/{id}/block", method = RequestMethod.POST)
+    String blockContract(@PathVariable int user_id, @PathVariable int id) {
+        userService.blockContractByAdmin(id);
+        return "redirect:/administration/editor/user/{user_id}";
+    }
 }

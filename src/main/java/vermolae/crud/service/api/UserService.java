@@ -66,4 +66,8 @@ public interface UserService extends GenericService<User, Integer> {
    public void unBlockContract(int user_id,int contract_id);
 
    public void changeUserStatus(int user_id);
+
+   public void blockContractByAdmin(int id);
+
+   public void unblockContractByAdmin(int id);
 }

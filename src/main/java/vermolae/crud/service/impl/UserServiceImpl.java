@@ -168,6 +168,23 @@ public class UserServiceImpl implements UserService {
         updateEntity(user);
     }
 
+    @Override
+    @Transactional
+    public void blockContractByAdmin(int id) {
+        Contract contract = contractService.getEntityById(id);
+        contract.setIs_blocked(true);
+        contract.setIs_blocked_by_admin(true);
+        contractService.updateEntity(contract);
+    }
+
+    @Override
+    @Transactional
+    public void unblockContractByAdmin(int id) {
+        Contract contract = contractService.getEntityById(id);
+        contract.setIs_blocked_by_admin(false);
+        contractService.updateEntity(contract);
+    }
+
     /**
      * Get user entity by id
      *
