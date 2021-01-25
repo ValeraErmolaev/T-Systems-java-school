@@ -2,6 +2,7 @@ package vermolae.crud.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vermolae.crud.dao.api.ContractDAO;
 import vermolae.crud.dao.api.TariffDAO;
 import vermolae.crud.dao.impl.ContractDAOImpl;
@@ -29,12 +30,15 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Transactional
     public Contract getEntityById(Integer id) throws CustomDAOException {
-        return null;
+        return contractDAO.read(id);
     }
 
     @Override
+    @Transactional
     public void updateEntity(Contract entity) throws CustomDAOException {
+        contractDAO.update(entity);
 
     }
 

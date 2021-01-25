@@ -6,27 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import vermolae.crud.service.api.OptionService;
-import vermolae.crud.service.api.PictureService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.crud.service.api.UserService;
-import vermolae.model.dto.Picture.PictureDTO;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
 import vermolae.model.entity.Option;
-import vermolae.model.entity.Picture;
 import vermolae.model.entity.Tariff;
-import vermolae.model.entity.User;
-import vermolae.security.UserDetailsServiceImpl;
-
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Controller

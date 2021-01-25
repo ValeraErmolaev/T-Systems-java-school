@@ -5,13 +5,21 @@
   Time: 3:45
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Account</title>
+
+    <link href="<spring:url value='/resources/css/account.css'/>" rel="stylesheet">
+<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"--%>
+<%--          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">--%>
     <link href="<spring:url value='/resources/css/header.css'/>" rel="stylesheet">
+
 </head>
 <body>
 <header>
@@ -24,20 +32,70 @@
         <a href="/map">Map</a>
     </nav>
 </header>
-<h1>Hello, ${user.fullname}</h1>
-<div class="container">
+
+<div>
+    <h1>Hello, ${user.fullname}</h1>
     <form action="/auth/logout" method="POST">
-        <button type="submit">Logout</button>
+        <button type="submit" class="btn btn-success">Logout</button>
     </form>
-<%--    <form action="/" method="get">--%>
-<%--        <button type="submit">Main menu</button>--%>
-<%--    </form>--%>
 </div>
-<security:authorize access="hasAnyRole('ADMIN')">
-<form action="${pageContext.request.contextPath}/Users">
-    <input type="submit" value="Users" />
-</form>
-    </security:authorize>
+<table class="table table-bordered table-hover">
+
+    <tr>
+        <th>Your Contracts</th>
+        <th>Tariff</th>
+        <th>Connected options</th>
+        <th>Status</th>
+        <th> </th>
+    </tr>
+
+    <c:if test="${user.contracts.size() > 0}">
+
+        <c:forEach items="${user.contracts}" var="contract">
+            <tr>
+                <td><c:out value="${contract.number}"/></td>
+                <c:choose>
+                    <c:when test="${contract.is_blocked == true}">
+                        <c:choose>
+                            <c:when test="${contract.is_blocked_by_admin == true}">
+                                <td><p style="color: #EF3B3A">That information is not available</p></td>
+                                <td><p style="color: #EF3B3A">That information is not available</p></td>
+                                <td><p style="color: #EF3B3A">Blocked by eCare</p></td>
+<%--                                <td></td>--%>
+<%--                                <td></td>--%>
+<%--                                <td></td>--%>
+                            </c:when>
+                        <c:otherwise>
+                            <td>${contract.tariff.name}</td>
+<%--                            <td>${contract.options}</td>--%>
+                            <td>here will be options</td>
+                            <td>Blocked</td>
+                            <td>
+                                <form action="/user/${user.id}/contract/${contract.id}/unblock" method="post">
+                                    <button value="Unblock" type="submit">Unblock</button>
+                                </form>
+                            </td>
+                        </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <td>${contract.tariff.name}</td>
+                        <%--                            <td>${contract.options}</td>--%>
+                        <td>here will be options</td>
+                        <td>Active</td>
+                        <td>
+                            <form action="/user/${user.id}/contract/${contract.id}/block" method="post">
+                                <button value="Block" type="submit">Block</button>
+                            </form>
+                        </td>
+                    </c:otherwise>
+                </c:choose>
+            </tr>
+        </c:forEach>
+    </c:if>
+    
+</table>
+
 
 </body>
 </html>

@@ -1,15 +1,15 @@
 package vermolae.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import vermolae.crud.dao.api.RoleDAO;
+import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.UserService;
 import vermolae.model.dto.User.UserAccountForm;
+import vermolae.model.entity.Contract;
 import vermolae.model.entity.User;
 import vermolae.security.UserDetailsServiceImpl;
 
@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    RoleDAO roleDAO;
+    private ContractService contractService;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -50,16 +50,25 @@ public class UserController {
         return "account";
     }
 
-//    @RequestMapping(value = "/created", method = RequestMethod.POST)
-//    public String showCreated(WebRequest request, Model model) {
-//        System.out.println(request.getParameter("user"));
-//        User user = new User();
-//        user.setFirstname("UserFromController");
-//        user.setEmail("user@email.com");
-//        user.setPassword(passwordEncoder.encode("12345"));
-//        user.setRole(roleDAO.getRoleByName("User"));
-//        userService.createEntity(user);
-//        model.addAttribute(user);
-//        return "created";
-//    }
+    @RequestMapping(value = "/user/{user_id}/contract/{id}/block", method = RequestMethod.POST)
+    public String blockControllerById(@PathVariable int id,@PathVariable int user_id) {
+        User user = userService.getEntityById(user_id);
+        Contract contract = contractService.getEntityById(id);
+        if (user.getContracts().contains(contract)){
+            contract.setIs_blocked(true);
+            contractService.updateEntity(contract);
+        }
+        return "redirect:/auth/success";
+    }
+    @RequestMapping(value = "/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
+    public String unBlockControllerById(@PathVariable int id,@PathVariable int user_id) {
+        User user = userService.getEntityById(user_id);
+        Contract contract = contractService.getEntityById(id);
+        if (user.getContracts().contains(contract)){
+            contract.setIs_blocked(false);
+            contractService.updateEntity(contract);
+        }
+        return "redirect:/auth/success";
+    }
+
 }

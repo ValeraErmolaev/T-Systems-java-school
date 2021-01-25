@@ -51,6 +51,7 @@
                         <c:forEach items="${user.contracts}" var="contract">
                             <div class="one-contract">
                                 <span><c:out value="${contract.number}"/></span>
+<%--                                <span><c:out value="${contract.is_blocked}"/></span>--%>
                                 <span><c:out value="${contract.tariff.name}"/></span>
                             </div>
                         </c:forEach>

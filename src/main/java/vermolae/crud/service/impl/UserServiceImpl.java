@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.dao.api.UserDAO;
+import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.UserService;
 import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Autowired
-    private ContractServiceImpl contractService;
+    private ContractService contractService;
 
     @Autowired
     private RoleDAO roleDAO;
