@@ -54,7 +54,7 @@ public interface UserService extends GenericService<User, Integer> {
      * @param emailOrNumber
      * @return
      */
-   public ArrayList<UserAccountForm> userAccListByCond(String emailOrNumber);
+   public List<UserAccountForm> userAccListByCond(String emailOrNumber);
 
     /**
  * create new number and insert in user contracts
@@ -70,4 +70,6 @@ public interface UserService extends GenericService<User, Integer> {
    public void blockContractByAdmin(int id);
 
    public void unblockContractByAdmin(int id);
+
+   public List<User> getAll();
 }

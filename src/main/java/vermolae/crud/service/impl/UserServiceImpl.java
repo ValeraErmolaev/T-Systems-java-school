@@ -19,7 +19,9 @@ import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service("userService")
@@ -104,8 +106,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public ArrayList<UserAccountForm> userAccListByCond(String cond) {
-        ArrayList<UserAccountForm> usersDTO = new ArrayList<>();
+    public List<UserAccountForm> userAccListByCond(String cond) {
+        List<UserAccountForm> usersDTO = new ArrayList<>();
         if (cond.equals("")) {
             List<User> users = userDAO.getAll();
             for (User user : users) {
@@ -118,7 +120,8 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        return usersDTO;
+        return usersDTO.stream()
+                .sorted(Comparator.comparing(UserAccountForm::getFullname)).collect(Collectors.toList());
     }
 
     /**

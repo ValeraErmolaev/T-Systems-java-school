@@ -27,7 +27,6 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
     }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/auth").setViewName("SingIn");
         registry.addViewController("/auth").setViewName("login");
     }
     @Bean(name = "multipartResolver")

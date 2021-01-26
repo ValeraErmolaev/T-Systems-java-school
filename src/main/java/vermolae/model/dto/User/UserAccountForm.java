@@ -74,7 +74,7 @@ public class UserAccountForm {
 
     public UserAccountForm(User user) {
         this.id = user.getId();
-        this.fullname = user.getFirstname().concat(" ").concat(user.getLastname());
+        this.fullname = user.getLastname().concat(" ").concat(user.getFirstname());
         this.email = user.getEmail();
         this.status = user.getStatus();
         this.role = user.getRole();

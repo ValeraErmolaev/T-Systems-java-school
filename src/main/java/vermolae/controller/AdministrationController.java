@@ -44,7 +44,7 @@ public class AdministrationController {
         userService.registerUser(userRegForm);
         UserSearch emailOrContractDTO = new UserSearch();
         emailOrContractDTO.setCondition(userRegForm.getEmail());
-        ArrayList<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
+        List<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
         model.addAttribute("emailOrContract", emailOrContractDTO);
         model.addAttribute("users", users);
         return "redirect:/administration/users";
@@ -60,7 +60,7 @@ public class AdministrationController {
     @RequestMapping(value = "/administration/users", method = RequestMethod.POST)
     String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch userSearchDTO, Model model) {
         String cond = userSearchDTO.getCondition();
-        ArrayList<UserAccountForm> users = userService.userAccListByCond(cond);
+        List<UserAccountForm> users = userService.userAccListByCond(cond);
         model.addAttribute("users", users);
         return "administration/users";
     }
