@@ -18,9 +18,7 @@ import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -92,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public ArrayList<User> userListByCond(String emailOrNumber) {
-        if (emailOrNumber == "") {
+        if (emailOrNumber.equals("")) {
             return (ArrayList<User>) userDAO.getAll();
         }
         ArrayList<User> users = new ArrayList<>();
@@ -238,6 +236,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    @Transactional
+    public Collection<User> usersByEmail(String email) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            users.add(userDAO.getUserByEMAil(email));
+        } catch (Exception e) {
+            return users;
+        }
+        return users;
+    }
+
     /**
      * Getting user entity by number
      *
@@ -262,6 +272,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User getUserByEMAil(String eMail) throws UserNotFoundException {
         return userDAO.getUserByEMAil(eMail);
+
+
     }
 
 

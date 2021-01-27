@@ -1,23 +1,34 @@
 package vermolae.model.dto.User;
 
 import lombok.Builder;
+import org.springframework.format.annotation.DateTimeFormat;
 import vermolae.model.Enum.Role;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Builder
 public class UserRegistrationForm implements Serializable {
 
 
     private String firstname;
+
     private String lastname;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
     private String passport;
+
     private String email;
+
     private String address;
+
     private Role role;
 
 

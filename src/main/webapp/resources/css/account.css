@@ -550,3 +550,6 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
     width: 100%;
 }
+#hello-fullname {
+    color: #FFFFFF;
+}

@@ -841,3 +841,7 @@ input::placeholder {
 .SignUpButton {
 
 }
+
+span {
+    color: red;
+}

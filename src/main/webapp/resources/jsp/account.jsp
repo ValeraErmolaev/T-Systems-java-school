@@ -34,7 +34,7 @@
 </header>
 
 <div>
-    <h1>Hello, ${user.fullname}</h1>
+    <h1 id="hello-fullname">Hello, ${user.fullname}</h1>
     <form action="/auth/logout" method="POST">
         <button type="submit" class="btn btn-success">Logout</button>
     </form>

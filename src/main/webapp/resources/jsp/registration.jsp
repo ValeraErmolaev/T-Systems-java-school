@@ -27,17 +27,16 @@
         <div>
             <form:input pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address" type="text" path="email" placeholder="Email" autofocus="true"></form:input>
             <form:errors path="email"></form:errors>
-            <span style="color: crimson">${emailIsNotUniqueError}</span>
         </div>
         <div>
             <form:input type="text" path="confirmEmail" placeholder="Confirm email" autofocus="true"></form:input>
             <form:errors path="confirmEmail"></form:errors>
-            <span style="color: crimson">${emailsMutchError}</span>
         </div>
         <div class="form-group row">
             <label for="example-date-input" class="col-2 col-form-label"></label>
             <div class="col-10">
                 <form:input class="form-control" type="date" value="" id="example-date-input" path="date"></form:input>
+                <form:errors path="date"></form:errors>
             </div>
         </div>
         <div>
@@ -55,13 +54,12 @@
         <div>
             <form:input type="password" path="confirmPassword" placeholder="Confirm Password" autofocus="true"></form:input>
             <form:errors path="confirmPassword"></form:errors>
-            <span style="color: crimson">${passwordError}</span>
+
         </div>
         <button type="submit">Create user</button>
-<%--        <p class="message"> <a href="/auth/success">Back</a></p>--%>
+        <p class="message"> <a href="/">Home</a></p>
         <p class="message">Already registered? <a href="/auth/login">Sign In</a></p>
     </form:form>
-    <%--         <p class="message">Not registered? <a href="/auth/login">Create an account</a></p>--%>
     </form>
 </div>
 

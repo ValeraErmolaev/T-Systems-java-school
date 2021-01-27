@@ -100,5 +100,10 @@
 
     });
 </script>
+<div id="footer" style="background-color: #76b852">
+    <br>
+    <p> &copy; Valerii Ermolaev</p>
+    <br>
+</div>
 </body>
 </html>

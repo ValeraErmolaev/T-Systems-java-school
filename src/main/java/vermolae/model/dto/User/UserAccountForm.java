@@ -1,11 +1,15 @@
 package vermolae.model.dto.User;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
 import vermolae.model.entity.Contract;
 import vermolae.model.entity.User;
 
-import java.sql.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +21,9 @@ public class UserAccountForm {
 
     private String email;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
     private String passport;
 
     private String address;

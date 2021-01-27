@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import vermolae.crud.service.api.OptionService;
@@ -15,12 +16,16 @@ import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
+import vermolae.validator.RegistrationValidator;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class AdministrationController {
+    @Autowired
+    private RegistrationValidator regValidator;
 
     @Autowired
     private UserService userService;
@@ -39,8 +44,11 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/registration", method = RequestMethod.POST)
-    String createUserByAdmin(@ModelAttribute("user") UserRegistrationForm userRegForm, Model model) {
-        //TODO IF ALL IS OK THEN REGISTRY
+    String createUserByAdmin(@ModelAttribute("user") @Valid UserRegistrationForm userRegForm, BindingResult result, Model model) {
+        regValidator.validate(userRegForm, result);
+        if (result.hasErrors()) {
+            return "/administration/registration";
+        }
         userService.registerUser(userRegForm);
         UserSearch emailOrContractDTO = new UserSearch();
         emailOrContractDTO.setCondition(userRegForm.getEmail());

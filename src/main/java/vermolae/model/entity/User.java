@@ -1,12 +1,14 @@
 package vermolae.model.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import vermolae.model.Enum.Role;
 import vermolae.model.Enum.Status;
 
 import javax.persistence.*;
-import java.sql.Date;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -45,6 +47,7 @@ public class User {
     private String email;
 
     @Column(name = "birthdate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
 
     @Column(name = "address")

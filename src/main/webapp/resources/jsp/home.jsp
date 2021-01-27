@@ -118,10 +118,9 @@
     </div>
 </div>
 
-<div id="footer" style="background-color: #4cae4c">
+<div id="footer" style="background-color: #76b852">
     <br>
     <p> &copy; Valerii Ermolaev</p>
-    <br>
     <br>
 </div>
 </body>

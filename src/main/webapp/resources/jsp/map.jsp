@@ -15,6 +15,7 @@
     <link href="<spring:url value='/resources/css/header.css'/>" rel="stylesheet">
     <link href="<spring:url value='/resources/css/jqvmap.css'/>" rel="stylesheet">
     <link href="/resources/css/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<spring:url value='/resources/css/common.css'/>" rel="stylesheet">
 
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -36,14 +37,14 @@
         <a href="/map">Map</a>
     </nav>
 </header>
-<h2 align="center">Coverage map</h2>
+<h2 align="center" style="color: white">Coverage map</h2>
 <div>
     <div id="vmap"
-         style="width: 75%; height: 400px; margin: 0px auto; position: relative; overflow: hidden; background-color: rgb(255, 255, 255);">
+         style="width: 100%; height: 400px; margin: 0px auto; position: relative; overflow: hidden; background-color: rgb(255, 255, 255);">
     </div>
 </div>
     <div class="wrapper">
-         <section id='steezy'>
+         <section>
             <%--        <h2> This is some steezy stuff</h2>--%>
 <%--             <span>Test</span>--%>
             <p>Egypt France French Guiana Germany Gibraltar Greece Guadeloupe Hong Kong Hungary Iceland Ireland</p>
@@ -52,5 +53,10 @@
             <p>United Kingdom United States of America United States Virgin Islands</p>
          </section>
     </div>
+<div id="footer" style="background-color: #76b852">
+    <br>
+    <p> &copy; Valerii Ermolaev</p>
+    <br>
+</div>
 </body>
 </html>

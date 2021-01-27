@@ -6,6 +6,7 @@ import vermolae.model.entity.User;
 import vermolae.exeptions.UserNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public interface UserService extends GenericService<User, Integer> {
@@ -72,4 +73,6 @@ public interface UserService extends GenericService<User, Integer> {
    public void unblockContractByAdmin(int id);
 
    public List<User> getAll();
+
+   public Collection<User> usersByEmail(String email);
 }
