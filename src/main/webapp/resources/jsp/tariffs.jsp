@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/tariffs.css">
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link href="<spring:url value='/resources/css/header.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/resources/css/account.css'/>" rel="stylesheet">
+    <link href="<spring:url value='/resources/css/buttonTariff.css'/>" rel="stylesheet">
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body>
@@ -33,22 +35,24 @@
 <div id="tariff-carousel">
     <div class="card-carousel-wrapper">
         <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></div>
-             <div class="card-carousel">
-                 <div class="card-carousel--overflow-container">
-                      <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-                            <div class="card-carousel--card" v-for="item in items" :key="item.id">
-                                  <div class="card-carousel--card--footer">
-                                             <img :src="item.imgUrl" width=200px height=120px/>
-                                             <p>{{item.name}}</p>
-                                              <p>{{item.description}}</p>
-<%--                                              <p class="tag" v-for="(tag,index) in item.tag" :class="index &gt; 0 ? 'secondary' : ''">{{ tag }}</p>--%>
-                                  </div>
-                            </div>
-                      </div>
-                 </div>
-                 </div>
-                 <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList"></div>
-             </div>
+        <div class="card-carousel">
+            <div class="card-carousel--overflow-container">
+                <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+                    <div class="card-carousel--card" v-for="item in items" :key="item.id">
+                        <div class="card-carousel--card--footer">
+                            <img :src="item.imgUrl" width=200px height=120px/>
+                            <p>{{item.name}}</p>
+                            <%--                            <p>{{item.description}}</p>--%>
+                            <p>
+                            <a :href="'/tariff/' + item.id"  class="btn btn-success">More information</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList"></div>
+    </div>
 </div>
 
 <script>
@@ -58,16 +62,16 @@
             currentOffset: 0,
             windowSize: 2,
             paginationFactor: 220,
-            items : []
+            items: []
         },
-        mounted: function(){
+        mounted: function () {
             <c:forEach items="${tariffs}" var="item" varStatus="status">
             this.items = this.items.concat({
                 id: ${item.id},
-                name : "${item.name}",
-                description : "${item.description}",
-                price : "${item.turnOnPrice}",
-                imgUrl : "${item.pictureUrl}"
+                name: "${item.name}",
+                description: "${item.description}",
+                price: "${item.turnOnPrice}",
+                imgUrl: "${item.pictureUrl}"
             });
             </c:forEach>
         },
@@ -88,7 +92,12 @@
                     this.currentOffset += this.paginationFactor;
                 }
             },
+            HandlerFunction(event) {
+                console.log(event.target)
+            }
+
         }
+
     });
 </script>
 </body>
