@@ -36,6 +36,7 @@ caption, th, td {
     text-align: left;
     font-weight: normal;
     vertical-align: middle;
+    color: #FFFFFF;
 }
 
 q, blockquote {
@@ -233,4 +234,8 @@ a {
     color: white;
     text-decoration: none;
     /*background-color: transparent;*/
+}
+#tariff-description th{
+    color: #FFFFFF;
+
 }

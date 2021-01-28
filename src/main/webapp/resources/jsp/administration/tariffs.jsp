@@ -68,21 +68,6 @@
                     </c:otherwise>
                 </c:choose>
                 <td><img src="${tariff.pictureUrl}"/></td>
-<%--                <c:choose>--%>
-<%--                    <c:when test="${user.contracts.size() > 0}">--%>
-<%--                        <td>--%>
-<%--                            <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">--%>
-<%--                                <table class="table table-bordered">--%>
-<%--                                    <tr><c:out value="${user.contracts[index].number}"/></tr>--%>
-<%--                                </table>--%>
-<%--                            </c:forEach>--%>
-<%--                        </td>--%>
-<%--                    </c:when>--%>
-<%--                    <c:otherwise>--%>
-<%--                        <td></td>--%>
-<%--                    </c:otherwise>--%>
-<%--                </c:choose>--%>
-
                 <td><a href='/administration/editor/tariff/${tariff.id}'>Edit</a></td>
                 <td><a href='administration/users/${user.id}/delete'>Delete</a></td>
             </tr>

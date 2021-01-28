@@ -13,9 +13,11 @@ import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Picture;
 import vermolae.model.entity.Tariff;
+import vermolae.model.entity.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service("tariffService")
@@ -60,7 +62,7 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     @Transactional
-    public List<TariffViewForm> getTariffViewList(List<Tariff> tariffs) {
+    public List<TariffViewForm> getTariffViewList(Collection<Tariff> tariffs) {
         List<TariffViewForm> tariffViewFormList = new ArrayList<TariffViewForm>();
         for (Tariff tariff : tariffs) {
             tariffViewFormList.add(new TariffViewForm(tariff));
@@ -81,7 +83,7 @@ public class TariffServiceImpl implements TariffService {
 
 
         String filename = file.getOriginalFilename();
-        pictureService.saveNewPicture(filename,file);
+        pictureService.saveNewPicture(filename, file);
         Picture pictureNew = pictureService.getPictureByName(filename);
         tariff.setPicture(pictureNew);
         updateTariff(tariff);
@@ -91,7 +93,7 @@ public class TariffServiceImpl implements TariffService {
 //        } catch (Exception e){
 //            //todo logger
 //        }
-       return tariff;
+        return tariff;
     }
 
     @Override
@@ -107,4 +109,17 @@ public class TariffServiceImpl implements TariffService {
         tariff.getOptions().remove(option);
         tariffDAO.update(tariff);
     }
+
+    @Override
+    @Transactional
+    public Collection<Tariff> tariffsById(int id) {
+        ArrayList<Tariff> tariffs = new ArrayList<>();
+        try {
+            tariffs.add(getEntityById(id));
+        } catch (Exception e) {
+            return tariffs;
+        }
+        return tariffs;
+    }
+
 }
