@@ -26,46 +26,47 @@
 <header>
     <h1>eCare</h1>
     <nav>
-        <a href="/">Home</a>
-        <a href="/auth/success">My account</a>
-        <a href="">About</a>
-        <a href="/tariff">Tariffs</a>
-        <a href="/map">Map</a>
+        <a style="color: white; text-decoration: none"   href="/">Home</a>
+        <a  style="color: white; text-decoration: none" href="/auth/success">My account</a>
+        <a  style="color: white; text-decoration: none" href="">About</a>
+        <a  style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
+        <a  style="color: white; text-decoration: none" href="/map">Map</a>
     </nav>
 </header>
 <div class="wrapper">
 
     <div id="carouselExample" class="carousel carousel-dark slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
+            <li data-bs-target="#" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#" data-bs-slide-to="1"></li>
+            <li data-bs-target="#" data-bs-slide-to="2"></li>
         </ol>
 
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000">
+            <div class="carousel-item active" data-bs-interval="3000">
                 <%--            <a href="${pageContext.request.contextPath}/plans/${Dictator.id}">--%>
-                <img src="<spring:url value='https://sun9-75.userapi.com/impg/A_KFMTNbW-UwIjVacI-wpV32rbvTuxFeW-jJOA/bQBqEftnVMM.jpg?size=1280x395&quality=96&sign=fc889b292c584bd792eae80494772aa2&type=album' />"
-                     class="carousel-img" alt="Dictator plan">
+                <img src="<spring:url value='https://sun9-75.userapi.com/impg/CsX8KHkmOLh282zKaOGf5uh_Xyr-SNQ2eUPLww/eG8c8LDUYAk.jpg?size=1280x395&quality=96&sign=99da34314d967c2bb6e0bc9eabbc9e92&type=album' />"
+                     class="carousel-img" alt="Travel">
                 <%--            </a>--%>
             </div>
-            <div class="carousel-item" data-bs-interval="10000">
+            <div class="carousel-item" data-bs-interval="3000">
                 <%--            <a href="${pageContext.request.contextPath}/plans/${Exile.id}">--%>
-                <img src="<spring:url value='https://sun9-41.userapi.com/impg/zyRKcK7SwSdFlkeS9xO5d1neSztJRjXETwmhwQ/VnvXxbUMzqA.jpg?size=1280x395&quality=96&sign=ea997c95a6079b75859098262471cb8d&type=album' />"
-                     class="carousel-img" alt="Exile plan">
+                <img src="<spring:url value='https://sun9-6.userapi.com/impg/NtM4_Utd1FyiWV9FP110lNoJNBpteIPDrqJR5w/2ns3vBm5p2E.jpg?size=1280x395&quality=96&sign=7d696d148e9f238a7a6c9922230441c0&type=album' />"
+                     class="carousel-img" alt="Study">
                 <%--            </a>--%>
             </div>
-            <div class="carousel-item" data-bs-interval="10000">
+            <div class="carousel-item" data-bs-interval="3000">
                 <%--            <a href="${pageContext.request.contextPath}/plans/${Exile.id}">--%>
-                <img src="<spring:url value='https://sun9-4.userapi.com/impg/w26V45JnmOlA1PbAJZZBYCmqrF2YOlGojIvEsw/pVnIFFB8yak.jpg?size=1280x395&quality=96&sign=a00dab29e285734b85b4f5c9f106549f&type=album' />"
-                     class="carousel-img" alt="Exile plan">
+                <img src="<spring:url value='https://sun9-43.userapi.com/impg/7Ffd7t8JPxMbVauVu3P3M-s-35iXa5rr-zsWLw/AcihEpWxMr0.jpg?size=1280x395&quality=96&sign=3e66b5637754918496793b7bb24d7c7d&type=album' />"
+                     class="carousel-img" alt="For you!">
                 <%--            </a>--%>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
+        <a class="carousel-control-prev" href="#" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
+        <a class="carousel-control-next" href="#" role="button" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </a>
@@ -73,7 +74,7 @@
 
     <div class="wrapper-text">
         <section>
-            <p> eCare is an International1 Mobile Operator providing mobile services to customers all around the world*.
+            <p> eCare is an International Mobile Operator providing mobile services to customers all around the world*.
                 Through consistent expansion, eCare covers an ever-increasing number of locations, using the latest
                 technology
                 and equipment to support its customer offerings.
@@ -118,10 +119,10 @@
     </div>
 </div>
 
-<div id="footer" style="background-color: #76b852">
-    <br>
+<footer style="background-color: #76b852">
+
     <p> &copy; Valerii Ermolaev</p>
     <br>
-</div>
+</footer>
 </body>
 </html>

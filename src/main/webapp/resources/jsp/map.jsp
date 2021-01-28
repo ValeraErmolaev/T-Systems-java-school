@@ -53,10 +53,9 @@
             <p>United Kingdom United States of America United States Virgin Islands</p>
          </section>
     </div>
-<div id="footer" style="background-color: #76b852">
-    <br>
+<footer style="background-color: #76b852">
     <p> &copy; Valerii Ermolaev</p>
     <br>
-</div>
+</footer>
 </body>
 </html>

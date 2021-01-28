@@ -21,9 +21,9 @@ public class TariffController {
     @Autowired
     private TariffService tariffService;
 
-    //todO here must be service!!1
-    @Autowired
-    PictureDAO pictureDAO;
+//    //todO here must be service!!1
+//    @Autowired
+//    PictureDAO pictureDAO;
 
     @GetMapping("/tariff")
     public String getTariffsPage(Model model) throws Exception{
@@ -33,10 +33,10 @@ public class TariffController {
         return "tariffs";
     }
 
-    @PostMapping("/tariff")
-    public @ResponseBody List<Tariff> getAjaxTariffs () {
-        List<Tariff>   tariffs = tariffService.getAll();
-            return tariffs;
-        }
+//    @PostMapping("/tariff")
+//    public @ResponseBody List<Tariff> getAjaxTariffs () {
+//        List<Tariff>   tariffs = tariffService.getAll();
+//            return tariffs;
+//        }
     }
 

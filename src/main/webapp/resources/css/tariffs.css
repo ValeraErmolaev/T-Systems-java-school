@@ -151,4 +151,7 @@ h1 {
      justify-content: center;
      min-height: 10rem;
  }
+ footer {
+     margin-bottom: auto;
+ }
 

@@ -52,9 +52,9 @@ public class AdministrationController {
         userService.registerUser(userRegForm);
         UserSearch emailOrContractDTO = new UserSearch();
         emailOrContractDTO.setCondition(userRegForm.getEmail());
-        List<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
+//        List<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
         model.addAttribute("emailOrContract", emailOrContractDTO);
-        model.addAttribute("users", users);
+//        model.addAttribute("users", users);
         return "redirect:/administration/users";
     }
 
