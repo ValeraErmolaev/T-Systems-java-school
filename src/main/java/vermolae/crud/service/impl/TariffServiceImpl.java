@@ -9,6 +9,7 @@ import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.PictureService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
+import vermolae.exeptions.TariffNotFoundException;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Picture;
@@ -39,7 +40,7 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     @Transactional
-    public Tariff getEntityById(Integer id) throws CustomDAOException {
+    public Tariff getEntityById(Integer id) throws TariffNotFoundException {
         return tariffDAO.read(id);
     }
 
@@ -64,10 +65,14 @@ public class TariffServiceImpl implements TariffService {
     @Transactional
     public List<TariffViewForm> getTariffViewList(Collection<Tariff> tariffs) {
         List<TariffViewForm> tariffViewFormList = new ArrayList<TariffViewForm>();
-        for (Tariff tariff : tariffs) {
-            tariffViewFormList.add(new TariffViewForm(tariff));
+        try {
+            for (Tariff tariff : tariffs) {
+                tariffViewFormList.add(new TariffViewForm(tariff));
+            }
+            return tariffViewFormList;
+        } catch (Exception e){
+            return tariffViewFormList;
         }
-        return tariffViewFormList;
     }
 
     @Override
@@ -112,7 +117,7 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     @Transactional
-    public Collection<Tariff> tariffsById(int id) {
+    public Collection<Tariff> tariffsById(int id) throws TariffNotFoundException {
         ArrayList<Tariff> tariffs = new ArrayList<>();
         try {
             tariffs.add(getEntityById(id));

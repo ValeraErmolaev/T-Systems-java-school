@@ -75,4 +75,6 @@ public interface UserService extends GenericService<User, Integer> {
    public List<User> getAll();
 
    public Collection<User> usersByEmail(String email);
+
+   public String pageDependsOfRole(User user);
 }

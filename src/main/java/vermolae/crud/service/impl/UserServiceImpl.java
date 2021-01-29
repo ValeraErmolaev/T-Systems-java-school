@@ -248,6 +248,15 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public String pageDependsOfRole(User user) {
+        if (user.getRole().name().equals(Role.ADMIN.name())) {
+            return "administration/admin";
+        } else {
+            return "account";
+        }
+    }
+
     /**
      * Getting user entity by number
      *

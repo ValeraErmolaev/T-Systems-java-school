@@ -29,7 +29,8 @@ public class UserDAOImpl extends GenericDAOImpl<User, Integer> implements UserDA
                     .setParameter("number", number);
             return (User) query.getSingleResult();
         } catch (PersistenceException e) {
-            throw new UserNotFoundException("User " + number + " wasn't found", e);
+//            throw new UserNotFoundException("User " + number + " wasn't found", e);
+            throw new UserNotFoundException("Invalid username or password", e);
         }
 
     }

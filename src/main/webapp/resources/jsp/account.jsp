@@ -61,7 +61,7 @@
                                 <td><p style="color: #EF3B3A">That information is not available</p></td>
                                 <td><p style="color: #EF3B3A">That information is not available</p></td>
                                 <td><p style="color: #EF3B3A">Blocked by eCare</p></td>
-<%--                                <td></td>--%>
+                                <td><p></p></td>
 <%--                                <td></td>--%>
 <%--                                <td></td>--%>
                             </c:when>
