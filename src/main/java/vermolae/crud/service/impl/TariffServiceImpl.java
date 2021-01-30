@@ -71,7 +71,7 @@ public class TariffServiceImpl implements TariffService {
                 tariffViewFormList.add(new TariffViewForm(tariff));
             }
             return tariffViewFormList;
-        } catch (Exception e){
+        } catch (Exception e) {
             return tariffViewFormList;
         }
     }
@@ -106,6 +106,9 @@ public class TariffServiceImpl implements TariffService {
     @Transactional
     public void addOption(Tariff tariff, Option option) {
         tariff.addOption(option);
+        for (Option opt : option.getAssociatedOptions()) {
+            tariff.addOption(opt);
+        }
         updateEntity(tariff);
     }
 
@@ -113,6 +116,9 @@ public class TariffServiceImpl implements TariffService {
     @Transactional
     public void deleteOption(Tariff tariff, Option option) {
         tariff.getOptions().remove(option);
+        for (Option opt : option.getAssociatedOptions()) {
+            tariff.getOptions().remove(opt);
+        }
         tariffDAO.update(tariff);
     }
 
