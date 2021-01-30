@@ -7,7 +7,9 @@ import vermolae.crud.dao.api.OptionDAO;
 import vermolae.crud.service.api.OptionService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.model.entity.Option;
+import vermolae.model.entity.Tariff;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("optionService")
@@ -29,8 +31,9 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
+    @Transactional
     public void updateEntity(Option entity) throws CustomDAOException {
-
+        optionDAO.update(entity);
     }
 
     @Override
@@ -42,5 +45,17 @@ public class OptionServiceImpl implements OptionService {
     @Transactional
     public List<Option> getAll() throws CustomDAOException {
         return optionDAO.getAll();
+    }
+
+    @Override
+    @Transactional
+    public List<Option> optionsById(int id) {
+        List<Option> options = new ArrayList<>();
+        try {
+            options.add(getEntityById(id));
+        } catch (Exception e) {
+            return options;
+        }
+        return options;
     }
 }

@@ -1,16 +1,18 @@
-@import url("https://fonts.googleapis.com/css?family=VT323");
+/*@import url("https://fonts.googleapis.com/css?family=VT323");*/
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 :root{
     --width: 280px;
     --height: 180px;
 }
 
-body{ background: #6BA1CA; }
+body{ background: #3498db; }
 
 .error-500{
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'VT323';
+    /*font-family: 'VT323';*/
+    font-family: "Ubuntu";
     color: #1E4B6D;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
 }
@@ -19,7 +21,7 @@ body{ background: #6BA1CA; }
     content: attr(data-text);
     display: block;
     margin-top: calc(var(--height) / 10 + 15px);
-    font-size: 28pt;
+    font-size: 16pt;
     text-align: center;
 }
 

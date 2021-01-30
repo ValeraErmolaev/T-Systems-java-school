@@ -33,11 +33,23 @@ public class Option {
             joinColumns = @JoinColumn(name = "option_id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_id")
     )
-    private List<Tariff> tariffs = new ArrayList<>();
+//    private List<Tariff> tariffs = new ArrayList<>();
+    private Set<Tariff> tariffs;
 
     public void addTariff(Tariff tariff){
         tariffs.add(tariff);
         tariff.getOptions().add(this);
+    }
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="associated_options",
+            joinColumns=@JoinColumn(name="optionId", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name= "associatedoptionid", referencedColumnName="id"))
+    private Set<Option> associatedOptions;
+
+    public void associateOption(Option option){
+        associatedOptions.add(option);
+        option.getAssociatedOptions().add(this);
     }
 
     public Option() {
@@ -83,12 +95,20 @@ public class Option {
         this.price = price;
     }
 
-    public List<Tariff> getTariffs() {
+    public Set<Tariff> getTariffs() {
         return tariffs;
     }
 
-    public void setTariffs(List<Tariff> tariffs) {
+    public void setTariffs(Set<Tariff> tariffs) {
         this.tariffs = tariffs;
+    }
+
+    public Set<Option> getAssociatedOptions() {
+        return associatedOptions;
+    }
+
+    public void setAssociatedOptions(Set<Option> associatedOptions) {
+        this.associatedOptions = associatedOptions;
     }
 
     @Override

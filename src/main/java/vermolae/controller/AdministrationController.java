@@ -37,36 +37,36 @@ public class AdministrationController {
     private OptionService optionService;
 
     @RequestMapping(value = "/administration/registration", method = RequestMethod.GET)
-    String getAdminPage(Model model) {
+    public String getAdminPage(Model model) {
         UserRegistrationForm userRegForm = new UserRegistrationForm();
         model.addAttribute("user", userRegForm);
         return "administration/registration";
     }
 
     @RequestMapping(value = "/administration/registration", method = RequestMethod.POST)
-    String createUserByAdmin(@ModelAttribute("user") @Valid UserRegistrationForm userRegForm, BindingResult result, Model model) {
+    public String createUserByAdmin(@ModelAttribute("user") @Valid UserRegistrationForm userRegForm, BindingResult result, Model model) {
         regValidator.validate(userRegForm, result);
         if (result.hasErrors()) {
             return "/administration/registration";
         }
         userService.registerUser(userRegForm);
-        UserSearch emailOrContractDTO = new UserSearch();
-        emailOrContractDTO.setCondition(userRegForm.getEmail());
-//        List<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
-        model.addAttribute("emailOrContract", emailOrContractDTO);
-//        model.addAttribute("users", users);
+//        UserSearch emailOrContractDTO = new UserSearch();
+//        emailOrContractDTO.setCondition(userRegForm.getEmail());
+        List<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
+//        model.addAttribute("emailOrContract", emailOrContractDTO);
+        model.addAttribute("users", users);
         return "redirect:/administration/users";
     }
 
     @RequestMapping(value = "/administration/users", method = RequestMethod.GET)
-    String getUserList(Model model) {
+    public String getUserList(Model model) {
         UserSearch emailOrContractDTO = new UserSearch();
         model.addAttribute("emailOrContract", emailOrContractDTO);
         return "administration/users";
     }
 
     @RequestMapping(value = "/administration/users", method = RequestMethod.POST)
-    String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch userSearchDTO, Model model) {
+    public String getUserListByСondition(@ModelAttribute("emailOrContract") UserSearch userSearchDTO, Model model) {
         String cond = userSearchDTO.getCondition();
         List<UserAccountForm> users = userService.userAccListByCond(cond);
         model.addAttribute("users", users);
@@ -74,7 +74,7 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/user/{id}", method = RequestMethod.GET)
-    String editUser(ModelMap model, @PathVariable int id) {
+    public String editUser(ModelMap model, @PathVariable int id) {
 //        UserAccountForm user = new UserAccountForm(userService.getEntityById(id));
         List<UserAccountForm> users = userService.getUsersById(id);
 //        User user = userService.getEntityById(id);
@@ -84,20 +84,20 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/user/{id}/addContract", method = RequestMethod.GET)
-    String addNewContract(Model model, @PathVariable int id) {
+    public String addNewContract(Model model, @PathVariable int id) {
         userService.createAndAddNewContract(userService.getEntityById(id));
         return "redirect:/administration/editor/user/{id}";
     }
 
     @RequestMapping(value = "/administration/user/{id}/changeStatus", method = RequestMethod.POST)
-    String changeUserStatus(@PathVariable int id) {
+    public String changeUserStatus(@PathVariable int id) {
         userService.changeUserStatus(id);
         return "redirect:/administration/editor/user/{id}";
     }
 
     //TARIFFS
     @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
-    String getTariffList(Model model) {
+    public String getTariffList(Model model) {
         List<Tariff> tariffs = tariffService.getAll();
         List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
         model.addAttribute("tariffs", tariffsDTO);
@@ -105,14 +105,14 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}", method = RequestMethod.GET)
-    String editTariff(Model model, @PathVariable int id) {
-        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(id));
-        model.addAttribute("tariff", tariffViewForm);
+    public String editTariff(Model model, @PathVariable int id) {
+        List<TariffViewForm> tariffs = tariffService.tariffsByIdViewForm(id);
+        model.addAttribute("tariffs", tariffs);
         return "/administration/editor/tariff";
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/image", method = RequestMethod.POST)
-    String loadNewTariffImage(@RequestParam("file") MultipartFile file, ModelMap modelMap, @PathVariable int id) throws Exception {
+    public String loadNewTariffImage(@RequestParam("file") MultipartFile file, ModelMap modelMap, @PathVariable int id) throws Exception {
         Tariff tariff = tariffService.updateTariffImage(id, file);
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
         modelMap.addAttribute("tariff", tariffViewForm);
@@ -120,18 +120,18 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/addOption", method = RequestMethod.GET)
-    String addNewOptionToTariff(Model model, @PathVariable int id) throws Exception {
+    public String getOptionListToAdd(Model model, @PathVariable int id) throws Exception {
         Tariff tariff = tariffService.getEntityById(id);
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
         model.addAttribute("tariff", tariffViewForm);
         //TODO optionsDTO
         List<Option> options = optionService.getAll();
         model.addAttribute("options", options);
-        return "/administration/editor/addPossibleOption";
+        return "/administration/editor/listPossibleOptionsToTariff";
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/addOption/{option_id}", method = RequestMethod.POST)
-    String addNewOptionToTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+    public String addNewOptionToTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
         Tariff tariff = tariffService.getEntityById(id);
         Option option = optionService.getEntityById(option_id);
         tariffService.addOption(tariff, option);
@@ -142,7 +142,7 @@ public class AdministrationController {
 
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/delete/{option_id}", method = RequestMethod.POST)
-    String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+    public String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
         Tariff tariff = tariffService.getEntityById(id);
         Option option = optionService.getEntityById(option_id);
         tariffService.deleteOption(tariff, option);
@@ -153,21 +153,51 @@ public class AdministrationController {
 
     //OPTIONS
     @RequestMapping(value = "/administration/options", method = RequestMethod.GET)
-    String getOptionList(Model model) {
+    public String getOptionList(Model model) {
         List<Option> options = optionService.getAll();
         //TODO optionsDTO
         model.addAttribute("options", options);
         return "administration/options";
     }
 
+    @RequestMapping(value = "/administration/editor/option/{id}", method = RequestMethod.GET)
+    public String editOption(Model model, @PathVariable int id) {
+        List<Option> options = optionService.optionsById(id);
+        model.addAttribute("options", options);
+        return "/administration/editor/option";
+    }
 
+    @RequestMapping(value = "/administration/editor/option/{id}/associateOption", method = RequestMethod.GET)
+    public String getOptionListToAssociate(Model model, @PathVariable int id) throws Exception{
+        Option currentOption = optionService.getEntityById(id);
+        List<Option> options = optionService.getAll();
+        model.addAttribute("currentOption", currentOption);
+        model.addAttribute("options",options);
+        return "/administration/editor/listOptionsToAssociate";
+    }
+    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/addOption/{id}", method = RequestMethod.POST)
+    public String associateOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
+        Option curOption = optionService.getEntityById(currentOption_id);
+        Option optionToAssociate = optionService.getEntityById(id);
+        curOption.associateOption(optionToAssociate);
+        optionService.updateEntity(curOption);
+        optionService.updateEntity(optionToAssociate);
+        List<Option> options = new ArrayList<>();
+        options.add(curOption);
+        model.addAttribute("options",options);
+        return "redirect:/administration/editor/option/{currentOption_id}";
+    }
+
+
+    //CONTRACTS
     @RequestMapping(value = "/administration/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
-    String unblockContract(@PathVariable int user_id, @PathVariable int id) {
+    public String unblockContract(@PathVariable int user_id, @PathVariable int id) {
         userService.unblockContractByAdmin(id);
         return "redirect:/administration/editor/user/{user_id}";
     }
+
     @RequestMapping(value = "/administration/user/{user_id}/contract/{id}/block", method = RequestMethod.POST)
-    String blockContract(@PathVariable int user_id, @PathVariable int id) {
+    public String blockContract(@PathVariable int user_id, @PathVariable int id) {
         userService.blockContractByAdmin(id);
         return "redirect:/administration/editor/user/{user_id}";
     }

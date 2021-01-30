@@ -25,12 +25,11 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/tariffs">Back</a>
-<%--    <form action="/administration/editor/user/${user.id}/addContract", method="get">--%>
-<%--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new default contract</button>--%>
-<%--    </form>--%>
+    <%--    <form action="/administration/editor/user/${user.id}/addContract", method="get">--%>
+    <%--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new default contract</button>--%>
+    <%--    </form>--%>
 
 </nav>
-<%--<img src="${urlTest}"/>--%>
 <table class="table table-bordered">
     <thead class="thead-dark">
     <tr>
@@ -41,68 +40,72 @@
         <th>Image</th>
     </tr>
     </thead>
-    <td><c:out value="${tariff.name}"/></td>
-    <td><c:out value="${tariff.description}"/></td>
-    <td><c:out value="${tariff.turnOnPrice}"/></td>
-    <c:choose>
-        <c:when test="${tariff.options.size() > 0}">
-            <td>
-                <div class="options-container">
-                <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">
-                    <div class="one-option">
-                        <span><c:out value="${tariff.options[index].name}"/></span>
-                        <span>
-                            <form action = "/administration/editor/tariff/${tariff.id}/delete/${tariff.options[index].id}" method = "POST">
-                            <input type = "submit" value = "Delete" />
+    <c:if test="${tariffs.size() !=0}">
+        <c:forEach items="${tariffs}" var="tariff">
+            <td><c:out value="${tariff.name}"/></td>
+            <td><c:out value="${tariff.description}"/></td>
+            <td><c:out value="${tariff.turnOnPrice}"/></td>
+            <c:choose>
+                <c:when test="${tariff.options.size() > 0}">
+                    <td>
+                        <div class="options-container">
+                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">
+                                <div class="one-option">
+                                    <span><c:out value="${tariff.options[index].name}"/></span>
+                                    <span>
+                            <form action="/administration/editor/tariff/${tariff.id}/delete/${tariff.options[index].id}"
+                                  method="POST">
+                            <input type="submit" value="Delete"/>
                         </form>
                             </span>
-                    </div>
-                </c:forEach>
-                    <span>
-                         <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "get">
-                            <input type = "submit" value = "Add option" />
-                         </form>
-                    </span>
-                </div>
-            </td>
-        </c:when>
-        <c:otherwise>
+                                </div>
+                            </c:forEach>
+                            <span>
+                                 <form action="/administration/editor/tariff/${tariff.id}/addOption" method="get">
+                                    <input type="submit" value="Add option"/>
+                                 </form>
+                             </span>
+                        </div>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td>
+                        <form action="/administration/editor/tariff/${tariff.id}/addOption" method="get">
+                            <input type="submit" value="Add option"/>
+                        </form>
+                    </td>
+                </c:otherwise>
+            </c:choose>
             <td>
-                <form action = "/administration/editor/tariff/${tariff.id}/addOption" method = "get">
-                    <input type = "submit" value = "Add option" />
+                <img src="${tariff.pictureUrl}"/>
+                <h3>Change the image:</h3>
+                Select a file to upload: <br/>
+                <form action="/administration/editor/tariff/${tariff.id}/image" method="post"
+                      enctype="multipart/form-data">
+                    <input type="file" name="file"/>
+                    <br/>
+                    <input type="submit" value="Upload File"/>
                 </form>
             </td>
-        </c:otherwise>
-    </c:choose>
-    <td>
-        <img src="${tariff.pictureUrl}"/>
-        <h3>Change the image:</h3>
-        Select a file to upload: <br />
-        <form action = "/administration/editor/tariff/${tariff.id}/image" method = "post"
-              enctype = "multipart/form-data" >
-            <input type = "file" name = "file"/>
-            <br />
-            <input type = "submit" value = "Upload File" />
-        </form>
-    </td>
-<%--    <c:choose>--%>
-<%--        <c:when test="${user.contracts.size() > 0}">--%>
-<%--            <td>--%>
-<%--                <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">--%>
-<%--                    <table class="table table-bordered">--%>
-<%--                        <tr><c:out value="${user.contracts[index].number}"/></tr>--%>
-<%--                        <tr><c:out value="${user.contracts[index].tariff.name}"/></tr>--%>
-<%--                        <tr><c:out value="${user.contracts[index].tariff.description}"/></tr>--%>
-<%--                    </table>--%>
-<%--                </c:forEach>--%>
-<%--            </td>--%>
-<%--        </c:when>--%>
-<%--        <c:otherwise>--%>
-<%--            <td></td>--%>
-<%--        </c:otherwise>--%>
-<%--    </c:choose>--%>
+            <%--    <c:choose>--%>
+            <%--        <c:when test="${user.contracts.size() > 0}">--%>
+            <%--            <td>--%>
+            <%--                <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">--%>
+            <%--                    <table class="table table-bordered">--%>
+            <%--                        <tr><c:out value="${user.contracts[index].number}"/></tr>--%>
+            <%--                        <tr><c:out value="${user.contracts[index].tariff.name}"/></tr>--%>
+            <%--                        <tr><c:out value="${user.contracts[index].tariff.description}"/></tr>--%>
+            <%--                    </table>--%>
+            <%--                </c:forEach>--%>
+            <%--            </td>--%>
+            <%--        </c:when>--%>
+            <%--        <c:otherwise>--%>
+            <%--            <td></td>--%>
+            <%--        </c:otherwise>--%>
+            <%--    </c:choose>--%>
 
-
+        </c:forEach>
+    </c:if>
 </table>
 </body>
 </html>

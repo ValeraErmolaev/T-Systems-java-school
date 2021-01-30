@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/500.css">
 </head>
 <body>
-<div class="error-500" data-text="Oh no! Our spaghetti code is not working properly. We will be back soon!">
+<div class="error-500" data-text="Oh no! My spaghetti code is not working properly. :(">
     <spaguetti>
         <fork></fork>
         <meat></meat>
