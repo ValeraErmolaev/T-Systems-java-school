@@ -41,57 +41,64 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>
-            <c:out value="${user.fullname}"/>
-        </td>
-        <td>
-            <div class="contracts-container">
-                <div class="one-contract">
-                    <span> <c:out value="${user.status}"/></span>
-                    <span>
+    <c:if test="${users.size() !=0}">
+
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td>
+                    <c:out value="${user.fullname}"/>
+                </td>
+                <td>
+                    <div class="contracts-container">
+                        <div class="one-contract">
+                            <span> <c:out value="${user.status}"/></span>
+                            <span>
                         <form action="/administration/user/${user.id}/changeStatus" method="post">
                             <button type="submit" value="Change">Change Status</button>
                         </form>
                     </span>
-                </div>
-            </div>
-        </td>
-        <c:choose>
-            <c:when test="${user.contracts.size() > 0}">
-                <td>
-                    <div class="contracts-container">
-                        <c:forEach items="${user.contracts}" var="contract">
-                            <div class="one-contract">
-                                <span><c:out value="${contract.number}"/></span>
-                                <c:choose>
-                                    <c:when test="${contract.is_blocked_by_admin}">
+                        </div>
+                    </div>
+                </td>
+                <c:choose>
+                    <c:when test="${user.contracts.size() > 0}">
+                        <td>
+                            <div class="contracts-container">
+                                <c:forEach items="${user.contracts}" var="contract">
+                                    <div class="one-contract">
+                                        <span><c:out value="${contract.number}"/></span>
+                                        <c:choose>
+                                            <c:when test="${contract.is_blocked_by_admin}">
                                         <span>
-                                            <form action="/administration/user/${user.id}/contract/${contract.id}/unblock" method="post">
+                                            <form action="/administration/user/${user.id}/contract/${contract.id}/unblock"
+                                                  method="post">
                                                 <button value="Unblock" type="submit">Unblock</button>
                                             </form>
                                         </span>
-                                    </c:when>
-                                    <c:otherwise>
+                                            </c:when>
+                                            <c:otherwise>
                                         <span>
-                                            <form action="/administration/user/${user.id}/contract/${contract.id}/block" method="post">
+                                            <form action="/administration/user/${user.id}/contract/${contract.id}/block"
+                                                  method="post">
                                                 <button value="Block" type="submit">Block</button>
                                             </form>
                                          </span>
-                                    </c:otherwise>
-                                </c:choose>
-                                    <%--                                <span><c:out value="${contract.is_blocked}"/></span>--%>
-                                <span><c:out value="${contract.tariff.name}"/></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                            <%--                                <span><c:out value="${contract.is_blocked}"/></span>--%>
+                                        <span><c:out value="${contract.tariff.name}"/></span>
+                                    </div>
+                                </c:forEach>
                             </div>
-                        </c:forEach>
-                    </div>
-                </td>
-            </c:when>
-            <c:otherwise>
-                <td></td>
-            </c:otherwise>
-        </c:choose>
-    </tr>
+                        </td>
+                    </c:when>
+                    <c:otherwise>
+                        <td></td>
+                    </c:otherwise>
+                </c:choose>
+            </tr>
+        </c:forEach>
+    </c:if>
     </tbody>
 </table>
 </body>

@@ -108,13 +108,24 @@ img {
 }
 
 /*-- end reset --*/
+/*body {*/
+/*    background: #76b852;*/
+/*    !* fallback for old browsers *!*/
+/*    background: -webkit-linear-gradient(to top, #76b852, #8DC26F);*/
+/*    background: -moz-linear-gradient(to top, #76b852, #8DC26F);*/
+/*    background: -o-linear-gradient(to top, #76b852, #8DC26F);*/
+/*    background: linear-gradient(to top, #76b852, #8DC26F);*/
+/*    background-size: cover;*/
+/*    background-attachment: fixed;*/
+/*    font-family: 'Roboto', sans-serif;*/
+/*}*/
 body {
-    background: #76b852;
+    /*background: #76b852;*/
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #76b852, #8DC26F);
-    background: -moz-linear-gradient(to top, #76b852, #8DC26F);
-    background: -o-linear-gradient(to top, #76b852, #8DC26F);
-    background: linear-gradient(to top, #76b852, #8DC26F);
+    background: -webkit-linear-gradient(to top, #3498db, rgb(0,138,198));
+    background: -moz-linear-gradient(to top, #3498db, rgb(0,138,198));
+    background: -o-linear-gradient(to top, #3498db, rgb(0,138,198));
+    background: linear-gradient(to top, #3498db, rgb(0,138,198));
     background-size: cover;
     background-attachment: fixed;
     font-family: 'Roboto', sans-serif;
@@ -210,9 +221,11 @@ input[type="submit"],
 button.reg-btn {
     font-size: .9em;
     color: #fff;
-    background: #76b852;
+    /*background: #76b852;*/
+    background:rgb(0,138,198);
     outline: none;
-    border: 1px solid #76b852;
+    /*border: 1px solid #76b852;*/
+    border: 1px solid rgb(0,138,198);
     cursor: pointer;
     padding: 0.9em;
     -webkit-appearance: none;
@@ -227,7 +240,8 @@ input[type="submit"]:hover {
     -o-transition: .5s all;
     -ms-transition: .5s all;
     transition: .5s all;
-    background: #8DC26F;
+    /*background: #8DC26F;*/
+    background: rgb(0,138,198)
 }
 
 .agileits-top p {
@@ -247,7 +261,8 @@ input[type="submit"]:hover {
 }
 
 .agileits-top p a:hover {
-    color: #76b852;
+    /*color: #76b852;*/
+    color: rgb(0,138,198)
 }
 
 /*-- //main --*/
@@ -261,7 +276,8 @@ input[type="submit"]:hover {
 }
 
 input.checkbox {
-    background: #8DC26F;
+    /*background: #8DC26F;*/
+    background: rgb(0,138,198);
     cursor: pointer;
     width: 1.2em;
     height: 1.2em;
@@ -803,10 +819,12 @@ input.checkbox:checked:after {
     cursor: pointer;
 }
 .form button {
-    background: #4CAF50;
+    /*background: #4CAF50;*/
+    background: #3498db
 }
 .form button:hover,.form button:active,.form button:focus {
-    background: #58d05b;
+    /*background: #58d05b;*/
+    background: rgb(0,138,198);
 }
 
 .form .message {
@@ -815,7 +833,8 @@ input.checkbox:checked:after {
     font-size: 12px;
 }
 .form .message a {
-    color: #4CAF50;
+    color: rgb(0,138,198);
+    /*color: #4CAF50;*/
     text-decoration: none;
 }
 input {
@@ -829,7 +848,8 @@ input::placeholder {
 
 }
 .btn btn-lg btn-primary btn-block {
-    background-color: #4CAF50; /* Green */
+    /*background-color: #4CAF50; !* Green *!*/
+    background-color: rgb(0,138,198);
     border: none;
     color: white;
     padding: 15px 32px;
@@ -844,4 +864,5 @@ input::placeholder {
 
 span {
     color: red;
+    font-size: 12;
 }

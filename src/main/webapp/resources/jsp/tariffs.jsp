@@ -44,7 +44,7 @@
                             <p>{{item.name}}</p>
                             <%--                            <p>{{item.description}}</p>--%>
                             <p>
-                            <a :href="'/tariff/' + item.id"  class="btn btn-success">More information</a>
+                            <a :href="'/tariff/' + item.id"  class="btn btn-primary">More information</a>
                             </p>
                         </div>
                     </div>
@@ -100,8 +100,8 @@
 
     });
 </script>
-<footer style="background-color: #76b852">
-
+<%--<footer style="background-color: #76b852">--%>
+<footer style="background-color:   #3498db">
     <p> &copy; Valerii Ermolaev</p>
     <br>
 </footer>

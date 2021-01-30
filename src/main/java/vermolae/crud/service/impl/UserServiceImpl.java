@@ -257,6 +257,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    @Transactional
+    public List<UserAccountForm> getUsersById(int id) {
+        List<UserAccountForm> usersDTO = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+        try {
+            users.add(userDAO.read(id));
+            for (User user : users) {
+                usersDTO.add(new UserAccountForm(user));
+            }
+        } catch (Exception e) {
+            ///TODO logger
+            return usersDTO;
+        }
+
+        return usersDTO;
+    }
+
     /**
      * Getting user entity by number
      *

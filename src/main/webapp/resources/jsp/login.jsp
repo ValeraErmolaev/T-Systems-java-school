@@ -11,30 +11,21 @@
 </head>
 <body>
 <div class="login-page">
-<div class="form">
+    <div class="form">
 
-    <form:form class="login-form" action="/auth/login" method='POST' modelAttribute="user">
-        <h2 class="form-signin-heading"></h2>
+        <form:form class="login-form" action="/auth/login" method='POST' modelAttribute="user">
+            <h2 class="form-signin-heading"></h2>
 
-        <form:input type="text" name='username' placeholder="username"  path="username"/>
-        <form:input type="password" name='password' placeholder="password" path="password"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form:form>
-    <form:errors path="error"></form:errors>
-<%--    <c:if test="${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message eq 'Bad credentials'}">--%>
-<%--        <p class="message" style="color: #EF3B3A"> Username/Password entered is incorrect.</p>--%>
-<%--    </c:if>--%>
-<%--    <c:if test="${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message eq 'User is disabled'}">--%>
-<%--        <p class="message" style="color: #EF3B3A"> Your account is disabled, please contact administrator.</p>--%>
-<%--    </c:if>--%>
-<%--    <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION }">--%>
-<%--    <font color="red">--%>
-    <p class="message" style="color: #EF3B3A">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</p>
-<%--    </font>--%>
-<%--    </c:if>--%>
-    <p class="message">Not registered? <a href="/registration">Create an account</a></p>
-<%--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-</div>
+            <form:input type="text" name='username' placeholder="username" path="username"/>
+            <form:input type="password" name='password' placeholder="password" path="password"/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form:form>
+<%--        <form:errors path="error"></form:errors>--%>
+        <p class="message" style="color: #EF3B3A">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</p>
+
+        <p class="message">Not registered? <a href="/registration">Create an account</a></p>
+        <%--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+    </div>
 </div>
 </body>
 </html>

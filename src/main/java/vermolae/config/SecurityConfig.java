@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler())
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/auth/login")
+//                .accessDeniedPage("/auth/login")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))

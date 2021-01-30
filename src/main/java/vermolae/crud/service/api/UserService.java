@@ -77,4 +77,6 @@ public interface UserService extends GenericService<User, Integer> {
    public Collection<User> usersByEmail(String email);
 
    public String pageDependsOfRole(User user);
+
+   public List<UserAccountForm> getUsersById(int id);
 }

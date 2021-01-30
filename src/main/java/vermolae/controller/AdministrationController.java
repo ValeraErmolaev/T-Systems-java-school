@@ -75,9 +75,10 @@ public class AdministrationController {
 
     @RequestMapping(value = "/administration/editor/user/{id}", method = RequestMethod.GET)
     String editUser(ModelMap model, @PathVariable int id) {
-        UserAccountForm user = new UserAccountForm(userService.getEntityById(id));
+//        UserAccountForm user = new UserAccountForm(userService.getEntityById(id));
+        List<UserAccountForm> users = userService.getUsersById(id);
 //        User user = userService.getEntityById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("users", users);
 
         return "/administration/editor/user";
     }
