@@ -25,9 +25,9 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/tariffs">Back</a>
-        <form action="/administration/editor/tariff/create", method="get">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new tariff</button>
-        </form>
+    <form action="/administration/editor/tariff/create" , method="get">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new tariff</button>
+    </form>
 
 </nav>
 <table class="table table-bordered">
@@ -49,11 +49,12 @@
                 <c:when test="${tariff.options.size() > 0}">
                     <td>
                         <div class="options-container">
-                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">
+                                <%--                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">--%>
+                            <c:forEach items="${tariff.options}" var="option">
                                 <div class="one-option">
-                                    <span><c:out value="${tariff.options[index].name}"/></span>
+                                    <span><c:out value="${option.name}"/></span>
                                     <span>
-                            <form action="/administration/editor/tariff/${tariff.id}/delete/${tariff.options[index].id}"
+                            <form action="/administration/editor/tariff/${tariff.id}/delete/${option.id}"
                                   method="POST">
                             <input type="submit" value="Delete"/>
                         </form>

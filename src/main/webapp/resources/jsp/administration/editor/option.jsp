@@ -93,8 +93,8 @@
                             </c:forEach>
                             <span>
                                 <form action="/administration/editor/option/${option.id}/addIncompatibleOption" method="get">
-                        <input type="submit" value="Add option"/>
-                    </form>
+                                    <input type="submit" value="Add option"/>
+                                </form>
                             </span>
                         </div>
                     </td>
@@ -107,79 +107,6 @@
                     </td>
                 </c:otherwise>
             </c:choose>
-            <%--            <span>--%>
-            <%--                    <form action="/administration/editor/option/${option.id}/associateOption" method="get">--%>
-            <%--                        <input type="submit" value="Add option"/>--%>
-            <%--                    </form>--%>
-            <%--                </span>--%>
-
-<%--            <td>--%>
-<%--                <span>--%>
-<%--                    <form action="/administration/editor/option/${option.id}/addIncompatibleOption" method="get">--%>
-<%--                        <input type="submit" value="Add option"/>--%>
-<%--                    </form>--%>
-<%--                </span>--%>
-<%--            </td>--%>
-            <%--            <td><c:out value="${option.turnOnPrice}"/></td>--%>
-            <%--            <c:choose>--%>
-            <%--                <c:when test="${option.options.size() > 0}">--%>
-            <%--                    <td>--%>
-            <%--                        <div class="options-container">--%>
-            <%--                            <c:forEach begin="0" end="${fn:length(option.options) - 1}" var="index">--%>
-            <%--                                <div class="one-option">--%>
-            <%--                                    <span><c:out value="${option.options[index].name}"/></span>--%>
-            <%--                                    <span>--%>
-            <%--                            <form action="/administration/editor/tariff/${option.id}/delete/${option.options[index].id}"--%>
-            <%--                                  method="POST">--%>
-            <%--                            <input type="submit" value="Delete"/>--%>
-            <%--                        </form>--%>
-            <%--                            </span>--%>
-            <%--                                </div>--%>
-            <%--                            </c:forEach>--%>
-            <%--                            <span>--%>
-            <%--                         <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
-            <%--                            <input type="submit" value="Add option"/>--%>
-            <%--                         </form>--%>
-            <%--                    </span>--%>
-            <%--                        </div>--%>
-            <%--                    </td>--%>
-            <%--                </c:when>--%>
-            <%--                <c:otherwise>--%>
-            <%--                    <td>--%>
-            <%--                        <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
-            <%--                            <input type="submit" value="Add option"/>--%>
-            <%--                        </form>--%>
-            <%--                    </td>--%>
-            <%--                </c:otherwise>--%>
-            <%--            </c:choose>--%>
-            <%--            <td>--%>
-            <%--                <img src="${option.pictureUrl}"/>--%>
-            <%--                <h3>Change the image:</h3>--%>
-            <%--                Select a file to upload: <br/>--%>
-            <%--                <form action="/administration/editor/tariff/${option.id}/image" method="post"--%>
-            <%--                      enctype="multipart/form-data">--%>
-            <%--                    <input type="file" name="file"/>--%>
-            <%--                    <br/>--%>
-            <%--                    <input type="submit" value="Upload File"/>--%>
-            <%--                </form>--%>
-            <%--            </td>--%>
-            <%--    <c:choose>--%>
-            <%--        <c:when test="${user.contracts.size() > 0}">--%>
-            <%--            <td>--%>
-            <%--                <c:forEach begin="0" end="${fn:length(user.contracts) - 1}" var="index">--%>
-            <%--                    <table class="table table-bordered">--%>
-            <%--                        <tr><c:out value="${user.contracts[index].number}"/></tr>--%>
-            <%--                        <tr><c:out value="${user.contracts[index].tariff.name}"/></tr>--%>
-            <%--                        <tr><c:out value="${user.contracts[index].tariff.description}"/></tr>--%>
-            <%--                    </table>--%>
-            <%--                </c:forEach>--%>
-            <%--            </td>--%>
-            <%--        </c:when>--%>
-            <%--        <c:otherwise>--%>
-            <%--            <td></td>--%>
-            <%--        </c:otherwise>--%>
-            <%--    </c:choose>--%>
-
         </c:forEach>
     </c:if>
 </table>

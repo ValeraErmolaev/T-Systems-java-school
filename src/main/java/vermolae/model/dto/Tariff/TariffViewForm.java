@@ -5,6 +5,7 @@ import vermolae.model.entity.Tariff;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Set;
 
 public class TariffViewForm {
     private int id;
@@ -12,7 +13,7 @@ public class TariffViewForm {
     private String description;
     private double turnOnPrice;
     private String pictureUrl;
-    private List<Option> options;
+    private Set<Option> options;
 
     public TariffViewForm(Tariff tariff) {
         this.id = tariff.getId();
@@ -63,11 +64,11 @@ public class TariffViewForm {
         this.pictureUrl = pictureUrl;
     }
 
-    public List<Option> getOptions() {
+    public Set<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Option> options) {
+    public void setOptions(Set<Option> options) {
         this.options = options;
     }
 }

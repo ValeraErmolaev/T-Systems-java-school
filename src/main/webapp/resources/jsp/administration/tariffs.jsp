@@ -59,9 +59,10 @@
                 <c:choose>
                     <c:when test="${tariff.options.size() > 0}">
                         <td>
-                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">
+<%--                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">--%>
+                            <c:forEach items="${tariff.options}" var="option">
                                 <table class="table table-bordered">
-                                    <tr><c:out value="${tariff.options[index].name}"/></tr>
+                                    <tr><c:out value="${option.name}"/></tr>
                                 </table>
                             </c:forEach>
                         </td>

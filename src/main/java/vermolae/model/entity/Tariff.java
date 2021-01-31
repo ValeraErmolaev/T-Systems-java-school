@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,18 +47,18 @@ public class Tariff {
             joinColumns = @JoinColumn(name = "tariff_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id")
     )
-    private List<Option> options = new ArrayList<>();
+    private Set<Option> options = new HashSet<>();
 
     public void addOption(Option option){
         options.add(option);
         option.getTariffs().add(this);
     }
 
-    public List<Option> getOptions() {
+    public Set<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Option> options) {
+    public void setOptions(Set<Option> options) {
         this.options = options;
     }
 
