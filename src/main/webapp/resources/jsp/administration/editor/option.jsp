@@ -25,9 +25,7 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/options">Back</a>
-    <%--    <form action="/administration/editor/user/${user.id}/addContract", method="get">--%>
-    <%--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new default contract</button>--%>
-    <%--    </form>--%>
+
 
 </nav>
 <table class="table table-bordered">
@@ -52,14 +50,14 @@
                     <td>
                         <div class="options-container">
                             <c:forEach items="${option.associatedOptions}" var="associated_option">
-<%--                            <c:forEach begin="0" end="${fn:length(option.associatedOptions) - 1}" var="index">--%>
+                                <%--                            <c:forEach begin="0" end="${fn:length(option.associatedOptions) - 1}" var="index">--%>
                                 <div class="one-option">
                                     <span><c:out value="${associated_option.name}"/></span>
-<%--                                    <span>--%>
-<%--                                        <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
-<%--                                            <input type="submit" value="Add option"/>--%>
-<%--                                        </form>--%>
-<%--                                    </span>--%>
+                                        <%--                                    <span>--%>
+                                        <%--                                        <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
+                                        <%--                                            <input type="submit" value="Add option"/>--%>
+                                        <%--                                        </form>--%>
+                                        <%--                                    </span>--%>
                                 </div>
                             </c:forEach>
                             <span>
@@ -78,19 +76,50 @@
                     </td>
                 </c:otherwise>
             </c:choose>
-<%--            <span>--%>
-<%--                    <form action="/administration/editor/option/${option.id}/associateOption" method="get">--%>
+            <c:choose>
+                <c:when test="${option.incompatibledOptions.size() > 0}">
+                    <td>
+                        <div class="options-container">
+                            <c:forEach items="${option.incompatibledOptions}" var="incompatibled_option">
+                                <%--                            <c:forEach begin="0" end="${fn:length(option.associatedOptions) - 1}" var="index">--%>
+                                <div class="one-option">
+                                    <span><c:out value="${incompatibled_option.name}"/></span>
+                                        <%--                                    <span>--%>
+                                        <%--                                        <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
+                                        <%--                                            <input type="submit" value="Add option"/>--%>
+                                        <%--                                        </form>--%>
+                                        <%--                                    </span>--%>
+                                </div>
+                            </c:forEach>
+                            <span>
+                                <form action="/administration/editor/option/${option.id}/addIncompatibleOption" method="get">
+                        <input type="submit" value="Add option"/>
+                    </form>
+                            </span>
+                        </div>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td>
+                        <form action="/administration/editor/option/${option.id}/addIncompatibleOption" method="get">
+                            <input type="submit" value="Add option"/>
+                        </form>
+                    </td>
+                </c:otherwise>
+            </c:choose>
+            <%--            <span>--%>
+            <%--                    <form action="/administration/editor/option/${option.id}/associateOption" method="get">--%>
+            <%--                        <input type="submit" value="Add option"/>--%>
+            <%--                    </form>--%>
+            <%--                </span>--%>
+
+<%--            <td>--%>
+<%--                <span>--%>
+<%--                    <form action="/administration/editor/option/${option.id}/addIncompatibleOption" method="get">--%>
 <%--                        <input type="submit" value="Add option"/>--%>
 <%--                    </form>--%>
 <%--                </span>--%>
-
-            <td>
-                <span>
-                    <form action="/administration/editor/tariff/${option.id}/addIncompatibleOption" method="get">
-                        <input type="submit" value="Add option"/>
-                    </form>
-                </span>
-            </td>
+<%--            </td>--%>
             <%--            <td><c:out value="${option.turnOnPrice}"/></td>--%>
             <%--            <c:choose>--%>
             <%--                <c:when test="${option.options.size() > 0}">--%>

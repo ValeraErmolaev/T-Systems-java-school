@@ -25,9 +25,9 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/tariffs">Back</a>
-    <%--    <form action="/administration/editor/user/${user.id}/addContract", method="get">--%>
-    <%--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new default contract</button>--%>
-    <%--    </form>--%>
+        <form action="/administration/editor/tariff/create", method="get">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Create new tariff</button>
+        </form>
 
 </nav>
 <table class="table table-bordered">

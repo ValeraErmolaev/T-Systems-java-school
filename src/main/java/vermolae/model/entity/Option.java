@@ -50,6 +50,26 @@ public class Option {
     public void associateOption(Option option){
         associatedOptions.add(option);
         option.getAssociatedOptions().add(this);
+        if (incompatibledOptions.contains(option)){
+            incompatibledOptions.remove(option);
+            option.getIncompatibledOptions().remove(this);
+        }
+    }
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="incompatible_options",
+            joinColumns=@JoinColumn(name="optionId", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name= "incompatibleoptionid", referencedColumnName="id"))
+    private Set<Option> incompatibledOptions;
+
+    public void addIncompatibleOption(Option option){
+        incompatibledOptions.add(option);
+        option.getIncompatibledOptions().add(this);
+        if (associatedOptions.contains(option)){
+            associatedOptions.remove(option);
+            option.getAssociatedOptions().remove(this);
+        }
     }
 
     public Option() {
@@ -109,6 +129,14 @@ public class Option {
 
     public void setAssociatedOptions(Set<Option> associatedOptions) {
         this.associatedOptions = associatedOptions;
+    }
+
+    public Set<Option> getIncompatibledOptions() {
+        return incompatibledOptions;
+    }
+
+    public void setIncompatibledOptions(Set<Option> incompatibledOptions) {
+        this.incompatibledOptions = incompatibledOptions;
     }
 
     @Override

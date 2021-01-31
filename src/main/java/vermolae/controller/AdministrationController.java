@@ -188,7 +188,27 @@ public class AdministrationController {
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
 
+    @RequestMapping(value = "/administration/editor/option/{id}/addIncompatibleOption", method = RequestMethod.GET)
+    public String getOptionListToAddIncompatible(Model model, @PathVariable int id) throws Exception{
+        Option currentOption = optionService.getEntityById(id);
+        List<Option> options = optionService.getAll();
+        model.addAttribute("currentOption", currentOption);
+        model.addAttribute("options",options);
+        return "/administration/editor/listOptionsToAddIncompatible";
+    }
 
+    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/addIncompatibleOption/{id}", method = RequestMethod.POST)
+    public String addIncompatibleOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
+        Option curOption = optionService.getEntityById(currentOption_id);
+        Option optionToIncompatible = optionService.getEntityById(id);
+        curOption.addIncompatibleOption(optionToIncompatible);
+        optionService.updateEntity(curOption);
+        optionService.updateEntity(optionToIncompatible);
+        List<Option> options = new ArrayList<>();
+        options.add(curOption);
+        model.addAttribute("options",options);
+        return "redirect:/administration/editor/option/{currentOption_id}";
+    }
     //CONTRACTS
     @RequestMapping(value = "/administration/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
     public String unblockContract(@PathVariable int user_id, @PathVariable int id) {

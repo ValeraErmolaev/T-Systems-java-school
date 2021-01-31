@@ -24,12 +24,9 @@
 
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
-<%--    <a href="/administration/registration">Add new user</a>--%>
-    <%--    <form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="tariffs">--%>
-    <%--        <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"--%>
-    <%--                    value="" path="condition"></form:input>--%>
-    <%--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>--%>
-    <%--    </form:form>--%>
+    <form action="/administration/editor/option/create", method="get">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new option</button>
+    </form>
 
 </nav>
 <table class="table table-bordered">
@@ -44,7 +41,7 @@
 
     </tr>
     </thead>
-    <c:if test="${options.size() !=0}" >
+    <c:if test="${options.size() !=0}">
 
         <c:forEach items="${options}" var="option">
             <tr>

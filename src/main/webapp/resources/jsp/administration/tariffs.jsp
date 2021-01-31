@@ -23,6 +23,9 @@
 
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
+    <form action="/administration/editor/tariff/create", method="get">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new tariff</button>
+    </form>
 <%--    <a href="/administration/registration">Add new user</a>--%>
 <%--    <form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="tariffs">--%>
 <%--        <form:input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"--%>
