@@ -40,6 +40,20 @@ public class Option {
         tariffs.add(tariff);
         tariff.getOptions().add(this);
     }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "selected_options",
+            joinColumns = @JoinColumn(name = "optionid"),
+            inverseJoinColumns = @JoinColumn(name = "contractid")
+    )
+    private Set<Contract> contracts;
+
+    public void addContract(Contract contract){
+        contracts.add(contract);
+        contract.getOptions().add(this);
+    }
+
+
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name="associated_options",
@@ -137,6 +151,14 @@ public class Option {
 
     public void setIncompatibledOptions(Set<Option> incompatibledOptions) {
         this.incompatibledOptions = incompatibledOptions;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     @Override

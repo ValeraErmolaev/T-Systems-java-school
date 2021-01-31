@@ -52,13 +52,14 @@
                                 <%--                            <c:forEach begin="0" end="${fn:length(tariff.options) - 1}" var="index">--%>
                             <c:forEach items="${tariff.options}" var="option">
                                 <div class="one-option">
-                                    <span><c:out value="${option.name}"/></span>
                                     <span>
-                            <form action="/administration/editor/tariff/${tariff.id}/delete/${option.id}"
-                                  method="POST">
-                            <input type="submit" value="Delete"/>
-                        </form>
-                            </span>
+                                        <c:out value="${option.name}"/>
+                                    </span>
+                                    <span>
+                                        <form action="/administration/editor/tariff/${tariff.id}/delete/${option.id}" method="POST">
+                                            <input type="submit" value="Delete"/>
+                                        </form>
+                                    </span>
                                 </div>
                             </c:forEach>
                             <span>

@@ -1,7 +1,9 @@
 package vermolae.model.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "contracts")
@@ -34,6 +36,17 @@ public class Contract {
     @JoinColumn(name="tariff_id")
     private Tariff tariff;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "selected_options",
+            joinColumns = @JoinColumn(name = "contractid"),
+            inverseJoinColumns = @JoinColumn(name = "optionid")
+    )
+    private Set<Option> options = new HashSet<>();
+
+    public void addOption(Option option){
+        options.add(option);
+        option.getContracts().add(this);
+    }
 
     public Contract() {
     }
@@ -85,6 +98,14 @@ public class Contract {
 
     public void setIs_blocked_by_admin(boolean is_blocked_by_admin) {
         this.is_blocked_by_admin = is_blocked_by_admin;
+    }
+
+    public Set<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<Option> options) {
+        this.options = options;
     }
 
     @Override

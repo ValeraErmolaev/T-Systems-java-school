@@ -25,9 +25,13 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <a href="/administration/users">Back</a>
+<c:if test="${users.size() !=0}">
+    <c:forEach items="${users}" var="user">
     <form action="/administration/editor/user/${user.id}/addContract" , method="get">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new default contract</button>
     </form>
+    </c:forEach>
+</c:if>
 
 </nav>
 <table class="table table-bordered">
@@ -85,8 +89,14 @@
                                          </span>
                                             </c:otherwise>
                                         </c:choose>
-                                            <%--                                <span><c:out value="${contract.is_blocked}"/></span>--%>
-                                        <span><c:out value="${contract.tariff.name}"/></span>
+                                        <span>
+                                            <c:out value="${contract.tariff.name}"/>
+                                        </span>
+                                        <c:forEach items="${contract.options}" var="option">
+                                            <span>
+                                                <c:out value="${option.name}"/>
+                                            </span>
+                                        </c:forEach>
                                     </div>
                                 </c:forEach>
                             </div>

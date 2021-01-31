@@ -78,4 +78,15 @@ public class ContractServiceImpl implements ContractService {
         createEntity(contract);
         user.addContract(contract);
     }
+
+    @Override
+    public List<Contract> contractsById(int id) {
+        List<Contract> contracts = new ArrayList<>();
+        try {
+            contracts.add(getEntityById(id));
+        }catch (Exception e){
+            return contracts;
+        }
+        return contracts;
+    }
 }

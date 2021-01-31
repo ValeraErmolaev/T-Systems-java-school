@@ -7,13 +7,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import vermolae.crud.service.api.ContractService;
+import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.UserService;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.Contract;
+import vermolae.model.entity.Option;
 import vermolae.model.entity.User;
 import vermolae.security.UserDetailsServiceImpl;
 
-
+import java.util.List;
 
 
 @Controller
@@ -21,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OptionService optionService;
 
     @Autowired
     private ContractService contractService;
@@ -59,6 +64,18 @@ public class UserController {
     public String unBlockControllerById(@PathVariable int id,@PathVariable int user_id) {
         userService.unBlockContract(user_id,id);
         return "redirect:/auth/success";
+    }
+
+    @RequestMapping(value = "/user/editor/{id}/addOption", method = RequestMethod.GET)
+    public String listAvailableOptions(@PathVariable int id, Model model){
+        User curUser = userDetailsService.getCurrentUser();
+        UserAccountForm user = new UserAccountForm(curUser);
+        List<Option> options = optionService.listOfAvailableOptions(curUser.getId(),id);
+        List<Contract> contracts = contractService.contractsById(id);
+        model.addAttribute("contracts",contracts);
+        model.addAttribute("options", options);
+        model.addAttribute("user",user);
+        return "/user/editor/listOptionsToContract";
     }
 
 }

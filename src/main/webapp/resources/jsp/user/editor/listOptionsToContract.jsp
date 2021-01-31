@@ -46,13 +46,14 @@
         <th>Your Contracts</th>
         <th>Tariff</th>
         <th>Connected options</th>
-        <th>Status</th>
-        <th></th>
+        <th>Available options</th>
+
     </tr>
 
     <c:if test="${user.contracts.size() > 0}">
 
         <c:forEach items="${user.contracts}" var="contract">
+            <c:if test="${!contract.is_blocked}">
             <tr>
                 <td><c:out value="${contract.number}"/></td>
                 <c:choose>
@@ -116,20 +117,29 @@
                              </span>
                         </td>
 
-                        <td>Active</td>
+
                         <td>
-                            <form action="/user/${user.id}/contract/${contract.id}/block" method="post">
-                                <button value="Block" type="submit">Block</button>
-                            </form>
+                            <c:if test="${contract.tariff.options.size() > 0}">
+                                <c:forEach items="${contract.tariff.options}" var="option">
+                                    <c:if test="${!contract.options.contains(option)}">
+                                        <span>
+                                             <c:out value="${option.name}"/>
+                                            <form action="/dssadadasad" method="post">
+                                                <button type="submit" name="Add">Buy</button>
+                                            </form>
+                                        </span>
+
+                                    </c:if>
+
+                                </c:forEach>
+                            </c:if>
                         </td>
                     </c:otherwise>
                 </c:choose>
             </tr>
+            </c:if>
         </c:forEach>
     </c:if>
-
 </table>
-
-
 </body>
 </html>

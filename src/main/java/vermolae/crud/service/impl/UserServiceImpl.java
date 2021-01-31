@@ -17,6 +17,7 @@ import vermolae.model.entity.Contract;
 import vermolae.model.entity.User;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.UserNotFoundException;
+import vermolae.security.UserDetailsServiceImpl;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     /**
      * Creating contract user in base
@@ -138,10 +142,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void blockContract(int user_id, int contract_id) {
         User user = getEntityById(user_id);
-        Contract contract = contractService.getEntityById(contract_id);
-        if (user.getContracts().contains(contract)) {
-            contract.setIs_blocked(true);
-            contractService.updateEntity(contract);
+        User currentUser = userDetailsService.getCurrentUser();
+        if (user.equals(currentUser)) {
+            Contract contract = contractService.getEntityById(contract_id);
+            if (user.getContracts().contains(contract)) {
+                contract.setIs_blocked(true);
+                contractService.updateEntity(contract);
+            }
         }
     }
 
@@ -149,10 +156,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void unBlockContract(int user_id, int contract_id) {
         User user = getEntityById(user_id);
-        Contract contract = contractService.getEntityById(contract_id);
-        if (user.getContracts().contains(contract)) {
-            contract.setIs_blocked(false);
-            contractService.updateEntity(contract);
+        User currentUser = userDetailsService.getCurrentUser();
+        if (user.equals(currentUser)) {
+            Contract contract = contractService.getEntityById(contract_id);
+            if (user.getContracts().contains(contract)) {
+                contract.setIs_blocked(false);
+                contractService.updateEntity(contract);
+            }
         }
     }
 
