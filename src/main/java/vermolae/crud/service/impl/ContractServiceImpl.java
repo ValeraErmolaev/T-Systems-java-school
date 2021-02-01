@@ -7,14 +7,18 @@ import vermolae.crud.dao.api.ContractDAO;
 import vermolae.crud.dao.api.TariffDAO;
 import vermolae.crud.dao.impl.ContractDAOImpl;
 import vermolae.crud.service.api.ContractService;
+import vermolae.crud.service.api.OptionService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.DatabaseOfNumbersIsFull;
 import vermolae.model.entity.Contract;
+import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
 import vermolae.model.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 @Service("contractService")
 public class ContractServiceImpl implements ContractService {
 
@@ -23,6 +27,9 @@ public class ContractServiceImpl implements ContractService {
 
     @Autowired
     private ContractDAO contractDAO;
+
+    @Autowired
+    private OptionService optionService;
 
     @Override
     public void createEntity(Contract entity) throws CustomDAOException {
@@ -48,14 +55,15 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Transactional
     public List<Contract> getAll() throws CustomDAOException {
         return contractDAO.getAll();
     }
 
     @Override
     public String getRandomNumber() {
-       List<Contract> contracts = getAll();
-        if (contracts.size()==8999999) {
+        List<Contract> contracts = getAll();
+        if (contracts.size() == 8999999) {
             throw new DatabaseOfNumbersIsFull("All possible numbers are used.");
         }
         StringBuffer startNumber = new StringBuffer("+7999");
@@ -70,6 +78,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Transactional
     public void createNewDefaultContract(User user, String number) {
         Contract contract = new Contract();
         contract.setNumber(number);
@@ -80,13 +89,67 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    @Transactional
     public List<Contract> contractsById(int id) {
         List<Contract> contracts = new ArrayList<>();
         try {
             contracts.add(getEntityById(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             return contracts;
         }
         return contracts;
+    }
+
+    @Override
+    @Transactional
+    public void addNewOption(int contract_id, int option_id) {
+        Contract contract = getEntityById(contract_id);
+        Option option = optionService.getEntityById(option_id);
+        Set<Option> contractOptions = contract.getOptions();
+        Set<Option> optionsToDelete = option.getIncompatibledOptions();
+        Set<Option> optionsToAdd = option.getAssociatedOptions();
+        for (Option optToDel : optionsToDelete){
+            if (contractOptions.contains(optToDel)){
+                contractOptions.remove(optToDel);
+                for(Option assocOptToOptToDel:optToDel.getAssociatedOptions()){
+                    if (contractOptions.contains(assocOptToOptToDel)){
+                        contractOptions.remove(assocOptToOptToDel);
+                        assocOptToOptToDel.getContracts().remove(contract);
+                        optionService.updateEntity(assocOptToOptToDel);
+                    }
+                }
+                optToDel.getContracts().remove(contract);
+                optionService.updateEntity(optToDel);
+            }
+//            deleteOption(contract_id,optToDel.getId());
+        }
+        contract.getOptions().add(option);
+        option.getContracts().add(contract);
+        for (Option optToAdd:optionsToAdd){
+            contract.getOptions().add(optToAdd);
+            optToAdd.getContracts().add(contract);
+            optionService.updateEntity(optToAdd);
+        }
+
+        updateEntity(contract);
+        optionService.updateEntity(option);
+    }
+
+    @Override
+    public void deleteOption(int contract_id, int option_id) {
+        Contract contract = getEntityById(contract_id);
+        Option option = optionService.getEntityById(option_id);
+        Set<Option> contractOptions = contract.getOptions();
+        for (Option optToDel:option.getAssociatedOptions()){
+            if (contractOptions.contains(optToDel)){
+                contractOptions.remove(optToDel);
+                optToDel.getContracts().remove(contract);
+                optionService.updateEntity(optToDel);
+            }
+        }
+        contractOptions.remove(option);
+        option.getContracts().remove(contract);
+        updateEntity(contract);
+        optionService.updateEntity(option);
     }
 }

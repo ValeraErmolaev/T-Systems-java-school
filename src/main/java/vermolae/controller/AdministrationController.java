@@ -179,7 +179,8 @@ public class AdministrationController {
     public String associateOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
         Option curOption = optionService.getEntityById(currentOption_id);
         Option optionToAssociate = optionService.getEntityById(id);
-        curOption.associateOption(optionToAssociate);
+//        curOption.associateOption(optionToAssociate);
+        optionService.associateOptions(currentOption_id,id);
         optionService.updateEntity(curOption);
         optionService.updateEntity(optionToAssociate);
         List<Option> options = new ArrayList<>();
@@ -209,6 +210,23 @@ public class AdministrationController {
         model.addAttribute("options",options);
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
+    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/deleteAssociatedOption/{id}" , method = RequestMethod.POST)
+    public String deleteAssociatedOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
+        optionService.deleteAssociatedOption(currentOption_id,id);
+        List<Option> options = new ArrayList<>();
+        options.add(optionService.getEntityById(currentOption_id));
+        model.addAttribute("options",options);
+        return "redirect:/administration/editor/option/{currentOption_id}";
+    }
+    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/deleteIncompatibledOption/{id}" , method = RequestMethod.POST)
+    public String deleteIncompatibledOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
+        optionService.deleteIncompatibledOption(currentOption_id,id);
+        List<Option> options = new ArrayList<>();
+        options.add(optionService.getEntityById(currentOption_id));
+        model.addAttribute("options",options);
+        return "redirect:/administration/editor/option/{currentOption_id}";
+    }
+
     //CONTRACTS
     @RequestMapping(value = "/administration/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
     public String unblockContract(@PathVariable int user_id, @PathVariable int id) {

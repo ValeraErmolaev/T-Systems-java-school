@@ -25,7 +25,7 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <form action="/administration/editor/option/create", method="get">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new option</button>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Create new option</button>
     </form>
 
 </nav>
@@ -49,8 +49,18 @@
                 <td><c:out value="${option.description}"/></td>
                 <td><c:out value="${option.connectPrice}"/></td>
                 <td><c:out value="${option.price}"/></td>
-                <td><a href='/administration/editor/option/${option.id}'>Edit</a></td>
-                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>
+                <td>
+                    <form action="/administration/editor/option/${option.id}">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form action="administration/users/${user.id}/delete">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+<%--                <td><a href='/administration/editor/option/${option.id}'>Edit</a></td>--%>
+<%--                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>--%>
             </tr>
         </c:forEach>
     </c:if>

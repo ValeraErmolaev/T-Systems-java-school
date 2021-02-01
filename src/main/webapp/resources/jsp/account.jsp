@@ -37,7 +37,7 @@
 <div>
     <h1 id="hello-fullname">Hello, ${user.fullname}</h1>
     <form action="/auth/logout" method="POST">
-        <button type="submit" class="btn btn-success">Logout</button>
+        <button type="submit" class="btn btn-primary">Logout</button>
     </form>
 </div>
 <table class="table table-bordered table-hover">
@@ -69,7 +69,7 @@
                             <c:otherwise>
                                 <td>${contract.tariff.name}</td>
                                 <%--                            <td>${contract.options}</td>--%>
-                                <td>here will be options
+                                <td>
                                     <c:forEach items="${contract.options}" var="option">
                                         <div class="one-option">
                                     <span>
@@ -95,23 +95,22 @@
                     </c:when>
                     <c:otherwise>
                         <td>${contract.tariff.name}</td>
-                        <%--                            <td>${contract.options}</td>--%>
-                        <td>here will be options
+                        <td>
                             <c:forEach items="${contract.options}" var="option">
                                 <div class="one-option">
                                     <span>
                                         <c:out value="${option.name}"/>
                                     </span>
-                                    <span>
-                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">
-                                            <input type="submit" value="Delete"/>
-                                        </form>
-                                    </span>
+<%--                                    <span>--%>
+<%--                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">--%>
+<%--                                            <input type="submit" value="Delete"/>--%>
+<%--                                        </form>--%>
+<%--                                    </span>--%>
                                 </div>
                             </c:forEach>
                             <span>
                                  <form action="/user/editor/${contract.id}/addOption" method="get">
-                                    <input type="submit" value="Add option"/>
+                                    <input type="submit" value="Options menu"/>
                                  </form>
                              </span>
                         </td>

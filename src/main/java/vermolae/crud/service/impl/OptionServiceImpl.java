@@ -8,6 +8,7 @@ import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.UserService;
 import vermolae.exeptions.CustomDAOException;
+import vermolae.exeptions.OptionAssociateException;
 import vermolae.model.entity.Contract;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
@@ -16,6 +17,7 @@ import vermolae.security.UserDetailsServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service("optionService")
 public class OptionServiceImpl implements OptionService {
@@ -94,6 +96,51 @@ public class OptionServiceImpl implements OptionService {
             }
         }
         return options;
+    }
+
+    @Override
+    @Transactional
+    public void associateOptions(int option_first_id, int option_second_id) throws OptionAssociateException {
+        Option optionFirst = getEntityById(option_first_id);
+        Option optionSecond = getEntityById(option_second_id);
+        Set<Option> optionsAssocWithSecond = optionSecond.getAssociatedOptions();
+//        if (optionFirst.getIncompatibledOptions().contains(optionSecond)) {
+//            throw new OptionAssociateException("Options " + optionFirst.getName() + " " +
+//                    optionSecond.getName() + " are incompatible. ");
+//        }
+        for (Option assocToFirstOpt : optionFirst.getAssociatedOptions()) {
+            for (Option incompatOption : assocToFirstOpt.getIncompatibledOptions()) {
+                if (incompatOption.equals(optionSecond) || optionsAssocWithSecond.contains(incompatOption)) {
+                    throw new OptionAssociateException("Options " + optionFirst.getName() + " and " +
+                            optionSecond.getName() + " are incompatible. ");
+                }
+            }
+        }
+        optionFirst.associateOption(optionSecond);
+        updateEntity(optionFirst);
+        updateEntity(optionSecond);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAssociatedOption(int currentOption_id, int option_id) {
+        Option currentOption = getEntityById(currentOption_id);
+        Option option = getEntityById(option_id);
+        currentOption.getAssociatedOptions().remove(option);
+        option.getAssociatedOptions().remove(currentOption);
+        updateEntity(currentOption);
+        updateEntity(option);
+    }
+
+    @Override
+    @Transactional
+    public void deleteIncompatibledOption(int currentOption_id, int option_id) {
+        Option currentOption = getEntityById(currentOption_id);
+        Option option = getEntityById(option_id);
+        currentOption.getIncompatibledOptions().remove(option);
+        option.getIncompatibledOptions().remove(currentOption);
+        updateEntity(currentOption);
+        updateEntity(option);
     }
 }
 

@@ -36,7 +36,7 @@ public class Option {
 //    private List<Tariff> tariffs = new ArrayList<>();
     private Set<Tariff> tariffs;
 
-    public void addTariff(Tariff tariff){
+    public void addTariff(Tariff tariff) {
         tariffs.add(tariff);
         tariff.getOptions().add(this);
     }
@@ -48,39 +48,47 @@ public class Option {
     )
     private Set<Contract> contracts;
 
-    public void addContract(Contract contract){
+    public void addContract(Contract contract) {
         contracts.add(contract);
         contract.getOptions().add(this);
     }
 
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="associated_options",
-            joinColumns=@JoinColumn(name="optionId", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name= "associatedoptionid", referencedColumnName="id"))
+            name = "associated_options",
+            joinColumns = @JoinColumn(name = "optionId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "associatedoptionid", referencedColumnName = "id"))
     private Set<Option> associatedOptions;
 
-    public void associateOption(Option option){
+    public void associateOption(Option option) {
         associatedOptions.add(option);
         option.getAssociatedOptions().add(this);
-        if (incompatibledOptions.contains(option)){
+        if (incompatibledOptions.contains(option)) {
             incompatibledOptions.remove(option);
             option.getIncompatibledOptions().remove(this);
         }
+//        for (Option assocOpt : this.getAssociatedOptions()) {
+//            if (!option.getAssociatedOptions().contains(assocOpt)){
+//                option.associateOption(assocOpt);
+//            }
+
+            //            this.associateOption(assocOpt);
+//        }
+
     }
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="incompatible_options",
-            joinColumns=@JoinColumn(name="optionId", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name= "incompatibleoptionid", referencedColumnName="id"))
+            name = "incompatible_options",
+            joinColumns = @JoinColumn(name = "optionId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "incompatibleoptionid", referencedColumnName = "id"))
     private Set<Option> incompatibledOptions;
 
-    public void addIncompatibleOption(Option option){
+    public void addIncompatibleOption(Option option) {
         incompatibledOptions.add(option);
         option.getIncompatibledOptions().add(this);
-        if (associatedOptions.contains(option)){
+        if (associatedOptions.contains(option)) {
             associatedOptions.remove(option);
             option.getAssociatedOptions().remove(this);
         }

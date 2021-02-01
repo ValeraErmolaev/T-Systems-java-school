@@ -56,26 +56,40 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/{user_id}/contract/{id}/block", method = RequestMethod.POST)
-    public String blockControllerById(@PathVariable int id,@PathVariable int user_id) {
-        userService.blockContract(user_id,id);
+    public String blockControllerById(@PathVariable int id, @PathVariable int user_id) {
+        userService.blockContract(user_id, id);
         return "redirect:/auth/success";
     }
+
     @RequestMapping(value = "/user/{user_id}/contract/{id}/unblock", method = RequestMethod.POST)
-    public String unBlockControllerById(@PathVariable int id,@PathVariable int user_id) {
-        userService.unBlockContract(user_id,id);
+    public String unBlockControllerById(@PathVariable int id, @PathVariable int user_id) {
+        userService.unBlockContract(user_id, id);
         return "redirect:/auth/success";
     }
 
     @RequestMapping(value = "/user/editor/{id}/addOption", method = RequestMethod.GET)
-    public String listAvailableOptions(@PathVariable int id, Model model){
+    public String listAvailableOptions(@PathVariable int id, Model model) {
         User curUser = userDetailsService.getCurrentUser();
         UserAccountForm user = new UserAccountForm(curUser);
-        List<Option> options = optionService.listOfAvailableOptions(curUser.getId(),id);
+        List<Option> options = optionService.listOfAvailableOptions(curUser.getId(), id);
         List<Contract> contracts = contractService.contractsById(id);
-        model.addAttribute("contracts",contracts);
+        model.addAttribute("contracts", contracts);
         model.addAttribute("options", options);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "/user/editor/listOptionsToContract";
     }
+
+    @RequestMapping(value = "/user/editor/{contract_id}/addOption/{option_id}", method = RequestMethod.POST)
+    public String addNewOptionToContract(@PathVariable int contract_id, @PathVariable int option_id) {
+        contractService.addNewOption(contract_id, option_id);
+        return "redirect:/user/editor/{contract_id}/addOption";
+    }
+
+    @RequestMapping(value = "/user/editor/{contract_id}/deleteOption/{option_id}", method = RequestMethod.POST)
+    public String deleteOptionFromContract(@PathVariable int contract_id, @PathVariable int option_id) {
+        contractService.deleteOption(contract_id, option_id);
+        return "redirect:/user/editor/{contract_id}/addOption";
+    }
+
 
 }

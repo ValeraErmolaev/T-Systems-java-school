@@ -24,7 +24,7 @@
     <a href="/">Home</a>
     <a href="/auth/success">My account</a>
     <form action="/administration/editor/tariff/create", method="get">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create new tariff</button>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Create new tariff</button>
     </form>
 <%--    <a href="/administration/registration">Add new user</a>--%>
 <%--    <form:form class="form-inline" method="post" action="/administration/users"  modelAttribute="tariffs">--%>
@@ -72,8 +72,18 @@
                     </c:otherwise>
                 </c:choose>
                 <td><img src="${tariff.pictureUrl}"/></td>
-                <td><a href='/administration/editor/tariff/${tariff.id}'>Edit</a></td>
-                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>
+                <td>
+                    <form action="/administration/editor/tariff/${tariff.id}">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form action="administration/users/${user.id}/delete">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+<%--                <td><a href='/administration/editor/tariff/${tariff.id}'>Edit</a></td>--%>
+<%--                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>--%>
             </tr>
         </c:forEach>
     </c:if>

@@ -29,7 +29,7 @@ public class ExceptionInterceptor {
         return mv;
     }
 //    @ResponseStatus(NullPointerException.class)
-    @ExceptionHandler(value = { NullPointerException.class, PropertyNotFoundException.class})
+    @ExceptionHandler(value = { NullPointerException.class, PropertyNotFoundException.class,StackOverflowError.class})
     public ModelAndView notFoundHandler() {
         ModelAndView mv = new ModelAndView("/500");
         return mv;

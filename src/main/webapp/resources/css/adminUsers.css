@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 nav {
     position: absolute;
     text-decoration: none;
@@ -41,4 +42,18 @@ header {
 }
 .form button:hover,.form button:active,.form button:focus {
     background: #107de0;
+}
+input[type=submit]{
+    /*width: 15px;*/
+    /*position: absolute;*/
+    right: 20px;
+    bottom: 20px;
+    background: #3498db;
+    color: #ffffff;
+    font-family: "Ubuntu";
+    height: 30px;
+    /*-webkit-border-radius: 15px;*/
+    /*-moz-border-radius: 15px;*/
+    /*border-radius: 15px;*/
+    border: 1px solid #0b22a9;
 }
