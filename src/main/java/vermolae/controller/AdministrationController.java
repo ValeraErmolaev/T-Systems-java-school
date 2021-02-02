@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.crud.service.api.UserService;
@@ -14,8 +15,11 @@ import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
 import vermolae.model.dto.User.UserSearch;
+import vermolae.model.entity.Contract;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
+import vermolae.model.entity.User;
+import vermolae.security.UserDetailsServiceImpl;
 import vermolae.validator.RegistrationValidator;
 
 import javax.validation.Valid;
@@ -35,6 +39,12 @@ public class AdministrationController {
 
     @Autowired
     private OptionService optionService;
+
+    @Autowired
+    private ContractService contractService;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @RequestMapping(value = "/administration/registration", method = RequestMethod.GET)
     public String getAdminPage(Model model) {
@@ -238,5 +248,29 @@ public class AdministrationController {
     public String blockContract(@PathVariable int user_id, @PathVariable int id) {
         userService.blockContractByAdmin(id);
         return "redirect:/administration/editor/user/{user_id}";
+    }
+
+    @RequestMapping(value = "/administration/editor/{id}/addOption", method = RequestMethod.GET)
+    public String listAvailableOptions(@PathVariable int id, Model model) {
+        User curUser = userDetailsService.getCurrentUser();
+        UserAccountForm user = new UserAccountForm(curUser);
+        List<Option> options = optionService.listOfAvailableOptions(curUser.getId(), id);
+        List<Contract> contracts = contractService.contractsById(id);
+        model.addAttribute("contracts", contracts);
+        model.addAttribute("options", options);
+        model.addAttribute("user", user);
+        return "/administration/editor/listOptionsToContract";
+    }
+
+    @RequestMapping(value = "/administrator/editor/{contract_id}/addOption/{option_id}", method = RequestMethod.POST)
+    public String addNewOptionToContract(@PathVariable int contract_id, @PathVariable int option_id) {
+        contractService.addNewOption(contract_id, option_id);
+        return "redirect:/administration/editor/{contract_id}/addOption";
+    }
+
+    @RequestMapping(value = "/administration/editor/{contract_id}/deleteOption/{option_id}", method = RequestMethod.POST)
+    public String deleteOptionFromContract(@PathVariable int contract_id, @PathVariable int option_id) {
+        contractService.deleteOption(contract_id, option_id);
+        return "redirect:/administration/editor/{contract_id}/addOption";
     }
 }

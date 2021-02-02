@@ -109,7 +109,7 @@
                                 </div>
                             </c:forEach>
                             <span>
-                                 <form action="/user/editor/${contract.id}/addOption" method="get">
+                                 <form action="/administrator/editor/${contract.id}/addOption" method="get">
                                     <input type="submit" value="Options menu"/>
                                  </form>
                              </span>

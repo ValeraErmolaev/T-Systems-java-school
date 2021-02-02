@@ -70,7 +70,7 @@
                                         <c:out value="${option.name}"/>
                                     </span>
                                             <span>
-                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">
+                                        <form action="/administration/editor/${contract.id}/delete/${option.id}" method="POST">
                                             <input type="submit" value="Delete"/>
                                         </form>
                                     </span>
@@ -103,7 +103,7 @@
                                 </div>
                             </c:forEach>
                             <span>
-                                 <form action="/user/editor/${contract.id}/addOption" method="get">
+                                 <form action="/administration/editor/${contract.id}/addOption" method="get">
                                     <input type="submit" value="Options menu"/>
                                  </form>
                              </span>
