@@ -72,7 +72,7 @@
                                 <td>
                                     <c:forEach items="${contract.options}" var="option">
                                         <div class="one-option">
-                                    <span>
+                                    <span class="option-name modal-responsive">
                                         <c:out value="${option.name}"/>
                                     </span>
                                             <span>

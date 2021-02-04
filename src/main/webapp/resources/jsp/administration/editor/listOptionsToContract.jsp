@@ -113,7 +113,7 @@
                                                 <span>
                                                      <c:out value="${option.name}"/>
                                                     <form action="/administrator/editor/${contract.id}/addOption/${option.id}" method="post">
-                                                        <button type="submit" name="Add">Buy</button>
+                                                        <input type="submit" value="Buy"/>
                                                     </form>
                                                 </span>
                                             </c:if>

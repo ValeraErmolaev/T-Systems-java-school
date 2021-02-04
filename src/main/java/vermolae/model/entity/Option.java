@@ -181,4 +181,11 @@ public class Option {
     public int hashCode() {
         return Objects.hash(Id);
     }
+
+    @Override
+    public String toString() {
+        return "Option{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

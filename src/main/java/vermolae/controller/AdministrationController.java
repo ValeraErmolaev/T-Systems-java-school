@@ -60,10 +60,7 @@ public class AdministrationController {
             return "/administration/registration";
         }
         userService.registerUser(userRegForm);
-//        UserSearch emailOrContractDTO = new UserSearch();
-//        emailOrContractDTO.setCondition(userRegForm.getEmail());
         List<UserAccountForm> users = userService.userAccListByCond(userRegForm.getEmail());
-//        model.addAttribute("emailOrContract", emailOrContractDTO);
         model.addAttribute("users", users);
         return "redirect:/administration/users";
     }
@@ -85,9 +82,7 @@ public class AdministrationController {
 
     @RequestMapping(value = "/administration/editor/user/{id}", method = RequestMethod.GET)
     public String editUser(ModelMap model, @PathVariable int id) {
-//        UserAccountForm user = new UserAccountForm(userService.getEntityById(id));
         List<UserAccountForm> users = userService.getUsersById(id);
-//        User user = userService.getEntityById(id);
         model.addAttribute("users", users);
 
         return "/administration/editor/user";
@@ -272,5 +267,11 @@ public class AdministrationController {
     public String deleteOptionFromContract(@PathVariable int contract_id, @PathVariable int option_id) {
         contractService.deleteOption(contract_id, option_id);
         return "redirect:/administration/editor/{contract_id}/addOption";
+    }
+    @RequestMapping(value = "/administration/editor/option/create", method = RequestMethod.GET)
+    public String createOption(Model model){
+        Option option = new Option();
+        model.addAttribute("option", option);
+        return "/administration/createNewOption";
     }
 }

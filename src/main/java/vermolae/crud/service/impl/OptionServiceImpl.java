@@ -104,6 +104,7 @@ public class OptionServiceImpl implements OptionService {
         Option optionFirst = getEntityById(option_first_id);
         Option optionSecond = getEntityById(option_second_id);
         Set<Option> optionsAssocWithSecond = optionSecond.getAssociatedOptions();
+        Set<Option> optionsAssocWithFirst = optionFirst.getAssociatedOptions();
 //        if (optionFirst.getIncompatibledOptions().contains(optionSecond)) {
 //            throw new OptionAssociateException("Options " + optionFirst.getName() + " " +
 //                    optionSecond.getName() + " are incompatible. ");
@@ -116,9 +117,39 @@ public class OptionServiceImpl implements OptionService {
                 }
             }
         }
-        optionFirst.associateOption(optionSecond);
+        if (!optionFirst.equals(optionSecond)){
+            optionFirst.associateOption(optionSecond);
+        }
+
+        for (Option optionAssociatedWithSecond:optionSecond.getAssociatedOptions()){
+            if (!optionFirst.equals(optionAssociatedWithSecond)){
+                optionFirst.associateOption(optionAssociatedWithSecond);
+//            updateEntity(optionFirst);
+//            updateEntity(optionAssociatedWithSecond);
+            }
+
+        }
+        for (Option optionAssociatedWithFirst:optionsAssocWithFirst){
+            for(Option optionAssociatedWithSecond:optionsAssocWithSecond){
+                if (!optionAssociatedWithFirst.equals(optionAssociatedWithSecond)){
+                    optionAssociatedWithFirst.associateOption(optionAssociatedWithSecond);
+//                updateEntity(optionAssociatedWithFirst);
+//                updateEntity(optionAssociatedWithSecond);
+                }
+
+            }
+            if (!optionAssociatedWithFirst.equals(optionSecond)){
+                optionAssociatedWithFirst.associateOption(optionSecond);
+//            updateEntity(optionAssociatedWithFirst);
+//            updateEntity(optionSecond);
+            }
+
+        }
         updateEntity(optionFirst);
-        updateEntity(optionSecond);
+        for (Option newAssociatedOptions:optionFirst.getAssociatedOptions()){
+            updateEntity(newAssociatedOptions);
+        }
+//        updateEntity(optionSecond);
     }
 
     @Override
@@ -127,6 +158,11 @@ public class OptionServiceImpl implements OptionService {
         Option currentOption = getEntityById(currentOption_id);
         Option option = getEntityById(option_id);
         currentOption.getAssociatedOptions().remove(option);
+        for (Option assocWithCurrentOption:currentOption.getAssociatedOptions()){
+            assocWithCurrentOption.getAssociatedOptions().remove(option);
+            option.getAssociatedOptions().remove(assocWithCurrentOption);
+            updateEntity(assocWithCurrentOption);
+        }
         option.getAssociatedOptions().remove(currentOption);
         updateEntity(currentOption);
         updateEntity(option);
