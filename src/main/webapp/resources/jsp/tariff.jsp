@@ -59,7 +59,18 @@
 
                     <c:forEach items="${tariff.options}" var="option">
                         <table class="table table-bordered">
-                            <tr><c:out value="${option.name}"/></tr>
+                            <tr>
+                                <div class="one-option">
+                                <span>
+                                    <c:out value="${option.name}"/>
+                                </span>
+                                <span>
+                                     <form action="/tariff/${tariff.id}/option/${option.id}/addToCart" method="POST">
+                                         <input type="submit" value="Add to Cart"/>
+                                     </form>
+                                </span>
+                                </div>
+                            </tr>
                         </table>
                     </c:forEach>
 
@@ -88,7 +99,19 @@
                     <h4 class="modal-title">Cart</h4>
                 </div>
                 <div class="modal-body">
-                    Here will be Tariff and options
+                    <c:choose>
+                        <c:when test="${userCart.tariff !=null}">
+                            Tariff: ${userCart.tariff.name}
+                            <br>
+                            Options:
+                            <c:forEach items="${userCart.options}" var="option">
+                                ${option.name}
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            Cart is empty
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

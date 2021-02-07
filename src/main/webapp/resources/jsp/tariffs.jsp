@@ -118,7 +118,19 @@
                     <h4 class="modal-title">Cart</h4>
                 </div>
                 <div class="modal-body">
-                    Here will be Tariff and options
+                    <c:choose>
+                        <c:when test="${userCart.tariff !=null}">
+                            Tariff: ${userCart.tariff.name}
+                            <br>
+                            Options:
+                            <c:forEach items="${userCart.options}" var="option">
+                                ${option.name}
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            Cart is empty
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

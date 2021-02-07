@@ -5,8 +5,12 @@
   Time: 17:43
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Valera</title>
@@ -135,7 +139,19 @@
                     <h4 class="modal-title">Cart</h4>
                 </div>
                 <div class="modal-body">
-                    Here will be Tariff and options
+                    <c:choose>
+                        <c:when test="${userCart.tariff !=null}">
+                            Tariff: ${userCart.tariff.name}
+                            <br>
+                            Options:
+                            <c:forEach items="${userCart.options}" var="option">
+                                ${option.name}
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            Cart is empty
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

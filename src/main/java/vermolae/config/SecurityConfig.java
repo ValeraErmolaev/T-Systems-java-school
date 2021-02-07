@@ -59,12 +59,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .anonymous().and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration*").permitAll()
                 .antMatchers("/tariff*").permitAll()
-                .antMatchers("/tariff/*").permitAll()
-                .antMatchers("/show.ajax*").permitAll()
+                .antMatchers("/tariff/**").permitAll()
+//                .antMatchers("/show.ajax*").permitAll()
                 .antMatchers("/map").permitAll()
 //                .antMatchers("/tariff*/*").permitAll()
                 .antMatchers("/Users*").hasAuthority(Permission.USER_WRITE.getPermission())
