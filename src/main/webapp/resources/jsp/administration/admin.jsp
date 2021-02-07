@@ -14,9 +14,14 @@
 <html>
 <head>
     <title>Account</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
     <link href="<spring:url value='/resources/css/hint.css'/>" rel="stylesheet">
     <link href="<spring:url value='/resources/css/adminHeader.css'/>" rel="stylesheet">
     <link href="<spring:url value='/resources/css/adminAccount.css'/>" rel="stylesheet">
+<%--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>--%>
+
 
 </head>
 <body>
@@ -29,6 +34,11 @@
             <a href="/administration/tariffs">Tariff menu</a>
             <a href="/administration/options">Option menu</a>
             <a href="/map">Map</a>
+            <a href="#myModal1"  data-toggle="modal">Cart</a>
+
+
+
+
         </nav>
     </header>
     <h1>Hello, ${user.fullname}</h1>
@@ -63,7 +73,13 @@
                                     <%--                                <td></td>--%>
                                 </c:when>
                                 <c:otherwise>
-                                    <td>${contract.tariff.name}</td>
+                                    <td>
+                                        <span>
+                                                ${contract.tariff.name}</span>
+                                        <span>
+
+                                        </span>
+                                    </td>
                                     <%--                            <td>${contract.options}</td>--%>
                                     <td>
 <%--                                        <c:forEach items="${contract.options}" var="option">--%>
@@ -90,7 +106,16 @@
                             </c:choose>
                         </c:when>
                         <c:otherwise>
-                            <td>${contract.tariff.name}</td>
+                            <td>
+                                 <span>
+                                         ${contract.tariff.name}
+                                 </span>
+                                 <span>
+                                     <form action="bla" method="get">
+                                         <input type="submit" value="Change Tariff"/>
+                                     </form>
+                                 </span>
+                            </td>
                             <td>
                                 <c:forEach items="${contract.options}" var="option">
                                     <div class="one-option">
@@ -142,7 +167,39 @@
         инлайн-список
      -->
 </div>
-
 <script src="/resources/js/hint.js"></script>
+<div class="container">
+    <div id="myModal1" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <%--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">AAAAAAAA</button>--%>
+                    <h4 class="modal-title">Cart</h4>
+                </div>
+                <div class="modal-body">
+                    Here will be Tariff and options
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Delete all</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $("#btn2").click(function () {
+                $("#myModal2").modal('show');
+            });
+        });
+    </script>
+</div>
 </body>
 </html>

@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import vermolae.crud.service.api.TariffService;
-import vermolae.crud.service.api.UserService;
 import vermolae.model.entity.Tariff;
 import vermolae.model.entity.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class AjaxController {
     @RequestMapping(value = "/show.ajax", method = RequestMethod.GET)
     public String ajaxPage() {
 
-        return "testAjax";
+        return "test";
     };
     @RequestMapping(value = "/show.ajax", method = RequestMethod.POST)
     public @ResponseBody     List<Tariff> getAjaxUsers() {

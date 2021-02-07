@@ -52,6 +52,10 @@ public class AdministrationController {
 
     private static Logger logger = LogManager.getLogger(AdministrationController.class);
 
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public String test(){
+        return "/test";
+    }
     @RequestMapping(value = "/administration/registration", method = RequestMethod.GET)
     public String getAdminPage(Model model) {
         UserRegistrationForm userRegForm = new UserRegistrationForm();

@@ -20,7 +20,7 @@
             <%--    <form:errors path="firstname"></form:errors>--%>
     </div>
     <div>
-        <form:input type="text" path="description" placeholder="Tariff description" autofocus="true"></form:input>
+        <form:input type="text" path="description" placeholder="Option description" autofocus="true"></form:input>
             <%--    <form:errors path="lastname"></form:errors>--%>
     </div>
 
