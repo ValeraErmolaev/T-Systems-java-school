@@ -55,9 +55,19 @@
                     </form>
                 </td>
                 <td>
-                    <form action="administration/users/${user.id}/delete">
-                        <input type="submit" value="Delete">
-                    </form>
+                    <c:choose>
+                        <c:when test="${option.is_deprecated}">
+                            <p style="color: red">Deprecated</p>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="/administration/options/${option.id}/delete">
+                                <input type="submit" value="Delete">
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
+
+
+
                 </td>
 <%--                <td><a href='/administration/editor/option/${option.id}'>Edit</a></td>--%>
 <%--                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>--%>

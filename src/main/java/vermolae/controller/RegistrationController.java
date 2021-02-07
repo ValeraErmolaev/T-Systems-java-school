@@ -1,5 +1,6 @@
 package vermolae.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +16,12 @@ import javax.validation.Valid;
 
 
 @Controller
+@RequiredArgsConstructor
 public class RegistrationController {
 
-    @Autowired
-    private RegistrationValidator regValidator;
+    private final RegistrationValidator regValidator;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/registration")
     public String registration(Model model) {

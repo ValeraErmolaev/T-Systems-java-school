@@ -1,6 +1,9 @@
 package vermolae.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,24 +30,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class AdministrationController {
-    @Autowired
-    private RegistrationValidator regValidator;
 
-    @Autowired
-    private UserService userService;
+    private final RegistrationValidator regValidator;
 
-    @Autowired
-    private TariffService tariffService;
 
-    @Autowired
-    private OptionService optionService;
+    private final UserService userService;
 
-    @Autowired
-    private ContractService contractService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final TariffService tariffService;
+
+
+    private final OptionService optionService;
+
+
+    private final ContractService contractService;
+
+
+    private final UserDetailsServiceImpl userDetailsService;
+
+    private static Logger logger = LogManager.getLogger(AdministrationController.class);
 
     @RequestMapping(value = "/administration/registration", method = RequestMethod.GET)
     public String getAdminPage(Model model) {
@@ -154,6 +160,24 @@ public class AdministrationController {
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
         model.addAttribute("tariff", tariffViewForm);
         return "redirect:/administration/editor/tariff/{id}";
+    }
+
+    @RequestMapping(value = "/administration/editor/tariff/create", method = RequestMethod.GET)
+    public String newTariffCreationMenu(Model model){
+        TariffViewForm tariff = new TariffViewForm();
+        model.addAttribute("tariff",tariff);
+        return "/administration/creation/newTariff";
+    }
+    @RequestMapping(value = "/administration/editor/tariff/create", method = RequestMethod.POST)
+    public String createNewTariff(@ModelAttribute("tariff") TariffViewForm tariff, Model model){
+        try {
+            tariffService.createNewTariff(tariff);
+        } catch (Exception e){
+            //TODO logger
+        }
+//        model.addAttribute("tariff",tariff);
+//        return "redirect:/administration/editor/tariff/{tariff.id}";
+        return "redirect:/administration/tariffs";
     }
 
     //OPTIONS
@@ -269,9 +293,26 @@ public class AdministrationController {
         return "redirect:/administration/editor/{contract_id}/addOption";
     }
     @RequestMapping(value = "/administration/editor/option/create", method = RequestMethod.GET)
-    public String createOption(Model model){
+    public String newOptionCreationMenu(Model model){
         Option option = new Option();
         model.addAttribute("option", option);
-        return "/administration/createNewOption";
+        return "/administration/creation/newOption";
+    }
+    @RequestMapping(value = "/administration/editor/option/create", method = RequestMethod.POST)
+    public String createOption(@ModelAttribute("option") Option option){
+       optionService.createEntity(option);
+//        model.addAttribute("option", option);
+        return "redirect:/administration/options";
+    }
+    @RequestMapping(value = "administration/options/{id}/delete",method = RequestMethod.GET)
+    public String makeOptionDeprecated(@PathVariable int id){
+        optionService.makeOptionDeprecated(id);
+        return "redirect:/administration/options";
+    }
+    @Scheduled(fixedRate = 1000*30) // every 30 seconds
+    public void deleteUnusedDeprecatedOptions() {
+        logger.trace("Running check of deprecated options...");
+        optionService.deleteDeprecatedOptions();
+
     }
 }

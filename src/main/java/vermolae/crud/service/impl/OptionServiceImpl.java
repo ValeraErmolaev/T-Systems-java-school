@@ -1,9 +1,16 @@
 package vermolae.crud.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vermolae.controller.AdministrationController;
+import vermolae.crud.dao.api.ContractDAO;
 import vermolae.crud.dao.api.OptionDAO;
+import vermolae.crud.dao.api.TariffDAO;
+import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.UserService;
@@ -18,21 +25,23 @@ import vermolae.security.UserDetailsServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service("optionService")
+@RequiredArgsConstructor
 public class OptionServiceImpl implements OptionService {
 
-    @Autowired
-    private OptionDAO optionDAO;
+    private final OptionDAO optionDAO;
 
-    @Autowired
-    private ContractService contractService;
+    private final ContractDAO contractDAO;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private UserService userService;
+    private final TariffDAO tariffDAO;
+
+    private final UserDAO userDAO;
+
+    private static Logger logger = LogManager.getLogger(OptionServiceImpl.class);
 
     @Override
     @Transactional
@@ -53,8 +62,9 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
+    @Transactional
     public void deleteEntity(Option entity) throws CustomDAOException {
-
+        optionDAO.delete(entity);
     }
 
     @Override
@@ -79,11 +89,11 @@ public class OptionServiceImpl implements OptionService {
     @Transactional
     public List<Option> listOfAvailableOptions(int user_id, int contract_id) {
         List<Option> options = new ArrayList<>();
-        User user = userService.getEntityById(user_id);
+        User user = userDAO.read(user_id);
         User currentUser = userDetailsService.getCurrentUser();
         if (user.equals(currentUser)) {
             try {
-                Contract contract = contractService.getEntityById(contract_id);
+                Contract contract = contractDAO.read(contract_id);
                 Tariff tariff = contract.getTariff();
                 for (Option option : tariff.getOptions()) {
                     if (!contract.getOptions().contains(option)) {
@@ -117,28 +127,28 @@ public class OptionServiceImpl implements OptionService {
                 }
             }
         }
-        if (!optionFirst.equals(optionSecond)){
+        if (!optionFirst.equals(optionSecond)) {
             optionFirst.associateOption(optionSecond);
         }
 
-        for (Option optionAssociatedWithSecond:optionSecond.getAssociatedOptions()){
-            if (!optionFirst.equals(optionAssociatedWithSecond)){
+        for (Option optionAssociatedWithSecond : optionSecond.getAssociatedOptions()) {
+            if (!optionFirst.equals(optionAssociatedWithSecond)) {
                 optionFirst.associateOption(optionAssociatedWithSecond);
 //            updateEntity(optionFirst);
 //            updateEntity(optionAssociatedWithSecond);
             }
 
         }
-        for (Option optionAssociatedWithFirst:optionsAssocWithFirst){
-            for(Option optionAssociatedWithSecond:optionsAssocWithSecond){
-                if (!optionAssociatedWithFirst.equals(optionAssociatedWithSecond)){
+        for (Option optionAssociatedWithFirst : optionsAssocWithFirst) {
+            for (Option optionAssociatedWithSecond : optionsAssocWithSecond) {
+                if (!optionAssociatedWithFirst.equals(optionAssociatedWithSecond)) {
                     optionAssociatedWithFirst.associateOption(optionAssociatedWithSecond);
 //                updateEntity(optionAssociatedWithFirst);
 //                updateEntity(optionAssociatedWithSecond);
                 }
 
             }
-            if (!optionAssociatedWithFirst.equals(optionSecond)){
+            if (!optionAssociatedWithFirst.equals(optionSecond)) {
                 optionAssociatedWithFirst.associateOption(optionSecond);
 //            updateEntity(optionAssociatedWithFirst);
 //            updateEntity(optionSecond);
@@ -146,7 +156,7 @@ public class OptionServiceImpl implements OptionService {
 
         }
         updateEntity(optionFirst);
-        for (Option newAssociatedOptions:optionFirst.getAssociatedOptions()){
+        for (Option newAssociatedOptions : optionFirst.getAssociatedOptions()) {
             updateEntity(newAssociatedOptions);
         }
 //        updateEntity(optionSecond);
@@ -158,7 +168,7 @@ public class OptionServiceImpl implements OptionService {
         Option currentOption = getEntityById(currentOption_id);
         Option option = getEntityById(option_id);
         currentOption.getAssociatedOptions().remove(option);
-        for (Option assocWithCurrentOption:currentOption.getAssociatedOptions()){
+        for (Option assocWithCurrentOption : currentOption.getAssociatedOptions()) {
             assocWithCurrentOption.getAssociatedOptions().remove(option);
             option.getAssociatedOptions().remove(assocWithCurrentOption);
             updateEntity(assocWithCurrentOption);
@@ -177,6 +187,48 @@ public class OptionServiceImpl implements OptionService {
         option.getIncompatibledOptions().remove(currentOption);
         updateEntity(currentOption);
         updateEntity(option);
+    }
+
+    @Override
+    @Transactional
+    public void makeOptionDeprecated(int id) {
+        Option option = getEntityById(id);
+        option.setIs_deprecated(true);
+        updateEntity(option);
+    }
+
+    @Override
+    @Transactional
+    public void deleteDeprecatedOptions() {
+        List<Option> deprecatedOpt = deprecatedOptions();
+        if (deprecatedOpt.size() != 0) {
+            for (Option option : deprecatedOpt) {
+                String name = option.getName();
+                if (option.getContracts().size() == 0) {
+                    for (Tariff tariff : option.getTariffs()) {
+                        tariff.getOptions().remove(option);
+                        tariffDAO.update(tariff);
+                    }
+                    for (Option assocOpt : option.getAssociatedOptions()) {
+                        assocOpt.getAssociatedOptions().remove(option);
+                        updateEntity(option);
+                    }
+                    for (Option incompOpt : option.getIncompatibledOptions()) {
+                        incompOpt.getIncompatibledOptions().remove(option);
+                        updateEntity(option);
+                    }
+                    deleteEntity(option);
+                    logger.trace(String.format(name +" option was removed."));
+                }
+            }
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public List<Option> deprecatedOptions() {
+        return getAll().stream().filter(option -> option.isIs_deprecated()).collect(Collectors.toList());
     }
 }
 

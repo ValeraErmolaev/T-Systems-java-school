@@ -15,5 +15,10 @@ public interface OptionService extends GenericService<Option, Integer>{
 
     public void deleteIncompatibledOption(int currentOption_id, int option_id);
 
+    public void makeOptionDeprecated(int id);
 
+
+    public void deleteDeprecatedOptions();
+
+    List<Option> deprecatedOptions();
 }

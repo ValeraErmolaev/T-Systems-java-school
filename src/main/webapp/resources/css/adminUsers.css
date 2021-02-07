@@ -57,3 +57,17 @@ input[type=submit]{
     /*border-radius: 15px;*/
     border: 1px solid #0b22a9;
 }
+input[type=form-data]{
+    /*width: 15px;*/
+    /*position: absolute;*/
+    right: 20px;
+    bottom: 20px;
+    background: #3498db;
+    color: #ffffff;
+    font-family: "Ubuntu";
+    height: 30px;
+    /*-webkit-border-radius: 15px;*/
+    /*-moz-border-radius: 15px;*/
+    /*border-radius: 15px;*/
+    border: 1px solid #0b22a9;
+}

@@ -1,5 +1,6 @@
 package vermolae.crud.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,24 +13,37 @@ import java.io.IOException;
 import java.util.List;
 
 @Service("pictureService")
+@RequiredArgsConstructor
 public class PictureServiceImpl implements PictureService {
 
-    @Autowired
-    private PictureDAO pictureDAO;
+    private final PictureDAO pictureDAO;
 
     @Override
     @Transactional
     public void saveNewPicture(String name, MultipartFile file) throws IOException {
-        Picture picture = new Picture();
-        picture.setName(name);
-        picture.setPictureBytes(file.getBytes());
-        pictureDAO.create(picture);
+
+        try {
+            Picture picture =  pictureDAO.getPictureByName(name);
+            picture.setPictureBytes(file.getBytes());
+            pictureDAO.update(picture);
+        } catch (Exception e){
+            Picture picture = new Picture();
+            picture.setName(name);
+            picture.setPictureBytes(file.getBytes());
+            pictureDAO.create(picture);
+        }
     }
 
     @Override
     @Transactional
     public Picture getPictureByName(String name) throws Exception {
         return pictureDAO.getPictureByName(name);
+    }
+
+    @Override
+    @Transactional
+    public Picture getDefaultPicture() throws Exception {
+        return getPictureByName("default.jpeg");
     }
 
     @Override

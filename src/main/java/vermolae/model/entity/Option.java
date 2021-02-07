@@ -28,6 +28,9 @@ public class Option {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "is_deprecated")
+    private boolean is_deprecated;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "possible_options",
             joinColumns = @JoinColumn(name = "option_id"),
@@ -167,6 +170,14 @@ public class Option {
 
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public boolean isIs_deprecated() {
+        return is_deprecated;
+    }
+
+    public void setIs_deprecated(boolean is_deprecated) {
+        this.is_deprecated = is_deprecated;
     }
 
     @Override

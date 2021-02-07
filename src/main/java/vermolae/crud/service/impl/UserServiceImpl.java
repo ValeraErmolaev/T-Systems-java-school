@@ -1,5 +1,6 @@
 package vermolae.crud.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,24 +25,20 @@ import java.util.stream.Collectors;
 
 
 @Service("userService")
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
-    @Autowired
-    private ContractService contractService;
+    private final ContractService contractService;
 
-    @Autowired
-    private RoleDAO roleDAO;
+    private final RoleDAO roleDAO;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     /**
      * Creating contract user in base

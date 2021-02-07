@@ -11,6 +11,7 @@ public class TariffViewForm {
     private int id;
     private String name;
     private String description;
+    private double price;
     private double turnOnPrice;
     private String pictureUrl;
     private Set<Option> options;
@@ -19,9 +20,14 @@ public class TariffViewForm {
         this.id = tariff.getId();
         this.name = tariff.getName();
         this.description = tariff.getDescription();
+        this.price = tariff.getPrice();
         this.turnOnPrice = tariff.getPrice();
         this.options = tariff.getOptions();
         this.pictureUrl = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(tariff.getPicture().getPictureBytes());
+    }
+
+    public TariffViewForm() {
+
     }
 
     public int getId() {
@@ -70,5 +76,13 @@ public class TariffViewForm {
 
     public void setOptions(Set<Option> options) {
         this.options = options;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

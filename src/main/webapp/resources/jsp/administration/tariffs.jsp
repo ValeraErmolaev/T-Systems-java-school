@@ -78,7 +78,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="administration/users/${user.id}/delete">
+                    <form action="administration/tariffs/${tariff.id}/delete">
                         <input type="submit" value="Delete">
                     </form>
                 </td>

@@ -1,5 +1,6 @@
 package vermolae.crud.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,20 +24,19 @@ import java.util.Collection;
 import java.util.List;
 
 @Service("tariffService")
+@RequiredArgsConstructor
 public class TariffServiceImpl implements TariffService {
 
-    @Autowired
-    private TariffDAO tariffDAO;
+    private final TariffDAO tariffDAO;
 
-    @Autowired
-    private PictureService pictureService;
+    private final PictureService pictureService;
 
-    @Autowired
-    private OptionService optionService;
+    private final OptionService optionService;
 
     @Override
+    @Transactional
     public void createEntity(Tariff entity) throws CustomDAOException {
-
+        tariffDAO.create(entity);
     }
 
     @Override
@@ -149,6 +149,18 @@ public class TariffServiceImpl implements TariffService {
         }
 
         return tariffsDTO;
+    }
+
+    @Override
+    @Transactional
+    public void createNewTariff(TariffViewForm tariff) throws Exception {
+        Tariff newTariff = new Tariff();
+        newTariff.setName(tariff.getName());
+        newTariff.setDescription(tariff.getDescription());
+        newTariff.setPrice(tariff.getPrice());
+        newTariff.setTurnonprice(tariff.getTurnOnPrice());
+        newTariff.setPicture(pictureService.getDefaultPicture());
+        createEntity(newTariff);
     }
 
 }

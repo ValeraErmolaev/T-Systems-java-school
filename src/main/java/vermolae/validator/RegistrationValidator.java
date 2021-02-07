@@ -1,5 +1,6 @@
 package vermolae.validator;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -9,10 +10,11 @@ import vermolae.exeptions.UserNotFoundException;
 import vermolae.model.dto.User.UserRegistrationForm;
 
 @Component
+@RequiredArgsConstructor
 public class RegistrationValidator implements Validator {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return UserRegistrationForm.class.equals(aClass);

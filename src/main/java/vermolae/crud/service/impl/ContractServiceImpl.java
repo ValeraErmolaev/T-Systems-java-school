@@ -1,5 +1,6 @@
 package vermolae.crud.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import vermolae.crud.dao.api.TariffDAO;
 import vermolae.crud.dao.impl.ContractDAOImpl;
 import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
+import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.DatabaseOfNumbersIsFull;
 import vermolae.model.entity.Contract;
@@ -20,16 +22,14 @@ import java.util.List;
 import java.util.Set;
 
 @Service("contractService")
+@RequiredArgsConstructor
 public class ContractServiceImpl implements ContractService {
 
-    @Autowired
-    private TariffDAO tariffDAO;
+    private final TariffService tariffService;
 
-    @Autowired
-    private ContractDAO contractDAO;
+    private final ContractDAO contractDAO;
 
-    @Autowired
-    private OptionService optionService;
+    private final OptionService optionService;
 
     @Override
     public void createEntity(Contract entity) throws CustomDAOException {
@@ -82,7 +82,7 @@ public class ContractServiceImpl implements ContractService {
     public void createNewDefaultContract(User user, String number) {
         Contract contract = new Contract();
         contract.setNumber(number);
-        contract.setTariff(tariffDAO.read(1));
+        contract.setTariff(tariffService.getEntityById(1));
 //        contract.setUser(user);
         createEntity(contract);
         user.addContract(contract);

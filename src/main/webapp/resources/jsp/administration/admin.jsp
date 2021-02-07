@@ -66,18 +66,18 @@
                                     <td>${contract.tariff.name}</td>
                                     <%--                            <td>${contract.options}</td>--%>
                                     <td>
-                                        <c:forEach items="${contract.options}" var="option">
-                                            <div class="one-option">
-                                    <span class="option-name hint-responsive" data-name="${option.name}" data-associated="${option.associatedOptions}">
-                                        <c:out value="${option.name}"/>
-                                    </span>
-                                                <span>
-                                        <form action="/administration/editor/${contract.id}/delete/${option.id}" method="POST">
-                                            <input type="submit" value="Delete"/>
-                                        </form>
-                                    </span>
-                                            </div>
-                                        </c:forEach>
+<%--                                        <c:forEach items="${contract.options}" var="option">--%>
+<%--                                            <div class="one-option">--%>
+<%--                                    <span class="option-name hint-responsive" data-name="${option.name}" data-associated="${option.associatedOptions}">--%>
+<%--                                        <c:out value="${option.name}"/>--%>
+<%--                                    </span>--%>
+<%--                                                <span>--%>
+<%--                                        <form action="/administration/editor/${contract.id}/delete/${option.id}" method="POST">--%>
+<%--                                            <input type="submit" value="Delete"/>--%>
+<%--                                        </form>--%>
+<%--                                    </span>--%>
+<%--                                            </div>--%>
+<%--                                        </c:forEach>--%>
 
                                     </td>
                                     <td>Blocked</td>

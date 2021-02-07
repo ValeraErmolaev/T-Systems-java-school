@@ -45,7 +45,6 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.0.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.16" />
           <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:3.4.5" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-hikaricp:5.2.6.Final" />

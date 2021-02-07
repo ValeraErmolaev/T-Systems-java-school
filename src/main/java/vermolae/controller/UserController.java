@@ -1,5 +1,6 @@
 package vermolae.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,19 +20,16 @@ import java.util.List;
 
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private OptionService optionService;
+    private final OptionService optionService;
 
-    @Autowired
-    private ContractService contractService;
+    private final ContractService contractService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @GetMapping(value = "/Users")
     public String getUsers(ModelMap model) {

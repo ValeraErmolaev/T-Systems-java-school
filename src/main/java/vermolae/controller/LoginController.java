@@ -1,5 +1,6 @@
 package vermolae.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +12,12 @@ import vermolae.model.entity.User;
 import vermolae.security.UserDetailsServiceImpl;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @GetMapping("/auth/login")
     public String getLoginPage(Model model) {

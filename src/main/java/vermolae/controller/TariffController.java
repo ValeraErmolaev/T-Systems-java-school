@@ -1,6 +1,7 @@
 package vermolae.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@RequiredArgsConstructor
 public class TariffController {
 
-    @Autowired
-    private TariffService tariffService;
-
+    private final TariffService tariffService;
 
     @GetMapping("/tariff")
     public String getTariffsPage(Model model){

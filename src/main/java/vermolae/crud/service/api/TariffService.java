@@ -27,4 +27,6 @@ public interface TariffService extends GenericService<Tariff, Integer> {
     public Collection<Tariff> tariffsById(int id);
 
     public List<TariffViewForm> tariffsByIdViewForm(int id);
+
+    void createNewTariff(TariffViewForm tariff) throws Exception;
 }
