@@ -183,6 +183,18 @@ public class AdministrationController {
 //        return "redirect:/administration/editor/tariff/{tariff.id}";
         return "redirect:/administration/tariffs";
     }
+    @RequestMapping(value = "/administration/tariffs/{id}/delete", method = RequestMethod.GET)
+    public String makeTariffDeprecated(@PathVariable int id){
+        tariffService.makeTariffDeprecated(id);
+        return "redirect:/administration/tariffs";
+    }
+
+    @Scheduled(fixedRate = 1000*30) // every 30 seconds
+    public void deleteUnusedDeprecatedTariffs() {
+        logger.trace("Running check of deprecated tariffs...");
+        tariffService.deleteDeprecatedTariffs();
+
+    }
 
     //OPTIONS
     @RequestMapping(value = "/administration/options", method = RequestMethod.GET)

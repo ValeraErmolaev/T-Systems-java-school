@@ -1,6 +1,8 @@
 package vermolae.crud.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("tariffService")
 @RequiredArgsConstructor
@@ -32,6 +35,9 @@ public class TariffServiceImpl implements TariffService {
     private final PictureService pictureService;
 
     private final OptionService optionService;
+
+    private static Logger logger = LogManager.getLogger(TariffServiceImpl.class);
+
 
     @Override
     @Transactional
@@ -53,7 +59,7 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     public void deleteEntity(Tariff entity) throws CustomDAOException {
-
+        tariffDAO.delete(entity);
     }
 
     @Override
@@ -163,4 +169,37 @@ public class TariffServiceImpl implements TariffService {
         createEntity(newTariff);
     }
 
+    @Override
+    @Transactional
+    public void deleteDeprecatedTariffs() {
+        List<Tariff> deprecatedTariffs = deprecatedTariffs();
+        if (deprecatedTariffs.size() != 0) {
+            for (Tariff tariff : deprecatedTariffs) {
+                String name = tariff.getName();
+                if (tariff.getContracts().size() == 0) {
+                    for (Option option : tariff.getOptions()) {
+                        option.getTariffs().remove(tariff);
+                        optionService.updateEntity(option);
+                    }
+                    deleteEntity(tariff);
+                    logger.trace(String.format(name +" tariff was removed."));
+                }
+            }
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public List<Tariff> deprecatedTariffs() {
+        return getAll().stream().filter(tariff -> tariff.isDeprecated()).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void makeTariffDeprecated(int id) {
+        Tariff tariff = getEntityById(id);
+        tariff.setDeprecated(true);
+        updateEntity(tariff);
+    }
 }

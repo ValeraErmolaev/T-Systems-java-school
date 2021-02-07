@@ -14,6 +14,7 @@ public class TariffViewForm {
     private double price;
     private double turnOnPrice;
     private String pictureUrl;
+    private boolean deprecated;
     private Set<Option> options;
 
     public TariffViewForm(Tariff tariff) {
@@ -23,6 +24,7 @@ public class TariffViewForm {
         this.price = tariff.getPrice();
         this.turnOnPrice = tariff.getPrice();
         this.options = tariff.getOptions();
+        this.deprecated = tariff.isDeprecated();
         this.pictureUrl = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(tariff.getPicture().getPictureBytes());
     }
 
@@ -84,5 +86,13 @@ public class TariffViewForm {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
     }
 }

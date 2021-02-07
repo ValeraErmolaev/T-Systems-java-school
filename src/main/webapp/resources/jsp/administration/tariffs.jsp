@@ -78,9 +78,16 @@
                     </form>
                 </td>
                 <td>
-                    <form action="administration/tariffs/${tariff.id}/delete">
-                        <input type="submit" value="Delete">
-                    </form>
+                    <c:choose>
+                        <c:when test="${tariff.deprecated}">
+                            <p style="color: red">Deprecated</p>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="/administration/tariffs/${tariff.id}/delete">
+                                <input type="submit" value="Delete">
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
 <%--                <td><a href='/administration/editor/tariff/${tariff.id}'>Edit</a></td>--%>
 <%--                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>--%>

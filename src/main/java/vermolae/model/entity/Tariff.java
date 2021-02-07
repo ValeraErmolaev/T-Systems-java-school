@@ -34,10 +34,15 @@ public class Tariff {
     @Basic
     private double turnonprice;
 
+    @Column(name = "is_deprecated")
+    private boolean deprecated;
+
     @OneToOne
     @JoinColumn(name="picture_id")
     private Picture picture;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tariff")
+    private Set<Contract> contracts;
     //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
 //    @Column(name = "fieldForOptions")
 //    @Basic
@@ -123,5 +128,21 @@ public class Tariff {
 
     public void setPicture(Picture picture) {
         this.picture = picture;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    public void setDeprecated(boolean deprecated) {
+        this.deprecated = deprecated;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

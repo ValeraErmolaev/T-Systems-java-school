@@ -65,9 +65,6 @@
                             </form>
                         </c:otherwise>
                     </c:choose>
-
-
-
                 </td>
 <%--                <td><a href='/administration/editor/option/${option.id}'>Edit</a></td>--%>
 <%--                <td><a href='administration/users/${user.id}/delete'>Delete</a></td>--%>

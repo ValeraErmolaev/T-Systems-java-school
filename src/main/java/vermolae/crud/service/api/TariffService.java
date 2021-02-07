@@ -1,5 +1,6 @@
 package vermolae.crud.service.api;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Option;
@@ -14,9 +15,9 @@ import java.util.List;
 public interface TariffService extends GenericService<Tariff, Integer> {
 
     //get tariff by contract
-    List<TariffViewForm> getTariffViewList(Collection<Tariff> tariffs);
+    public List<TariffViewForm> getTariffViewList(Collection<Tariff> tariffs);
 
-    void updateTariff(Tariff tariff);
+    public void updateTariff(Tariff tariff);
 
     public Tariff updateTariffImage(int TariffId, MultipartFile file) throws Exception;
 
@@ -28,5 +29,11 @@ public interface TariffService extends GenericService<Tariff, Integer> {
 
     public List<TariffViewForm> tariffsByIdViewForm(int id);
 
-    void createNewTariff(TariffViewForm tariff) throws Exception;
+    public void createNewTariff(TariffViewForm tariff) throws Exception;
+
+    public void deleteDeprecatedTariffs();
+
+    public List<Tariff> deprecatedTariffs();
+
+    void makeTariffDeprecated(int id);
 }

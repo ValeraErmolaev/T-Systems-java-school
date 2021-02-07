@@ -33,7 +33,7 @@ public class Contract {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="tariff_id")
+    @JoinColumn(name="tariff_id", nullable=false)
     private Tariff tariff;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -81,7 +81,9 @@ public class Contract {
     }
 
     public void setTariff(Tariff tariff) {
+        getTariff().getContracts().remove(this);
         this.tariff = tariff;
+        tariff.getContracts().add(this);
     }
 
     public boolean isIs_blocked() {
