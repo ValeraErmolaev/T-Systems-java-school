@@ -111,7 +111,7 @@
                                          ${contract.tariff.name}
                                  </span>
                                  <span>
-                                     <form action="bla" method="get">
+                                     <form action="/administration/editor/${contract.id}/listTariffsToContract" method="get">
                                          <input type="submit" value="Change Tariff"/>
                                      </form>
                                  </span>

@@ -52,10 +52,11 @@ public class AdministrationController {
 
     private static Logger logger = LogManager.getLogger(AdministrationController.class);
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test(){
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test() {
         return "/test";
     }
+
     @RequestMapping(value = "/administration/registration", method = RequestMethod.GET)
     public String getAdminPage(Model model) {
         UserRegistrationForm userRegForm = new UserRegistrationForm();
@@ -167,29 +168,31 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/tariff/create", method = RequestMethod.GET)
-    public String newTariffCreationMenu(Model model){
+    public String newTariffCreationMenu(Model model) {
         TariffViewForm tariff = new TariffViewForm();
-        model.addAttribute("tariff",tariff);
+        model.addAttribute("tariff", tariff);
         return "/administration/creation/newTariff";
     }
+
     @RequestMapping(value = "/administration/editor/tariff/create", method = RequestMethod.POST)
-    public String createNewTariff(@ModelAttribute("tariff") TariffViewForm tariff, Model model){
+    public String createNewTariff(@ModelAttribute("tariff") TariffViewForm tariff, Model model) {
         try {
             tariffService.createNewTariff(tariff);
-        } catch (Exception e){
+        } catch (Exception e) {
             //TODO logger
         }
 //        model.addAttribute("tariff",tariff);
 //        return "redirect:/administration/editor/tariff/{tariff.id}";
         return "redirect:/administration/tariffs";
     }
+
     @RequestMapping(value = "/administration/tariffs/{id}/delete", method = RequestMethod.GET)
-    public String makeTariffDeprecated(@PathVariable int id){
+    public String makeTariffDeprecated(@PathVariable int id) {
         tariffService.makeTariffDeprecated(id);
         return "redirect:/administration/tariffs";
     }
 
-    @Scheduled(fixedRate = 1000*30) // every 30 seconds
+    @Scheduled(fixedRate = 1000 * 30) // every 30 seconds
     public void deleteUnusedDeprecatedTariffs() {
         logger.trace("Running check of deprecated tariffs...");
         tariffService.deleteDeprecatedTariffs();
@@ -213,38 +216,39 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/option/{id}/associateOption", method = RequestMethod.GET)
-    public String getOptionListToAssociate(Model model, @PathVariable int id) throws Exception{
+    public String getOptionListToAssociate(Model model, @PathVariable int id) throws Exception {
         Option currentOption = optionService.getEntityById(id);
         List<Option> options = optionService.getAll();
         model.addAttribute("currentOption", currentOption);
-        model.addAttribute("options",options);
+        model.addAttribute("options", options);
         return "/administration/editor/listOptionsToAssociate";
     }
+
     @RequestMapping(value = "/administration/editor/option/{currentOption_id}/addOption/{id}", method = RequestMethod.POST)
-    public String associateOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
+    public String associateOption(@PathVariable int currentOption_id, @PathVariable int id, Model model) {
         Option curOption = optionService.getEntityById(currentOption_id);
         Option optionToAssociate = optionService.getEntityById(id);
 //        curOption.associateOption(optionToAssociate);
-        optionService.associateOptions(currentOption_id,id);
+        optionService.associateOptions(currentOption_id, id);
         optionService.updateEntity(curOption);
         optionService.updateEntity(optionToAssociate);
         List<Option> options = new ArrayList<>();
         options.add(curOption);
-        model.addAttribute("options",options);
+        model.addAttribute("options", options);
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
 
     @RequestMapping(value = "/administration/editor/option/{id}/addIncompatibleOption", method = RequestMethod.GET)
-    public String getOptionListToAddIncompatible(Model model, @PathVariable int id) throws Exception{
+    public String getOptionListToAddIncompatible(Model model, @PathVariable int id) throws Exception {
         Option currentOption = optionService.getEntityById(id);
         List<Option> options = optionService.getAll();
         model.addAttribute("currentOption", currentOption);
-        model.addAttribute("options",options);
+        model.addAttribute("options", options);
         return "/administration/editor/listOptionsToAddIncompatible";
     }
 
     @RequestMapping(value = "/administration/editor/option/{currentOption_id}/addIncompatibleOption/{id}", method = RequestMethod.POST)
-    public String addIncompatibleOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
+    public String addIncompatibleOption(@PathVariable int currentOption_id, @PathVariable int id, Model model) {
         Option curOption = optionService.getEntityById(currentOption_id);
         Option optionToIncompatible = optionService.getEntityById(id);
         curOption.addIncompatibleOption(optionToIncompatible);
@@ -252,23 +256,25 @@ public class AdministrationController {
         optionService.updateEntity(optionToIncompatible);
         List<Option> options = new ArrayList<>();
         options.add(curOption);
-        model.addAttribute("options",options);
+        model.addAttribute("options", options);
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
-    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/deleteAssociatedOption/{id}" , method = RequestMethod.POST)
-    public String deleteAssociatedOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
-        optionService.deleteAssociatedOption(currentOption_id,id);
+
+    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/deleteAssociatedOption/{id}", method = RequestMethod.POST)
+    public String deleteAssociatedOption(@PathVariable int currentOption_id, @PathVariable int id, Model model) {
+        optionService.deleteAssociatedOption(currentOption_id, id);
         List<Option> options = new ArrayList<>();
         options.add(optionService.getEntityById(currentOption_id));
-        model.addAttribute("options",options);
+        model.addAttribute("options", options);
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
-    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/deleteIncompatibledOption/{id}" , method = RequestMethod.POST)
-    public String deleteIncompatibledOption(@PathVariable int currentOption_id, @PathVariable int id, Model model){
-        optionService.deleteIncompatibledOption(currentOption_id,id);
+
+    @RequestMapping(value = "/administration/editor/option/{currentOption_id}/deleteIncompatibledOption/{id}", method = RequestMethod.POST)
+    public String deleteIncompatibledOption(@PathVariable int currentOption_id, @PathVariable int id, Model model) {
+        optionService.deleteIncompatibledOption(currentOption_id, id);
         List<Option> options = new ArrayList<>();
         options.add(optionService.getEntityById(currentOption_id));
-        model.addAttribute("options",options);
+        model.addAttribute("options", options);
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
 
@@ -308,24 +314,43 @@ public class AdministrationController {
         contractService.deleteOption(contract_id, option_id);
         return "redirect:/administration/editor/{contract_id}/addOption";
     }
+
+    @RequestMapping(value = "/administration/editor/{contract_id}/listTariffsToContract", method = RequestMethod.GET)
+    public String listTariffsToChange(@PathVariable int contract_id, Model model) {
+        List<Tariff> tariffs = tariffService.getAll();
+        List<TariffViewForm> tariffsDTO = tariffService.getTariffViewList(tariffs);
+        List<Contract> contracts = contractService.contractsById(contract_id);
+        User curUser = userDetailsService.getCurrentUser();
+        UserAccountForm user = new UserAccountForm(curUser);
+        model.addAttribute("tariffs", tariffsDTO);
+        model.addAttribute("contracts", contracts);
+        model.addAttribute("user",user);
+        return "/administration/editor/listPossibleTariffsToContract";
+    }
+
+
+    //todo to options
     @RequestMapping(value = "/administration/editor/option/create", method = RequestMethod.GET)
-    public String newOptionCreationMenu(Model model){
+    public String newOptionCreationMenu(Model model) {
         Option option = new Option();
         model.addAttribute("option", option);
         return "/administration/creation/newOption";
     }
+
     @RequestMapping(value = "/administration/editor/option/create", method = RequestMethod.POST)
-    public String createOption(@ModelAttribute("option") Option option){
-       optionService.createEntity(option);
+    public String createOption(@ModelAttribute("option") Option option) {
+        optionService.createEntity(option);
 //        model.addAttribute("option", option);
         return "redirect:/administration/options";
     }
-    @RequestMapping(value = "administration/options/{id}/delete",method = RequestMethod.GET)
-    public String makeOptionDeprecated(@PathVariable int id){
+
+    @RequestMapping(value = "administration/options/{id}/delete", method = RequestMethod.GET)
+    public String makeOptionDeprecated(@PathVariable int id) {
         optionService.makeOptionDeprecated(id);
         return "redirect:/administration/options";
     }
-    @Scheduled(fixedRate = 1000*30) // every 30 seconds
+
+    @Scheduled(fixedRate = 1000 * 30) // every 30 seconds
     public void deleteUnusedDeprecatedOptions() {
         logger.trace("Running check of deprecated options...");
         optionService.deleteDeprecatedOptions();
