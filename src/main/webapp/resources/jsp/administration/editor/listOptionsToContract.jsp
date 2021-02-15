@@ -25,12 +25,13 @@
 <header>
     <h1>Administration</h1>
     <nav>
-        <a href="/">Home</a>
-        <a href="/administration/users">Users menu</a>
-        <a href="/administration/tariffs">Tariff menu</a>
-        <a href="/administration/options">Option menu</a>
-        <a href="/map">Map</a>
-        <a href="#myModal1"  data-toggle="modal">Cart</a>
+        <a style="color: white; text-decoration: none" href="/">Home</a>
+        <a style="color: white; text-decoration: none" href="/auth/success">My account</a>
+        <a style="color: white; text-decoration: none" href="/administration/users">Users menu</a>
+        <a style="color: white; text-decoration: none" href="/administration/tariffs">Tariff menu</a>
+        <a style="color: white; text-decoration: none" href="/administration/options">Option menu</a>
+        <a style="color: white; text-decoration: none" href="/map">Map</a>
+        <a style="color: white; text-decoration: none" href="#myModal1"  data-toggle="modal">Cart</a>
     </nav>
 </header>
 <h1>Hello, ${user.fullname}</h1>

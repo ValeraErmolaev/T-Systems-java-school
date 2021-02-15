@@ -12,9 +12,12 @@
 <html>
 <head>
     <title>Tariff creation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
 </head>
 <body>
-<form:form class="new-tariff-form" method="POST" modelAttribute="tariff">
+<form:form div="new-tariff-form" method="POST" modelAttribute="tariff">
     <div>
     <form:input type="text" path="name" placeholder="Tariff name" autofocus="true"></form:input>
 <%--    <form:errors path="firstname"></form:errors>--%>

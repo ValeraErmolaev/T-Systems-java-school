@@ -9,6 +9,7 @@ import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.model.Cart.Cart;
 import vermolae.model.dto.Tariff.TariffViewForm;
+import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
 
 import java.util.Collection;
@@ -44,6 +45,10 @@ public class TariffController {
     }
     @RequestMapping(value="/tariff/{tariff_id}/option/{option_id}/addToCart", method=RequestMethod.POST)
     public String addOptionToCart(@ModelAttribute("userCart") Cart cart,@PathVariable int tariff_id,@PathVariable int option_id){
+        Option option = optionService.getEntityById(option_id);
+       if ((cart.getTariff() != null)&&(!cart.getTariff().getOptions().contains(option))){
+           cart.getOptions().clear();
+       }
         cart.setTariff(tariffService.getEntityById(tariff_id));
         cart.getOptions().add(optionService.getEntityById(option_id));
         return "redirect:/tariff/{tariff_id}";

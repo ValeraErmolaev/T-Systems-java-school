@@ -14,6 +14,7 @@ import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.crud.service.api.UserService;
+import vermolae.model.Cart.Cart;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.dto.User.UserRegistrationForm;
@@ -31,6 +32,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("userCart")
 public class AdministrationController {
 
     private final RegistrationValidator regValidator;
@@ -324,10 +326,39 @@ public class AdministrationController {
         UserAccountForm user = new UserAccountForm(curUser);
         model.addAttribute("tariffs", tariffsDTO);
         model.addAttribute("contracts", contracts);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "/administration/editor/listPossibleTariffsToContract";
     }
 
+    @RequestMapping(value = "/administration/editor/{contract_id}/changeTariff/{tariff_id}", method = RequestMethod.GET)
+    public String setTariffToContract(@PathVariable int contract_id, @PathVariable int tariff_id) {
+        contractService.setTariff(contract_id, tariff_id);
+        return "redirect:/auth/success";
+
+    }
+
+    @RequestMapping(value = "/administration/editor/{contract_id}/setTariffFromCart", method = RequestMethod.GET)
+    public String setTariffFromCart(@PathVariable int contract_id, @ModelAttribute("userCart") Cart cart) {
+
+        List<Contract> contracts = contractService.contractsById(contract_id);
+        if (cart.getTariff() != null){
+            for(Contract contract:contracts){
+                contract.getTariff().getContracts().remove(contract);
+                tariffService.updateEntity(contract.getTariff());
+                for (Option option:contract.getOptions()){
+                    option.getContracts().remove(contract);
+                    optionService.updateEntity(option);
+                }
+                contract.getOptions().clear();
+                contract.setTariff(cart.getTariff());
+                contract.setOptions(cart.getOptions());
+                contractService.updateEntity(contract);
+                cart.setTariff(null);
+                cart.getOptions().clear();
+            }
+        }
+        return "redirect:/auth/success";
+    }
 
     //todo to options
     @RequestMapping(value = "/administration/editor/option/create", method = RequestMethod.GET)

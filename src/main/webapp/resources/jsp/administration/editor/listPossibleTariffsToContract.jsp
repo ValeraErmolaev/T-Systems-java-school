@@ -25,12 +25,13 @@
 <header>
     <h1>Administration</h1>
     <nav>
-        <a href="/">Home</a>
-        <a href="/administration/users">Users menu</a>
-        <a href="/administration/tariffs">Tariff menu</a>
-        <a href="/administration/options">Option menu</a>
-        <a href="/map">Map</a>
-        <a href="#myModal1"  data-toggle="modal">Cart</a>
+        <a style="color: white; text-decoration: none" href="/">Home</a>
+        <a style="color: white; text-decoration: none" href="/auth/success">My account</a>
+        <a style="color: white; text-decoration: none" href="/administration/users">Users menu</a>
+        <a style="color: white; text-decoration: none" href="/administration/tariffs">Tariff menu</a>
+        <a style="color: white; text-decoration: none" href="/administration/options">Option menu</a>
+        <a style="color: white; text-decoration: none" href="/map">Map</a>
+        <a style="color: white; text-decoration: none" href="#myModal1"  data-toggle="modal">Cart</a>
     </nav>
 </header>
 <h1>Hello, ${user.fullname}</h1>
@@ -99,44 +100,26 @@
                                                     ${tariff.name}
                                             </span>
                                             <span>
-                                            <form action="/administration/editor/${contract.id}/changeTariff/${tariff.id}" method="POST">
+                                            <form action="/administration/editor/${contract.id}/changeTariff/${tariff.id}" method="GET">
                                                 <input type="submit" value="Choose this tariff"/>
                                             </form>
                                         </span>
+                                            <c:choose>
+                                                <c:when test="${userCart.tariff !=null}">
+                                                     <span>
+                                                         <form action="/administration/editor/${contract.id}/setTariffFromCart" method="GET">
+                                                              <input type="submit" value="Set tariff from cart"/>
+                                                         </form>
+                                                  </span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:if>
                                     </c:forEach></td>
                                 <td>
-<%--                                    <c:forEach items="${contract.options}" var="option">--%>
-<%--                                        <div class="one-option">--%>
-<%--                                    <span>--%>
-<%--                                        <c:out value="${option.name}"/>--%>
-<%--                                    </span>--%>
-<%--                                            <span>--%>
-<%--                                        <form action="/administration/editor/${contract.id}/deleteOption/${option.id}" method="POST">--%>
-<%--                                            <input type="submit" value="Delete"/>--%>
-<%--                                        </form>--%>
-<%--                                    </span>--%>
-<%--                                        </div>--%>
-<%--                                    </c:forEach>--%>
-<%--                                    <span>--%>
-<%--                                 <form action="/user/editor/${contract.id}/addOption" method="get">--%>
-<%--                                    <input type="submit" value="Add option"/>--%>
-<%--                                 </form>--%>
-<%--                             </span>--%>
                                 </td>
                                 <td>
-<%--                                    <c:if test="${contract.tariff.options.size() > 0}">--%>
-<%--                                        <c:forEach items="${contract.tariff.options}" var="option">--%>
-<%--                                            <c:if test="${!contract.options.contains(option)}">--%>
-<%--                                                <span>--%>
-<%--                                                     <c:out value="${option.name}"/>--%>
-<%--                                                    <form action="/administrator/editor/${contract.id}/addOption/${option.id}" method="post">--%>
-<%--                                                        <input type="submit" value="Buy"/>--%>
-<%--                                                    </form>--%>
-<%--                                                </span>--%>
-<%--                                            </c:if>--%>
-<%--                                        </c:forEach>--%>
-<%--                                    </c:if>--%>
                                 </td>
                             </c:otherwise>
                         </c:choose>

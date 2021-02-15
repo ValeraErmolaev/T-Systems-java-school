@@ -107,6 +107,9 @@ public class Contract {
     }
 
     public void setOptions(Set<Option> options) {
+        for (Option option:options){
+            option.getContracts().add(this);
+        }
         this.options = options;
     }
 

@@ -155,7 +155,7 @@ section {
     padding: 20px;
     margin-bottom: 40px;
     margin-top: 40px;
-    background-color: #76b852;
+    background-color: #3498db;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -172,7 +172,7 @@ body.sticky-header {
 body.sticky-header header {
     height: 60px;
     /*background-color: rgba(52, 152, 219, 0.9);*/
-    background-color: rgb(83, 167, 80);
+    background-color: #3498db;
     z-index: 999999;
 }
 body.sticky-header header h1 {
@@ -188,7 +188,7 @@ footer {
     position: fixed; /* Фиксированное положение */
     left: 0; bottom: 0; /* Левый нижний угол */
     padding: 10px; /* Поля вокруг текста */
-    background-color: #76b852; /* Цвет фона */
+    background-color: #3498db; /* Цвет фона */
     color: #fff; /* Цвет текста */
     width: 100%; /* Ширина слоя */
     height: 50px;

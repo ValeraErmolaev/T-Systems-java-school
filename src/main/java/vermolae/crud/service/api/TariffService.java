@@ -25,7 +25,7 @@ public interface TariffService extends GenericService<Tariff, Integer> {
 
     public void deleteOption(Tariff tariff, Option option);
 
-    public Collection<Tariff> tariffsById(int id);
+    public List<Tariff> tariffsById(int id);
 
     public List<TariffViewForm> tariffsByIdViewForm(int id);
 

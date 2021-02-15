@@ -16,6 +16,8 @@ import vermolae.model.entity.Contract;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
 import vermolae.model.entity.User;
+import vermolae.network.Sender;
+import vermolae.security.UserDetailsServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,10 @@ public class ContractServiceImpl implements ContractService {
     private final ContractDAO contractDAO;
 
     private final OptionService optionService;
+
+    private final Sender notifier;
+
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     public void createEntity(Contract entity) throws CustomDAOException {
@@ -108,11 +114,11 @@ public class ContractServiceImpl implements ContractService {
         Set<Option> contractOptions = contract.getOptions();
         Set<Option> optionsToDelete = option.getIncompatibledOptions();
         Set<Option> optionsToAdd = option.getAssociatedOptions();
-        for (Option optToDel : optionsToDelete){
-            if (contractOptions.contains(optToDel)){
+        for (Option optToDel : optionsToDelete) {
+            if (contractOptions.contains(optToDel)) {
                 contractOptions.remove(optToDel);
-                for(Option assocOptToOptToDel:optToDel.getAssociatedOptions()){
-                    if (contractOptions.contains(assocOptToOptToDel)){
+                for (Option assocOptToOptToDel : optToDel.getAssociatedOptions()) {
+                    if (contractOptions.contains(assocOptToOptToDel)) {
                         contractOptions.remove(assocOptToOptToDel);
                         assocOptToOptToDel.getContracts().remove(contract);
                         optionService.updateEntity(assocOptToOptToDel);
@@ -125,7 +131,7 @@ public class ContractServiceImpl implements ContractService {
         }
         contract.getOptions().add(option);
         option.getContracts().add(contract);
-        for (Option optToAdd:optionsToAdd){
+        for (Option optToAdd : optionsToAdd) {
             contract.getOptions().add(optToAdd);
             optToAdd.getContracts().add(contract);
             optionService.updateEntity(optToAdd);
@@ -133,6 +139,8 @@ public class ContractServiceImpl implements ContractService {
 
         updateEntity(contract);
         optionService.updateEntity(option);
+        //TODO TEST
+        notifier.notifyClients();
     }
 
     @Override
@@ -140,8 +148,8 @@ public class ContractServiceImpl implements ContractService {
         Contract contract = getEntityById(contract_id);
         Option option = optionService.getEntityById(option_id);
         Set<Option> contractOptions = contract.getOptions();
-        for (Option optToDel:option.getAssociatedOptions()){
-            if (contractOptions.contains(optToDel)){
+        for (Option optToDel : option.getAssociatedOptions()) {
+            if (contractOptions.contains(optToDel)) {
                 contractOptions.remove(optToDel);
                 optToDel.getContracts().remove(contract);
                 optionService.updateEntity(optToDel);
@@ -151,5 +159,28 @@ public class ContractServiceImpl implements ContractService {
         option.getContracts().remove(contract);
         updateEntity(contract);
         optionService.updateEntity(option);
+    }
+
+    @Override
+    @Transactional
+    public void setTariff(int contract_id, int tariff_id) {
+        User currentUser = userDetailsService.getCurrentUser();
+        List<Contract> contracts = contractsById(contract_id);
+        if (currentUser.getContracts().containsAll(contracts)) {
+            List<Tariff> tariffs = tariffService.tariffsById(tariff_id);
+            for (Tariff tariff : tariffs) {
+                for (Contract contract : contracts) {
+                    for (Option option : contract.getOptions()) {
+                        option.getContracts().remove(contract);
+                        optionService.updateEntity(option);
+                    }
+                    contract.getTariff().getContracts().remove(contract);
+                    tariffService.updateEntity(contract.getTariff());
+                    contract.getOptions().clear();
+                    contract.setTariff(tariff);
+                    updateEntity(contract);
+                }
+            }
+        }
     }
 }

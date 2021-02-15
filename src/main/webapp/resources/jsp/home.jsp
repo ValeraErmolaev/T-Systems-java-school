@@ -31,11 +31,11 @@
     <h1>eCare</h1>
     <nav>
         <a style="color: white; text-decoration: none"   href="/">Home</a>
-        <a  style="color: white; text-decoration: none" href="/auth/success">My account</a>
-        <a  style="color: white; text-decoration: none" href="">About</a>
-        <a  style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
-        <a  style="color: white; text-decoration: none" href="/map">Map</a>
-        <a href="#myModal1"  data-toggle="modal">Cart</a>
+        <a style="color: white; text-decoration: none" href="/auth/success">My account</a>
+        <a style="color: white; text-decoration: none" href="">About</a>
+        <a style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
+        <a style="color: white; text-decoration: none" href="/map">Map</a>
+        <a style="color: white; text-decoration: none" href="#myModal1"  data-toggle="modal">Cart</a>
     </nav>
 </header>
 <div class="wrapper">

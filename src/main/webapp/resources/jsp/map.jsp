@@ -32,15 +32,15 @@
 <header>
     <h1>eCare</h1>
     <nav>
-        <a href="/">Home</a>
-        <a href="/auth/success">My account</a>
-        <a href="">About</a>
-        <a href="/tariff">Tariffs</a>
-        <a href="/map">Map</a>
-        <a href="#myModal1"  data-toggle="modal">Cart</a>
+        <a style="color: white; text-decoration: none" href="/">Home</a>
+        <a style="color: white; text-decoration: none" href="/auth/success">My account</a>
+        <a style="color: white; text-decoration: none" href="">About</a>
+        <a style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
+        <a style="color: white; text-decoration: none" href="/map">Map</a>
+        <a style="color: white; text-decoration: none" href="#myModal1"  data-toggle="modal">Cart</a>
     </nav>
 </header>
-<h2 align="center" style="color: white">Coverage map</h2>
+<h2 align="center" style="color: #3498db">Coverage map</h2>
 <div>
     <div id="vmap"
          style="width: 100%; height: 400px; margin: 0px auto; position: relative; overflow: hidden; background-color: rgb(255, 255, 255);">
@@ -56,7 +56,7 @@
             <p>United Kingdom United States of America United States Virgin Islands</p>
          </section>
     </div>
-<footer style="background-color: #76b852">
+<footer style="background-color: #3498db">
     <p> &copy; Valerii Ermolaev</p>
     <br>
 </footer>

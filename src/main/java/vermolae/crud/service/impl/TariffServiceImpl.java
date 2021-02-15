@@ -130,7 +130,7 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     @Transactional
-    public Collection<Tariff> tariffsById(int id) throws TariffNotFoundException {
+    public List<Tariff> tariffsById(int id) throws TariffNotFoundException {
         ArrayList<Tariff> tariffs = new ArrayList<>();
         try {
             tariffs.add(getEntityById(id));

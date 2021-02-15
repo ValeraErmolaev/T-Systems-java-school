@@ -16,4 +16,5 @@ public interface ContractService extends GenericService<Contract, Integer> {
         public void addNewOption(int contract_id, int option_id);
 
         public void deleteOption(int contract_id, int option_id);
+        public void setTariff(int contract_id, int tariff_id);
 }
