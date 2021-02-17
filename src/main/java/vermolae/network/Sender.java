@@ -1,24 +1,41 @@
 package vermolae.network;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 import vermolae.model.dto.DataChangeNotification;
+import vermolae.model.dto.Tariff.TariffViewForm;
+import vermolae.model.entity.Option;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.Queue;
+import javax.jms.Session;
 
 
 @Component
+@AllArgsConstructor
 public class Sender {
-    @Autowired
-    private JmsTemplate jmsTemplate;
 
-    @Autowired
-    private Queue queue;
+    private final JmsTemplate jmsTemplate;
 
-    public void notifyClients() {
+    private final Queue queue;
+
+    private final JsonParser jsonParser;
+
+    public void notifyClients(TariffViewForm tariffViewForm) {
         final DataChangeNotification message = new DataChangeNotification();
-        jmsTemplate.convertAndSend(queue, message);
+//        jmsTemplate.convertAndSend(queue, message);
+        jmsTemplate.send(queue, new MessageCreator() {
+            @SneakyThrows
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                String textMessage = jsonParser.writeToJSON(tariffViewForm);
+                return session.createTextMessage(textMessage);
+            }
+        });
     }
 
     public String receiveAck() {

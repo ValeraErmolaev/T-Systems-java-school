@@ -1,17 +1,15 @@
 package vermolae.crud.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vermolae.crud.dao.api.ContractDAO;
-import vermolae.crud.dao.api.TariffDAO;
-import vermolae.crud.dao.impl.ContractDAOImpl;
 import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.DatabaseOfNumbersIsFull;
+import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Contract;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
@@ -36,6 +34,7 @@ public class ContractServiceImpl implements ContractService {
     private final Sender notifier;
 
     private final UserDetailsServiceImpl userDetailsService;
+
 
     @Override
     public void createEntity(Contract entity) throws CustomDAOException {
@@ -140,7 +139,7 @@ public class ContractServiceImpl implements ContractService {
         updateEntity(contract);
         optionService.updateEntity(option);
         //TODO TEST
-        notifier.notifyClients();
+
     }
 
     @Override
@@ -182,5 +181,8 @@ public class ContractServiceImpl implements ContractService {
                 }
             }
         }
+        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(tariff_id));
+        tariffViewForm.getOptions().clear();
+        notifier.notifyClients(tariffViewForm);
     }
 }

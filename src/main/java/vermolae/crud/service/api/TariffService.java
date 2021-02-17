@@ -2,6 +2,7 @@ package vermolae.crud.service.api;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import vermolae.model.dto.Tariff.TariffForStand;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
@@ -36,4 +37,6 @@ public interface TariffService extends GenericService<Tariff, Integer> {
     public List<Tariff> deprecatedTariffs();
 
     void makeTariffDeprecated(int id);
+
+    public List<TariffForStand> tariffsForStand();
 }

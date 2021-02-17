@@ -14,6 +14,7 @@ import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.crud.service.api.UserService;
+import vermolae.exeptions.OptionAssociateException;
 import vermolae.model.Cart.Cart;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
@@ -231,7 +232,11 @@ public class AdministrationController {
         Option curOption = optionService.getEntityById(currentOption_id);
         Option optionToAssociate = optionService.getEntityById(id);
 //        curOption.associateOption(optionToAssociate);
-        optionService.associateOptions(currentOption_id, id);
+        try {
+            optionService.associateOptions(currentOption_id, id);
+        }catch (OptionAssociateException e){
+
+        }
         optionService.updateEntity(curOption);
         optionService.updateEntity(optionToAssociate);
         List<Option> options = new ArrayList<>();

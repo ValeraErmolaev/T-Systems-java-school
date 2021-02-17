@@ -13,6 +13,7 @@ import vermolae.crud.service.api.PictureService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.TariffNotFoundException;
+import vermolae.model.dto.Tariff.TariffForStand;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.Option;
@@ -201,5 +202,15 @@ public class TariffServiceImpl implements TariffService {
         Tariff tariff = getEntityById(id);
         tariff.setDeprecated(true);
         updateEntity(tariff);
+    }
+
+    @Override
+    @Transactional
+    public List<TariffForStand> tariffsForStand() {
+        List<TariffForStand> tariffsForStand = new ArrayList<>();
+        for (Tariff tariff:getAll()){
+            tariffsForStand.add(new TariffForStand(tariff));
+        }
+        return tariffsForStand;
     }
 }

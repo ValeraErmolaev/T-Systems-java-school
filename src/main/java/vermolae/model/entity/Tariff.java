@@ -1,5 +1,6 @@
 package vermolae.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -42,12 +43,14 @@ public class Tariff {
     private Picture picture;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tariff")
+    @JsonIgnore
     private Set<Contract> contracts;
     //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
 //    @Column(name = "fieldForOptions")
 //    @Basic
 //    private double fieldForOptions;
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(name = "possible_options",
             joinColumns = @JoinColumn(name = "tariff_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id")

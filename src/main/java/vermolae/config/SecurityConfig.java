@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anonymous().and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/allTariffs").permitAll()
                 .antMatchers("/registration*").permitAll()
                 .antMatchers("/tariff*").permitAll()
                 .antMatchers("/tariff/**").permitAll()
