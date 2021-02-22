@@ -16,8 +16,9 @@
     <title>Account</title>
 
 
-    <%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"--%>
-    <%--          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">--%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="<spring:url value='/resources/css/hint.css'/>" rel="stylesheet">
     <link href="<spring:url value='/resources/css/header.css'/>" rel="stylesheet">
     <link href="<spring:url value='/resources/css/account.css'/>" rel="stylesheet">
 
@@ -26,12 +27,12 @@
 <header>
     <h1>eCare</h1>
     <nav>
-        <a href="/">Home</a>
-        <a href="/account">My account</a>
-        <a href="">About</a>
-        <a href="/tariff">Tariffs</a>
-        <a href="/map">Map</a>
-        <a href="#myModal1"  data-toggle="modal">Cart</a>
+        <a style="color: white; text-decoration: none" href="/">Home</a>
+        <a style="color: white; text-decoration: none" href="/account">My account</a>
+        <a style="color: white; text-decoration: none" href="">About</a>
+        <a style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
+        <a style="color: white; text-decoration: none" href="/map">Map</a>
+        <a style="color: white; text-decoration: none" href="#myModal1" data-toggle="modal">Cart</a>
     </nav>
 </header>
 
@@ -68,7 +69,14 @@
                                 <%--                                <td></td>--%>
                             </c:when>
                             <c:otherwise>
-                                <td>${contract.tariff.name}</td>
+
+                                <td>
+                                        <span>
+                                                ${contract.tariff.name}
+                                        </span>
+
+                                    </span>
+                                </td>
                                 <%--                            <td>${contract.options}</td>--%>
                                 <td>
                                     <c:forEach items="${contract.options}" var="option">
@@ -95,22 +103,32 @@
                         </c:choose>
                     </c:when>
                     <c:otherwise>
-                        <td>${contract.tariff.name}</td>
+                        <td>
+                            <span>
+                                    ${contract.tariff.name}
+                            </span>
+
+                            <span>
+                                     <form action="/user/editor/${contract.id}/listTariffsToContract"
+                                           method="get">
+                                         <input type="submit" value="Change Tariff"/>
+                                     </form>
+                        </td>
                         <td>
                             <c:forEach items="${contract.options}" var="option">
                                 <div class="one-option">
                                     <span>
                                         <c:out value="${option.name}"/>
                                     </span>
-<%--                                    <span>--%>
-<%--                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">--%>
-<%--                                            <input type="submit" value="Delete"/>--%>
-<%--                                        </form>--%>
-<%--                                    </span>--%>
+                                        <%--                                    <span>--%>
+                                        <%--                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">--%>
+                                        <%--                                            <input type="submit" value="Delete"/>--%>
+                                        <%--                                        </form>--%>
+                                        <%--                                    </span>--%>
                                 </div>
                             </c:forEach>
                             <span>
-                                 <form action="/administrator/editor/${contract.id}/addOption" method="get">
+                                 <form action="/user/editor/${contract.id}/addOption" method="get">
                                     <input type="submit" value="Options menu"/>
                                  </form>
                              </span>
@@ -163,9 +181,15 @@
     <!-- jQuery -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
     <script>
         $(function () {

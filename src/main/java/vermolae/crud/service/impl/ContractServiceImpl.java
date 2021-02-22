@@ -9,6 +9,8 @@ import vermolae.crud.service.api.OptionService;
 import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.DatabaseOfNumbersIsFull;
+import vermolae.model.Cart.Cart;
+import vermolae.model.dto.Tariff.TariffForStand;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Contract;
 import vermolae.model.entity.Option;
@@ -37,6 +39,7 @@ public class ContractServiceImpl implements ContractService {
 
 
     @Override
+    @Transactional
     public void createEntity(Contract entity) throws CustomDAOException {
         contractDAO.create(entity);
     }
@@ -88,7 +91,7 @@ public class ContractServiceImpl implements ContractService {
         Contract contract = new Contract();
         contract.setNumber(number);
         contract.setTariff(tariffService.getEntityById(1));
-//        contract.setUser(user);
+        contract.setUser(user);
         createEntity(contract);
         user.addContract(contract);
     }
@@ -163,6 +166,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     @Transactional
     public void setTariff(int contract_id, int tariff_id) {
+        TariffForStand tariffForStandOld = new TariffForStand(tariffService.getEntityById(tariff_id));
         User currentUser = userDetailsService.getCurrentUser();
         List<Contract> contracts = contractsById(contract_id);
         if (currentUser.getContracts().containsAll(contracts)) {
@@ -181,8 +185,31 @@ public class ContractServiceImpl implements ContractService {
                 }
             }
         }
-        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(tariff_id));
-        tariffViewForm.getOptions().clear();
-        notifier.notifyClients(tariffViewForm);
+        TariffForStand tariffForStand = new TariffForStand(tariffService.getEntityById(tariff_id));
+//        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(tariff_id));
+//        tariffViewForm.getOptions().clear();
+        notifier.notifyClients(tariffForStandOld);
+        notifier.notifyClients(tariffForStand);
+    }
+
+    @Override
+    public void setTariffAndOptionsFromCart(Cart cart, int contract_id) {
+        List<Contract> contracts = contractsById(contract_id);
+        if (cart.getTariff() != null) {
+            for (Contract contract : contracts) {
+                contract.getTariff().getContracts().remove(contract);
+                tariffService.updateEntity(contract.getTariff());
+                for (Option option : contract.getOptions()) {
+                    option.getContracts().remove(contract);
+                    optionService.updateEntity(option);
+                }
+                contract.getOptions().clear();
+                contract.setTariff(cart.getTariff());
+                contract.setOptions(cart.getOptions());
+                updateEntity(contract);
+                cart.setTariff(null);
+                cart.getOptions().clear();
+            }
+        }
     }
 }

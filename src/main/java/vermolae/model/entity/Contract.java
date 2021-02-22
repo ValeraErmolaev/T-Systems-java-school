@@ -33,7 +33,7 @@ public class Contract {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="tariff_id", nullable=false)
+    @JoinColumn(name = "tariff_id", nullable = false)
     private Tariff tariff;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -43,7 +43,7 @@ public class Contract {
     )
     private Set<Option> options = new HashSet<>();
 
-    public void addOption(Option option){
+    public void addOption(Option option) {
         options.add(option);
         option.getContracts().add(this);
     }
@@ -81,7 +81,9 @@ public class Contract {
     }
 
     public void setTariff(Tariff tariff) {
-        getTariff().getContracts().remove(this);
+        if (getTariff() != null) {
+            getTariff().getContracts().remove(this);
+        }
         this.tariff = tariff;
         tariff.getContracts().add(this);
     }
@@ -107,7 +109,7 @@ public class Contract {
     }
 
     public void setOptions(Set<Option> options) {
-        for (Option option:options){
+        for (Option option : options) {
             option.getContracts().add(this);
         }
         this.options = options;

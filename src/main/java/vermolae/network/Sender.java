@@ -6,8 +6,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 import vermolae.model.dto.DataChangeNotification;
+import vermolae.model.dto.Tariff.TariffForStand;
 import vermolae.model.dto.Tariff.TariffViewForm;
-import vermolae.model.entity.Option;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -25,14 +25,14 @@ public class Sender {
 
     private final JsonParser jsonParser;
 
-    public void notifyClients(TariffViewForm tariffViewForm) {
+    public void notifyClients(TariffForStand tariff) {
         final DataChangeNotification message = new DataChangeNotification();
 //        jmsTemplate.convertAndSend(queue, message);
         jmsTemplate.send(queue, new MessageCreator() {
             @SneakyThrows
             @Override
             public Message createMessage(Session session) throws JMSException {
-                String textMessage = jsonParser.writeToJSON(tariffViewForm);
+                String textMessage = jsonParser.writeToJSON(tariff);
                 return session.createTextMessage(textMessage);
             }
         });

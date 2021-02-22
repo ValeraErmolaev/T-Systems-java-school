@@ -344,24 +344,7 @@ public class AdministrationController {
 
     @RequestMapping(value = "/administration/editor/{contract_id}/setTariffFromCart", method = RequestMethod.GET)
     public String setTariffFromCart(@PathVariable int contract_id, @ModelAttribute("userCart") Cart cart) {
-
-        List<Contract> contracts = contractService.contractsById(contract_id);
-        if (cart.getTariff() != null){
-            for(Contract contract:contracts){
-                contract.getTariff().getContracts().remove(contract);
-                tariffService.updateEntity(contract.getTariff());
-                for (Option option:contract.getOptions()){
-                    option.getContracts().remove(contract);
-                    optionService.updateEntity(option);
-                }
-                contract.getOptions().clear();
-                contract.setTariff(cart.getTariff());
-                contract.setOptions(cart.getOptions());
-                contractService.updateEntity(contract);
-                cart.setTariff(null);
-                cart.getOptions().clear();
-            }
-        }
+        contractService.setTariffAndOptionsFromCart(cart,contract_id);
         return "redirect:/auth/success";
     }
 

@@ -131,8 +131,6 @@ public class UserServiceImpl implements UserService {
     public void createAndAddNewContract(User user) {
         String number = contractService.getRandomNumber();
         contractService.createNewDefaultContract(user, number);
-
-
     }
 
     @Override
