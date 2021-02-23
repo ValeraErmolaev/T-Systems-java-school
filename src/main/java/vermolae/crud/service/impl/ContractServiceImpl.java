@@ -10,6 +10,7 @@ import vermolae.crud.service.api.TariffService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.DatabaseOfNumbersIsFull;
 import vermolae.model.Cart.Cart;
+import vermolae.model.Enum.Role;
 import vermolae.model.dto.Tariff.TariffForStand;
 import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Contract;
@@ -169,7 +170,7 @@ public class ContractServiceImpl implements ContractService {
         TariffForStand tariffForStandOld = new TariffForStand(tariffService.getEntityById(tariff_id));
         User currentUser = userDetailsService.getCurrentUser();
         List<Contract> contracts = contractsById(contract_id);
-        if (currentUser.getContracts().containsAll(contracts)) {
+        if (currentUser.getContracts().containsAll(contracts)||currentUser.getRole().equals(Role.ADMIN)) {
             List<Tariff> tariffs = tariffService.tariffsById(tariff_id);
             for (Tariff tariff : tariffs) {
                 for (Contract contract : contracts) {

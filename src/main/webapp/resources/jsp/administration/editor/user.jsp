@@ -40,8 +40,8 @@
         <th>Full name</th>
         <th>Status</th>
         <th>Contracts information</th>
-        <th></th>
-        <th></th>
+        <th>Connected options</th>
+
     </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
                             <span> <c:out value="${user.status}"/></span>
                             <span>
                         <form action="/administration/user/${user.id}/changeStatus" method="post">
-                            <button type="submit" value="Change">Change Status</button>
+                            <input type="submit" value="Change Status"/>
                         </form>
                     </span>
                         </div>
@@ -70,13 +70,14 @@
                             <div class="contracts-container">
                                 <c:forEach items="${user.contracts}" var="contract">
                                     <div class="one-contract">
+                                        <span>Number: </span>
                                         <span><c:out value="${contract.number}"/></span>
                                         <c:choose>
                                             <c:when test="${contract.is_blocked_by_admin}">
                                         <span>
                                             <form action="/administration/user/${user.id}/contract/${contract.id}/unblock"
                                                   method="post">
-                                                <button value="Unblock" type="submit">Unblock</button>
+                                                <input value="Unblock" type="submit"/>
                                             </form>
                                         </span>
                                             </c:when>
@@ -84,19 +85,32 @@
                                         <span>
                                             <form action="/administration/user/${user.id}/contract/${contract.id}/block"
                                                   method="post">
-                                                <button value="Block" type="submit">Block</button>
+                                                <input value="Block" type="submit"/>
                                             </form>
                                          </span>
                                             </c:otherwise>
                                         </c:choose>
                                         <span>
+                                            Tariff:
                                             <c:out value="${contract.tariff.name}"/>
+                                             <form action="/administration/editor/${contract.id}/listTariffsToContractByAdmin" method="get">
+                                                 <input type="submit" value="Change Tariff"/>
+                                             </form>
                                         </span>
+                                       <span>Options:</span>
+                                        <div id="options-block" >
                                         <c:forEach items="${contract.options}" var="option">
                                             <span>
                                                 <c:out value="${option.name}"/>
+                                                <form action="/administration/editor/${contract.id}/addOption" method="get">
+                                                     <input type="submit" value="Delete"/>
+                                                </form>
                                             </span>
                                         </c:forEach>
+                                            <form action="/administration/editor/${contract.id}/addOption" method="get">
+                                                <input type="submit" value="Add options"/>
+                                            </form>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </div>

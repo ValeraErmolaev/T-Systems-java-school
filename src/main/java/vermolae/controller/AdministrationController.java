@@ -113,7 +113,16 @@ public class AdministrationController {
         userService.changeUserStatus(id);
         return "redirect:/administration/editor/user/{id}";
     }
-
+    @RequestMapping(value = "/administration/editor/{contract_id}/listTariffsToContractByAdmin", method = RequestMethod.GET)
+    public String listTariffsToContractByAdmin(Model model, @PathVariable int contract_id){
+        List<Contract> contracts = contractService.contractsById(contract_id);
+        model.addAttribute("contracts",contracts);
+        Contract contract = contractService.getEntityById(contract_id);
+        model.addAttribute("tariffs",tariffService.getAll());
+        contract.getUser();
+        model.addAttribute("user", contract.getUser());
+        return "/administration/editor/listTariffsToContractByAdmin";
+    }
     //TARIFFS
     @RequestMapping(value = "/administration/tariffs", method = RequestMethod.GET)
     public String getTariffList(Model model) {
@@ -335,10 +344,16 @@ public class AdministrationController {
         return "/administration/editor/listPossibleTariffsToContract";
     }
 
-    @RequestMapping(value = "/administration/editor/{contract_id}/changeTariff/{tariff_id}", method = RequestMethod.GET)
-    public String setTariffToContract(@PathVariable int contract_id, @PathVariable int tariff_id) {
+    @RequestMapping(value = "/administration/editor/{contract_id}/changeTariffInAccount/{tariff_id}", method = RequestMethod.GET)
+    public String setTariffToContractInAccount(@PathVariable int contract_id, @PathVariable int tariff_id) {
         contractService.setTariff(contract_id, tariff_id);
         return "redirect:/auth/success";
+
+    }
+    @RequestMapping(value = "/administration/editor/{contract_id}/changeTariff/{tariff_id}/{user_id}", method = RequestMethod.GET)
+    public String setTariffToContract(@PathVariable int contract_id, @PathVariable int tariff_id,@PathVariable int user_id) {
+        contractService.setTariff(contract_id, tariff_id);
+        return "redirect:/administration/editor/user/{user_id}";
 
     }
 

@@ -100,7 +100,7 @@
                                                     ${tariff.name}
                                             </span>
                                             <span>
-                                            <form action="/administration/editor/${contract.id}/changeTariff/${tariff.id}" method="GET">
+                                            <form action="/administration/editor/${contract.id}/changeTariffInAccount/${tariff.id}" method="GET">
                                                 <input type="submit" value="Choose this tariff"/>
                                             </form>
                                         </span>

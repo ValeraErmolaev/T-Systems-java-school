@@ -113,6 +113,7 @@
                                            method="get">
                                          <input type="submit" value="Change Tariff"/>
                                      </form>
+                            </span>
                         </td>
                         <td>
                             <c:forEach items="${contract.options}" var="option">
