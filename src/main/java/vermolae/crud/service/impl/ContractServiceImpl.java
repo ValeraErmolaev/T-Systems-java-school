@@ -142,8 +142,6 @@ public class ContractServiceImpl implements ContractService {
 
         updateEntity(contract);
         optionService.updateEntity(option);
-        //TODO TEST
-
     }
 
     @Override

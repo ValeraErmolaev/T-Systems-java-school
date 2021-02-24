@@ -100,12 +100,6 @@ public class TariffServiceImpl implements TariffService {
         Picture pictureNew = pictureService.getPictureByName(filename);
         tariff.setPicture(pictureNew);
         updateTariff(tariff);
-        //        Picture pictureOld = tariff.getPicture();
-//        try{
-//            pictureService.deleteEntity(pictureOld);
-//        } catch (Exception e){
-//            //todo logger
-//        }
         return tariff;
     }
 
@@ -151,7 +145,7 @@ public class TariffServiceImpl implements TariffService {
                 tariffsDTO.add(new TariffViewForm(tariff));
             }
         } catch (Exception e) {
-            ///TODO logger
+            logger.trace(e);
             return tariffsDTO;
         }
 

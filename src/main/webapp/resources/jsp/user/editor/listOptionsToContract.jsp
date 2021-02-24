@@ -23,7 +23,7 @@
     <nav>
         <a href="/">Home</a>
         <a href="/account">My account</a>
-        <a href="">About</a>
+<%--        <a href="">About</a>--%>
         <a href="/tariff">Tariffs</a>
         <a href="/map">Map</a>
     </nav>

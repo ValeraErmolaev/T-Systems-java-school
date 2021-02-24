@@ -49,15 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createEntity(User user) throws CustomDAOException {
-//        if (!isUserExists(user)) {
-
         user.setRole(Role.USER);
         user.setStatus(Status.ACTIVE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //TODO passwordEncoder user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDAO.create(user);
-
-//        }
     }
 
     @Override
@@ -273,7 +268,7 @@ public class UserServiceImpl implements UserService {
                 usersDTO.add(new UserAccountForm(user));
             }
         } catch (Exception e) {
-            ///TODO logger
+            logger.trace(e);
             return usersDTO;
         }
 

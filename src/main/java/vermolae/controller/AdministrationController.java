@@ -191,7 +191,7 @@ public class AdministrationController {
         try {
             tariffService.createNewTariff(tariff);
         } catch (Exception e) {
-            //TODO logger
+            logger.trace(e);
         }
 //        model.addAttribute("tariff",tariff);
 //        return "redirect:/administration/editor/tariff/{tariff.id}";

@@ -23,6 +23,7 @@ public class RegistrationValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) throws UserNotFoundException {
         UserRegistrationForm userRegForm = (UserRegistrationForm) target;
+
         if (userRegForm.getFirstname().equals("")){
             errors.rejectValue("firstname","","The field should not be empty");
         }

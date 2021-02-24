@@ -17,6 +17,7 @@
 
 </head>
 <body>
+<div style="text-align: center; transform: translate(0, 100%)" >
 <form:form div="new-tariff-form" method="POST" modelAttribute="tariff">
     <div>
     <form:input type="text" path="name" placeholder="Tariff name" autofocus="true"></form:input>
@@ -40,5 +41,6 @@
     <button type="submit">Create tariff</button>
     <p class="message"> <a href="/administration/tariffs">Back</a></p>
 </form:form>
+</div>
 </body>
 </html>
