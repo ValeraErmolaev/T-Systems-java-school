@@ -34,7 +34,7 @@ public class ContractServiceImpl implements ContractService {
 
     private final OptionService optionService;
 
-    private final Sender notifier;
+    private final Sender sender;
 
     private final UserDetailsServiceImpl userDetailsService;
 
@@ -189,8 +189,8 @@ public class ContractServiceImpl implements ContractService {
         TariffForStand tariffForStand = new TariffForStand(tariffService.getEntityById(tariff_id));
 //        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(tariff_id));
 //        tariffViewForm.getOptions().clear();
-        notifier.notifyClients(tariffForStandOld);
-        notifier.notifyClients(tariffForStand);
+        sender.sendMessageToStand(tariffForStandOld);
+        sender.sendMessageToStand(tariffForStand);
     }
 
     @Override

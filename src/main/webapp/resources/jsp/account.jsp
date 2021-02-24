@@ -84,11 +84,11 @@
                                     <span class="option-name modal-responsive">
                                         <c:out value="${option.name}"/>
                                     </span>
-                                            <span>
-                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">
-                                            <input type="submit" value="Delete"/>
-                                        </form>
-                                    </span>
+<%--                                            <span>--%>
+<%--                                        <form action="/user/editor/${contract.id}/delete/${option.id}" method="POST">--%>
+<%--                                            <input type="submit" value="Delete"/>--%>
+<%--                                        </form>--%>
+<%--                                    </span>--%>
                                         </div>
                                     </c:forEach>
 
@@ -174,7 +174,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Delete all</button>
+<%--                    <button type="button" class="btn btn-primary">Delete all</button>--%>
                 </div>
             </div>
         </div>

@@ -28,7 +28,7 @@
         <a  style="color: white; text-decoration: none" href="">About</a>
         <a  style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
         <a  style="color: white; text-decoration: none" href="/map">Map</a>
-        <a href="#myModal1"  data-toggle="modal">Cart</a>
+        <a  style="color: white; text-decoration: none" href="#myModal1"  data-toggle="modal">Cart</a>
     </nav>
 </header>
 <div id="tariff-description">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Delete all</button>
+<%--                    <button type="button" class="btn btn-primary">Delete all</button>--%>
                 </div>
             </div>
         </div>

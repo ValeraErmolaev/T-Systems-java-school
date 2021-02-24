@@ -25,7 +25,7 @@ public class Sender {
 
     private final JsonParser jsonParser;
 
-    public void notifyClients(TariffForStand tariff) {
+    public void sendMessageToStand(TariffForStand tariff) {
         final DataChangeNotification message = new DataChangeNotification();
 //        jmsTemplate.convertAndSend(queue, message);
         jmsTemplate.send(queue, new MessageCreator() {
@@ -38,7 +38,7 @@ public class Sender {
         });
     }
 
-    public String receiveAck() {
-        return (String) jmsTemplate.receiveAndConvert("ackQueue");
-    }
+//    public String receiveAck() {
+//        return (String) jmsTemplate.receiveAndConvert("ackQueue");
+//    }
 }

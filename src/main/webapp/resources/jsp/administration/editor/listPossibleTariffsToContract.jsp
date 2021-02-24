@@ -94,6 +94,17 @@
                             </c:when>
                             <c:otherwise>
                                 <td>
+                                    <c:choose>
+                                        <c:when test="${userCart.tariff !=null}">
+                                                     <span>
+                                                         <form action="/administration/editor/${contract.id}/setTariffFromCart" method="GET">
+                                                              <input type="submit" value="Set tariff from cart"/>
+                                                         </form>
+                                                  </span>
+                                        </c:when>
+                                        <c:otherwise>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <c:forEach items="${tariffs}" var="tariff">
                                         <c:if test="${contract.tariff.name.equals(tariff.name) != true}">
                                             <span>
@@ -104,17 +115,7 @@
                                                 <input type="submit" value="Choose this tariff"/>
                                             </form>
                                         </span>
-                                            <c:choose>
-                                                <c:when test="${userCart.tariff !=null}">
-                                                     <span>
-                                                         <form action="/administration/editor/${contract.id}/setTariffFromCart" method="GET">
-                                                              <input type="submit" value="Set tariff from cart"/>
-                                                         </form>
-                                                  </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                </c:otherwise>
-                                            </c:choose>
+
                                         </c:if>
                                     </c:forEach></td>
                                 <td>
@@ -154,7 +155,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Delete all</button>
+<%--                    <button type="button" class="btn btn-primary">Delete all</button>--%>
                 </div>
             </div>
         </div>
