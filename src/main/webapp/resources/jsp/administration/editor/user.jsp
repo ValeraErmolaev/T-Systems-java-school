@@ -55,6 +55,7 @@
                 <td>
                     <div class="contracts-container">
                         <div class="one-contract">
+
                             <span> <c:out value="${user.status}"/></span>
                             <span>
                         <form action="/administration/user/${user.id}/changeStatus" method="post">
@@ -68,6 +69,7 @@
                     <c:when test="${user.contracts.size() > 0}">
                         <td>
                             <div class="contracts-container">
+
                                 <c:forEach items="${user.contracts}" var="contract">
                                     <div class="one-contract">
                                         <span>Number: </span>
@@ -102,12 +104,12 @@
                                         <c:forEach items="${contract.options}" var="option">
                                             <span>
                                                 <c:out value="${option.name}"/>
-                                                <form action="/administration/editor/${contract.id}/addOption" method="get">
+                                                <form action="/administration/editor/${contract.id}/deleteOptionByAdmin/${option.id}/${user.id}" method="get">
                                                      <input type="submit" value="Delete"/>
                                                 </form>
                                             </span>
                                         </c:forEach>
-                                            <form action="/administration/editor/${contract.id}/addOption" method="get">
+                                            <form action="/administration/editor/${contract.id}/addOptionByAdmin" method="get">
                                                 <input type="submit" value="Add options"/>
                                             </form>
                                         </div>

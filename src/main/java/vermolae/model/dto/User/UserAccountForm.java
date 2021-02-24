@@ -9,6 +9,8 @@ import vermolae.model.entity.User;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -21,8 +23,10 @@ public class UserAccountForm {
 
     private String email;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private Date date;
+    private String date;
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private String passport;
 
@@ -84,7 +88,7 @@ public class UserAccountForm {
         this.email = user.getEmail();
         this.status = user.getStatus();
         this.role = user.getRole();
-        this.date = user.getBirthdate();
+        this.date = dateFormat.format(user.getBirthdate());
         this.passport = user.getPassport();
         this.contracts=user.getContracts();
         this.address = user.getAddress();
@@ -97,7 +101,7 @@ public class UserAccountForm {
         this.role = Role.USER;
         this.passport = userRegForm.getPassport();
         this.status = Status.ACTIVE;
-        this.date = userRegForm.getDate();
+        this.date = dateFormat.format(userRegForm.getDate());
     }
 
     public Set<Contract> getContracts() {
@@ -108,11 +112,11 @@ public class UserAccountForm {
         this.contracts = contracts;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

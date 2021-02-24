@@ -50,19 +50,13 @@
                     <td>
                         <div class="options-container">
                             <c:forEach items="${option.associatedOptions}" var="associated_option">
-                                <%--                            <c:forEach begin="0" end="${fn:length(option.associatedOptions) - 1}" var="index">--%>
                                 <div class="one-option">
                                     <span><c:out value="${associated_option.name}"/></span>
                                     <span>
                                         <form action="/administration/editor/option/${option.id}/deleteAssociatedOption/${associated_option.id}" method="post">
-                                            <input type="submit" value="delete">Delete</input>
+                                            <input type="submit" value="Delete"/>
                                         </form>
                                     </span>
-                                        <%--                                    <span>--%>
-                                        <%--                                        <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
-                                        <%--                                            <input type="submit" value="Add option"/>--%>
-                                        <%--                                        </form>--%>
-                                        <%--                                    </span>--%>
                                 </div>
                             </c:forEach>
                             <span>
@@ -86,7 +80,6 @@
                     <td>
                         <div class="options-container">
                             <c:forEach items="${option.incompatibledOptions}" var="incompatibled_option">
-                                <%--                            <c:forEach begin="0" end="${fn:length(option.associatedOptions) - 1}" var="index">--%>
                                 <div class="one-option">
                                     <span><c:out value="${incompatibled_option.name}"/></span>
                                     <span>
@@ -94,11 +87,6 @@
                                             <input type="submit" value="Delete"></input>
                                         </form>
                                     </span>
-                                        <%--                                    <span>--%>
-                                        <%--                                        <form action="/administration/editor/tariff/${option.id}/addOption" method="get">--%>
-                                        <%--                                            <input type="submit" value="Add option"/>--%>
-                                        <%--                                        </form>--%>
-                                        <%--                                    </span>--%>
                                 </div>
                             </c:forEach>
                             <span>
@@ -106,6 +94,7 @@
                                     <input type="submit" value="Add option"/>
                                 </form>
                             </span>
+
                         </div>
                     </td>
                 </c:when>
@@ -120,5 +109,10 @@
         </c:forEach>
     </c:if>
 </table>
+<c:if test="${exceptions.size() !=0}">
+    <c:forEach items="${exceptions}" var="exception">
+        <p style="color: red">${exception.message}</p>
+    </c:forEach>
+</c:if>
 </body>
 </html>

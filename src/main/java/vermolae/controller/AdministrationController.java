@@ -240,17 +240,26 @@ public class AdministrationController {
     public String associateOption(@PathVariable int currentOption_id, @PathVariable int id, Model model) {
         Option curOption = optionService.getEntityById(currentOption_id);
         Option optionToAssociate = optionService.getEntityById(id);
+        List<Exception> exceptions = new ArrayList<>();
 //        curOption.associateOption(optionToAssociate);
+
         try {
             optionService.associateOptions(currentOption_id, id);
         }catch (OptionAssociateException e){
-
+            exceptions.add(e);
+            List<Option> options = new ArrayList<>();
+            options.add(curOption);
+            model.addAttribute("options", options);
+            model.addAttribute("exceptions",exceptions);
+            return "/administration/editor/option";
+//            System.out.println(e);
         }
         optionService.updateEntity(curOption);
         optionService.updateEntity(optionToAssociate);
         List<Option> options = new ArrayList<>();
         options.add(curOption);
         model.addAttribute("options", options);
+        model.addAttribute("exceptions",exceptions);
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
 
@@ -265,14 +274,21 @@ public class AdministrationController {
 
     @RequestMapping(value = "/administration/editor/option/{currentOption_id}/addIncompatibleOption/{id}", method = RequestMethod.POST)
     public String addIncompatibleOption(@PathVariable int currentOption_id, @PathVariable int id, Model model) {
-        Option curOption = optionService.getEntityById(currentOption_id);
-        Option optionToIncompatible = optionService.getEntityById(id);
-        curOption.addIncompatibleOption(optionToIncompatible);
-        optionService.updateEntity(curOption);
-        optionService.updateEntity(optionToIncompatible);
-        List<Option> options = new ArrayList<>();
-        options.add(curOption);
-        model.addAttribute("options", options);
+
+          Option curOption = optionService.getEntityById(currentOption_id);
+          Option optionToIncompatible = optionService.getEntityById(id);
+          model.addAttribute("message","");
+
+            curOption.addIncompatibleOption(optionToIncompatible);
+            optionService.updateEntity(curOption);
+            optionService.updateEntity(optionToIncompatible);
+
+
+          List<Option> options = new ArrayList<>();
+          options.add(curOption);
+          model.addAttribute("options", options);
+
+
         return "redirect:/administration/editor/option/{currentOption_id}";
     }
 
@@ -318,8 +334,23 @@ public class AdministrationController {
         model.addAttribute("user", user);
         return "/administration/editor/listOptionsToContract";
     }
-
-    @RequestMapping(value = "/administrator/editor/{contract_id}/addOption/{option_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/administration/editor/{id}/addOptionByAdmin", method = RequestMethod.GET)
+    public String listAvailableOptionsByAdmin(@PathVariable int id, Model model) {
+        User curUser = userDetailsService.getCurrentUser();
+        UserAccountForm user = new UserAccountForm(curUser);
+        List<Option> options = optionService.listOfAvailableOptions(curUser.getId(), id);
+        List<Contract> contracts = contractService.contractsById(id);
+        model.addAttribute("contracts", contracts);
+        model.addAttribute("options", options);
+        model.addAttribute("user", user);
+        return "/administration/editor/listOptionsToContractByAdmin";
+    }
+    @RequestMapping(value = "/administration/editor/{contract_id}/addOptionByAdmin/{option_id}/{user_id}", method = RequestMethod.GET)
+    public String addNewOptionToContractByAdmin(@PathVariable int contract_id, @PathVariable int option_id,@PathVariable int user_id) {
+        contractService.addNewOption(contract_id, option_id);
+        return "redirect:/administration/editor/user/{user_id}";
+    }
+    @RequestMapping(value = "/administration/editor/{contract_id}/addOption/{option_id}", method = RequestMethod.POST)
     public String addNewOptionToContract(@PathVariable int contract_id, @PathVariable int option_id) {
         contractService.addNewOption(contract_id, option_id);
         return "redirect:/administration/editor/{contract_id}/addOption";
@@ -329,6 +360,11 @@ public class AdministrationController {
     public String deleteOptionFromContract(@PathVariable int contract_id, @PathVariable int option_id) {
         contractService.deleteOption(contract_id, option_id);
         return "redirect:/administration/editor/{contract_id}/addOption";
+    }
+    @RequestMapping(value = "/administration/editor/{contract_id}/deleteOptionByAdmin/{option_id}/{user_id}", method = RequestMethod.GET)
+    public String deleteOptionFromContractByAdmin(@PathVariable int contract_id, @PathVariable int option_id) {
+        contractService.deleteOption(contract_id, option_id);
+        return "redirect:/administration/editor/user/{user_id}";
     }
 
     @RequestMapping(value = "/administration/editor/{contract_id}/listTariffsToContract", method = RequestMethod.GET)

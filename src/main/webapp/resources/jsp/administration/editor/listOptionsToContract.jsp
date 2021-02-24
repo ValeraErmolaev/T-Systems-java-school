@@ -117,7 +117,7 @@
                                             <c:if test="${!contract.options.contains(option)}">
                                                 <span>
                                                      <c:out value="${option.name}"/>
-                                                    <form action="/administrator/editor/${contract.id}/addOption/${option.id}" method="post">
+                                                    <form action="/administration/editor/${contract.id}/addOption/${option.id}" method="post">
                                                         <input type="submit" value="Buy"/>
                                                     </form>
                                                 </span>

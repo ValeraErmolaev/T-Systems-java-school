@@ -36,6 +36,7 @@
         <a style="color: white; text-decoration: none" href="/tariff">Tariffs</a>
         <a style="color: white; text-decoration: none" href="/map">Map</a>
         <a style="color: white; text-decoration: none" href="#myModal1"  data-toggle="modal">Cart</a>
+        <a style="color: white; text-decoration: none" href="http://localhost:8080/eCareTariffs-0.0.1-SNAPSHOT/">Top of tariffs</a>
     </nav>
 </header>
 <div class="wrapper">
