@@ -1,0 +1,19 @@
+.hint--box {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  top: 35px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+
+  width: 200px;
+  height: 200px;
+
+  border: 1px solid #888;
+
+  background-color: rgba(255,255,255,1);
+}
+.hint--box.active {
+  display: block;
+}

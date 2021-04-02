@@ -1,0 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+nav {
+    position: absolute;
+    text-decoration: none;
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+nav a {
+    color: #fff;
+    display: inline-block;
+    padding: 10px 15px;
+    line-height: 1;
+    text-decoration: none;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+nav a:hover {
+    -moz-box-shadow: 0 0 0 1px #fff;
+    -webkit-box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px #fff;
+    text-decoration: none;
+    color: #ffe
+}
+header {
+    width: 100%;
+    height: 200px; /*tut */
+    background-color: #323a40; /* #3498db;*/
+    text-align: center;
+    position: relative;
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    text-decoration: none;
+}
+.form button:hover,.form button:active,.form button:focus {
+    background: #107de0;
+}
+input[type=submit]{
+    /*width: 15px;*/
+    /*position: absolute;*/
+    right: 20px;
+    bottom: 20px;
+    background: #3498db;
+    color: #ffffff;
+    font-family: "Ubuntu";
+    height: 30px;
+    /*-webkit-border-radius: 15px;*/
+    /*-moz-border-radius: 15px;*/
+    /*border-radius: 15px;*/
+    border: 1px solid #0b22a9;
+}
+input[type=form-data]{
+    /*width: 15px;*/
+    /*position: absolute;*/
+    right: 20px;
+    bottom: 20px;
+    background: #3498db;
+    color: #ffffff;
+    font-family: "Ubuntu";
+    height: 30px;
+    /*-webkit-border-radius: 15px;*/
+    /*-moz-border-radius: 15px;*/
+    /*border-radius: 15px;*/
+    border: 1px solid #0b22a9;
+}
+#options-block span {
+    display: block;
+}
+/*#one-contract span {*/
+/*    display: block;*/
+/*}*/
+#tariffs-choose span{
+    display: inline;
+}

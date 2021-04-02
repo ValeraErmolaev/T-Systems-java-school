@@ -1,0 +1,42 @@
+.e-card .e-card-actions.e-card-vertical .e-card-btn, .e-card .e-card-actions.e-card-vertical a {
+    -ms-flex-item-align: initial;
+    -ms-grid-row-align: initial;
+    align-self: initial;
+    box-sizing: border-box;
+    display: inline-block;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 0 0 6px 0;
+    text-align: center;
+    width: 100%;
+
+}
+/*a.button {*/
+/*    -ms-flex-item-align: initial;*/
+/*    -ms-grid-row-align: initial;*/
+/*    align-self: initial;*/
+/*    box-sizing: border-box;*/
+/*    display: inline-block;*/
+/*    -ms-flex-pack: center;*/
+/*    justify-content: center;*/
+/*    margin: 0 0 6px 0;*/
+/*    text-align: center;*/
+/*    width: 100%;*/
+/*}*/
+a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+}
+footer {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 10px; /* Поля вокруг текста */
+    background: #39b54a; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+    height: 150px;
+}
+p {
+    margin-bottom: 2rem;
+    line-height: 2;
+    color: white;
+}
