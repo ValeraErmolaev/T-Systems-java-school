@@ -65,9 +65,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
     public void update(E entity) throws CustomDAOException {
         try {
             entityManager.merge(entity);
-        } catch (PersistenceException e) {
-            throw new CustomDAOException("Entity wasn't updated: " + entity, e);
-        } catch (IllegalStateException e) {
+        } catch (PersistenceException | IllegalStateException e) {
             throw new CustomDAOException("Entity wasn't updated: " + entity, e);
         }
 

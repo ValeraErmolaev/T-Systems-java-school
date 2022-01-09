@@ -12,7 +12,6 @@ import vermolae.exeptions.DatabaseOfNumbersIsFull;
 import vermolae.model.Cart.Cart;
 import vermolae.model.Enum.Role;
 import vermolae.model.dto.Tariff.TariffForStand;
-import vermolae.model.dto.Tariff.TariffViewForm;
 import vermolae.model.entity.Contract;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Tariff;
@@ -75,13 +74,13 @@ public class ContractServiceImpl implements ContractService {
         if (contracts.size() == 8999999) {
             throw new DatabaseOfNumbersIsFull("All possible numbers are used.");
         }
-        StringBuffer startNumber = new StringBuffer("+7999");
-        StringBuffer newNumber = new StringBuffer("");
+        StringBuilder startNumber = new StringBuilder("+7999");
+        StringBuilder newNumber;
         int min = 1000000;
         int max = 9999999;
         do {
-            Integer randomNumber = (int) (Math.random() * (max - min + 1) + min);
-            newNumber = startNumber.append(randomNumber.toString());
+            int randomNumber = (int) (Math.random() * (max - min + 1) + min);
+            newNumber = startNumber.append(randomNumber);
         } while (contracts.contains(newNumber.toString()));
         return newNumber.toString();
     }
@@ -185,8 +184,6 @@ public class ContractServiceImpl implements ContractService {
             }
         }
         TariffForStand tariffForStand = new TariffForStand(tariffService.getEntityById(tariff_id));
-//        TariffViewForm tariffViewForm = new TariffViewForm(tariffService.getEntityById(tariff_id));
-//        tariffViewForm.getOptions().clear();
         sender.sendMessageToStand(tariffForStandOld);
         sender.sendMessageToStand(tariffForStand);
     }

@@ -2,11 +2,9 @@ package vermolae.crud.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vermolae.crud.dao.api.RoleDAO;
 import vermolae.crud.dao.api.UserDAO;
 import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.UserService;
@@ -33,8 +31,6 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO;
 
     private final ContractService contractService;
-
-    private final RoleDAO roleDAO;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -299,35 +295,5 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User getUserByEMAil(String eMail) throws UserNotFoundException {
         return userDAO.getUserByEMAil(eMail);
-
-
     }
-
-
-    /**
-     * Checking user existing in base
-     *
-     * @param user entity for checking
-     * @return true - if user exists, false if doesn't
-     */
-//    public boolean isUserExists(User user) {
-//        try {
-//            return getUserByEMAil(user.getEmail()) != null ? true : false;
-//        } catch (UserNotFoundException ex) {
-//            logger.error(ex);
-//            return false;
-//        }
-//    }
-
-    /**
-     * Changing user's access level in base
-     *
-     * @param user        entity for changing level
-     * @param role new level
-     */
-//    public void cahngeUserAccessLevel(User user, Role role) {
-////        user.setRole(role);
-//        updateEntity(user);
-//    }
-
 }

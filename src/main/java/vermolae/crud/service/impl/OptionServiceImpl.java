@@ -3,17 +3,13 @@ package vermolae.crud.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vermolae.controller.AdministrationController;
 import vermolae.crud.dao.api.ContractDAO;
 import vermolae.crud.dao.api.OptionDAO;
 import vermolae.crud.dao.api.TariffDAO;
 import vermolae.crud.dao.api.UserDAO;
-import vermolae.crud.service.api.ContractService;
 import vermolae.crud.service.api.OptionService;
-import vermolae.crud.service.api.UserService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.OptionAssociateException;
 import vermolae.model.entity.Contract;
@@ -41,7 +37,7 @@ public class OptionServiceImpl implements OptionService {
 
     private final UserDAO userDAO;
 
-    private static Logger logger = LogManager.getLogger(OptionServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(OptionServiceImpl.class);
 
     @Override
     @Transactional
@@ -115,10 +111,6 @@ public class OptionServiceImpl implements OptionService {
         Option optionSecond = getEntityById(option_second_id);
         Set<Option> optionsAssocWithSecond = optionSecond.getAssociatedOptions();
         Set<Option> optionsAssocWithFirst = optionFirst.getAssociatedOptions();
-//        if (optionFirst.getIncompatibledOptions().contains(optionSecond)) {
-//            throw new OptionAssociateException("Options " + optionFirst.getName() + " " +
-//                    optionSecond.getName() + " are incompatible. ");
-//        }
         for (Option assocToFirstOpt : optionFirst.getAssociatedOptions()) {
             for (Option incompatOption : assocToFirstOpt.getIncompatibledOptions()) {
                 if (incompatOption.equals(optionSecond) || optionsAssocWithSecond.contains(incompatOption)) {
@@ -134,8 +126,6 @@ public class OptionServiceImpl implements OptionService {
         for (Option optionAssociatedWithSecond : optionSecond.getAssociatedOptions()) {
             if (!optionFirst.equals(optionAssociatedWithSecond)) {
                 optionFirst.associateOption(optionAssociatedWithSecond);
-//            updateEntity(optionFirst);
-//            updateEntity(optionAssociatedWithSecond);
             }
 
         }
@@ -143,15 +133,11 @@ public class OptionServiceImpl implements OptionService {
             for (Option optionAssociatedWithSecond : optionsAssocWithSecond) {
                 if (!optionAssociatedWithFirst.equals(optionAssociatedWithSecond)) {
                     optionAssociatedWithFirst.associateOption(optionAssociatedWithSecond);
-//                updateEntity(optionAssociatedWithFirst);
-//                updateEntity(optionAssociatedWithSecond);
                 }
 
             }
             if (!optionAssociatedWithFirst.equals(optionSecond)) {
                 optionAssociatedWithFirst.associateOption(optionSecond);
-//            updateEntity(optionAssociatedWithFirst);
-//            updateEntity(optionSecond);
             }
 
         }
@@ -159,7 +145,6 @@ public class OptionServiceImpl implements OptionService {
         for (Option newAssociatedOptions : optionFirst.getAssociatedOptions()) {
             updateEntity(newAssociatedOptions);
         }
-//        updateEntity(optionSecond);
     }
 
     @Override
@@ -218,7 +203,7 @@ public class OptionServiceImpl implements OptionService {
                         updateEntity(option);
                     }
                     deleteEntity(option);
-                    logger.trace(String.format(name +" option was removed."));
+                    logger.trace(name + " option was removed.");
                 }
             }
         }
@@ -228,7 +213,7 @@ public class OptionServiceImpl implements OptionService {
     @Override
     @Transactional
     public List<Option> deprecatedOptions() {
-        return getAll().stream().filter(option -> option.isIs_deprecated()).collect(Collectors.toList());
+        return getAll().stream().filter(Option::isIs_deprecated).collect(Collectors.toList());
     }
 }
 

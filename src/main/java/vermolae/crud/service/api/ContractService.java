@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface ContractService extends GenericService<Contract, Integer> {
 
-    public String getRandomNumber();
+    String getRandomNumber();
 
-    public void createNewDefaultContract(User user, String number);
+    void createNewDefaultContract(User user, String number);
 
-    public List<Contract> contractsById(int id);
+    List<Contract> contractsById(int id);
 
-    public void addNewOption(int contract_id, int option_id);
+    void addNewOption(int contract_id, int option_id);
 
-    public void deleteOption(int contract_id, int option_id);
+    void deleteOption(int contract_id, int option_id);
 
-    public void setTariff(int contract_id, int tariff_id);
+    void setTariff(int contract_id, int tariff_id);
 
-    public void setTariffAndOptionsFromCart(Cart cart, int contract_id);
+    void setTariffAndOptionsFromCart(Cart cart, int contract_id);
 }

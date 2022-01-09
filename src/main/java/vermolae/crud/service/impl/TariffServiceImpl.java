@@ -3,7 +3,6 @@ package vermolae.crud.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,13 +14,10 @@ import vermolae.exeptions.CustomDAOException;
 import vermolae.exeptions.TariffNotFoundException;
 import vermolae.model.dto.Tariff.TariffForStand;
 import vermolae.model.dto.Tariff.TariffViewForm;
-import vermolae.model.dto.User.UserAccountForm;
 import vermolae.model.entity.Option;
 import vermolae.model.entity.Picture;
 import vermolae.model.entity.Tariff;
-import vermolae.model.entity.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +33,7 @@ public class TariffServiceImpl implements TariffService {
 
     private final OptionService optionService;
 
-    private static Logger logger = LogManager.getLogger(TariffServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(TariffServiceImpl.class);
 
 
     @Override
@@ -72,7 +68,7 @@ public class TariffServiceImpl implements TariffService {
     @Override
     @Transactional
     public List<TariffViewForm> getTariffViewList(Collection<Tariff> tariffs) {
-        List<TariffViewForm> tariffViewFormList = new ArrayList<TariffViewForm>();
+        List<TariffViewForm> tariffViewFormList = new ArrayList<>();
         try {
             for (Tariff tariff : tariffs) {
                 tariffViewFormList.add(new TariffViewForm(tariff));
@@ -177,7 +173,7 @@ public class TariffServiceImpl implements TariffService {
                         optionService.updateEntity(option);
                     }
                     deleteEntity(tariff);
-                    logger.trace(String.format(name +" tariff was removed."));
+                    logger.trace(name +" tariff was removed.");
                 }
             }
         }
@@ -187,7 +183,7 @@ public class TariffServiceImpl implements TariffService {
     @Override
     @Transactional
     public List<Tariff> deprecatedTariffs() {
-        return getAll().stream().filter(tariff -> tariff.isDeprecated()).collect(Collectors.toList());
+        return getAll().stream().filter(Tariff::isDeprecated).collect(Collectors.toList());
     }
 
     @Override

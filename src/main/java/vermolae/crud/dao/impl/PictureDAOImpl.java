@@ -11,26 +11,17 @@ import javax.persistence.Query;
 
 @Repository("pictureDAO")
 public class PictureDAOImpl extends GenericDAOImpl<Picture, Integer> implements PictureDAO {
-    //ToDO send to service
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     @Transactional
-    public void saveNewPicture(Picture picture) throws Exception{
-//        byte[] fileContent = FileUtils.readFileToByteArray(file);
+    public void saveNewPicture(Picture picture) {
         create(picture);
-//        String encodedString = Base64.getEncoder().encodeToString(fileContent);
-//        String url = "data:image/jpeg;base64,"+ encodedString;
     }
-    //TODO delete this
+
     @Override
-    @Transactional
-    public String urlPicture(int id){
-        Picture pic = read(id);
-//        String encodedString = Base64.getEncoder().encodeToString(pic.getPicture());
-//        String url = "data:image/jpeg;base64,"+ encodedString;
-//        return url;
+    public String urlPicture(int id) {
         return "";
     }
 

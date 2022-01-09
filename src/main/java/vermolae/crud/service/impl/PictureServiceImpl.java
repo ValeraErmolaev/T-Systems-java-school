@@ -1,7 +1,6 @@
 package vermolae.crud.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +8,7 @@ import vermolae.crud.dao.api.PictureDAO;
 import vermolae.crud.service.api.PictureService;
 import vermolae.exeptions.CustomDAOException;
 import vermolae.model.entity.Picture;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -23,10 +23,10 @@ public class PictureServiceImpl implements PictureService {
     public void saveNewPicture(String name, MultipartFile file) throws IOException {
 
         try {
-            Picture picture =  pictureDAO.getPictureByName(name);
+            Picture picture = pictureDAO.getPictureByName(name);
             picture.setPictureBytes(file.getBytes());
             pictureDAO.update(picture);
-        } catch (Exception e){
+        } catch (Exception e) {
             Picture picture = new Picture();
             picture.setName(name);
             picture.setPictureBytes(file.getBytes());

@@ -12,7 +12,7 @@ public interface UserDAO extends GenericDAO<User, Integer> {
      * @return user with adjusted number
      * @throws UserNotFoundException if user not found
      */
-    public User getUserByNumber(String number) throws UserNotFoundException;
+    User getUserByNumber(String number) throws UserNotFoundException;
 
     /**
      * Getting user entity by email
@@ -21,13 +21,14 @@ public interface UserDAO extends GenericDAO<User, Integer> {
      * @return user with adjusted number
      * @throws UserNotFoundException if user not found
      */
-    public User getUserByEMAil(String eMail) throws UserNotFoundException;
+    User getUserByEMAil(String eMail) throws UserNotFoundException;
 
     /**
      * Getting user by login
+     *
      * @param login
      * @return
      * @throws UserNotFoundException
      */
-    public User getUserByLogin(String login) throws UserNotFoundException;
+    User getUserByLogin(String login) throws UserNotFoundException;
 }
