@@ -18,10 +18,6 @@ public class SecurityUser implements UserDetails{
     @Autowired
     private RoleDAO roleDAO;
 
-//    private final String username;
-//    private final String password;
-//    private final List<SimpleGrantedAuthority> authorities;
-//    private final boolean isActive;
     private long id;
     private String password;
     private String username;

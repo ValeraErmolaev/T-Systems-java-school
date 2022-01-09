@@ -1,21 +1,15 @@
 package vermolae.network;
 
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 import vermolae.crud.service.impl.TariffServiceImpl;
 import vermolae.model.dto.DataChangeNotification;
 import vermolae.model.dto.Tariff.TariffForStand;
-import vermolae.model.dto.Tariff.TariffViewForm;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.jms.Queue;
-import javax.jms.Session;
 import java.io.IOException;
 
 

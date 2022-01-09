@@ -11,11 +11,8 @@ public class MsgConverter implements MessageConverter {
     @Override
     public Message toMessage(Object object, Session session) throws JMSException, MessageConversionException {
         DataChangeNotification notification = (DataChangeNotification) object;
-//        MapMessage message = session.createMapMessage();
        TextMessage message1= session.createTextMessage();
        message1.setText("TEST TEXT");
-//        message.setString("key", notification.getKey());
-//        message.setString("sender", notification.getSender());
         return message1;
     }
 
