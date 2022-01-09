@@ -1,7 +1,6 @@
 package vermolae.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -115,7 +114,6 @@ public class UserController {
     }
     @RequestMapping(value = "/user/editor/{contract_id}/setTariffFromCart", method = RequestMethod.GET)
     public String setTariffFromCart(@PathVariable int contract_id, @ModelAttribute("userCart") Cart cart) {
-//        contractService.setTariffAndOptionsFromCart(cart,contract_id);
         List<Contract> contracts = contractService.contractsById(contract_id);
         if (cart.getTariff() != null) {
             for (Contract contract : contracts) {

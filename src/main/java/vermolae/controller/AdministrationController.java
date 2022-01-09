@@ -148,7 +148,7 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/addOption", method = RequestMethod.GET)
-    public String getOptionListToAdd(Model model, @PathVariable int id) throws Exception {
+    public String getOptionListToAdd(Model model, @PathVariable int id) {
         Tariff tariff = tariffService.getEntityById(id);
         TariffViewForm tariffViewForm = new TariffViewForm(tariff);
         model.addAttribute("tariff", tariffViewForm);
@@ -159,7 +159,7 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/addOption/{option_id}", method = RequestMethod.POST)
-    public String addNewOptionToTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+    public String addNewOptionToTariff(Model model, @PathVariable int id, @PathVariable int option_id) {
         Tariff tariff = tariffService.getEntityById(id);
         Option option = optionService.getEntityById(option_id);
         tariffService.addOption(tariff, option);
@@ -170,7 +170,7 @@ public class AdministrationController {
 
 
     @RequestMapping(value = "/administration/editor/tariff/{id}/delete/{option_id}", method = RequestMethod.POST)
-    public String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) throws Exception {
+    public String deleteOptionFromTariff(Model model, @PathVariable int id, @PathVariable int option_id) {
         Tariff tariff = tariffService.getEntityById(id);
         Option option = optionService.getEntityById(option_id);
         tariffService.deleteOption(tariff, option);
@@ -193,8 +193,6 @@ public class AdministrationController {
         } catch (Exception e) {
             logger.trace(e);
         }
-//        model.addAttribute("tariff",tariff);
-//        return "redirect:/administration/editor/tariff/{tariff.id}";
         return "redirect:/administration/tariffs";
     }
 
@@ -228,7 +226,7 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/option/{id}/associateOption", method = RequestMethod.GET)
-    public String getOptionListToAssociate(Model model, @PathVariable int id) throws Exception {
+    public String getOptionListToAssociate(Model model, @PathVariable int id) {
         Option currentOption = optionService.getEntityById(id);
         List<Option> options = optionService.getAll();
         model.addAttribute("currentOption", currentOption);
@@ -264,7 +262,7 @@ public class AdministrationController {
     }
 
     @RequestMapping(value = "/administration/editor/option/{id}/addIncompatibleOption", method = RequestMethod.GET)
-    public String getOptionListToAddIncompatible(Model model, @PathVariable int id) throws Exception {
+    public String getOptionListToAddIncompatible(Model model, @PathVariable int id) {
         Option currentOption = optionService.getEntityById(id);
         List<Option> options = optionService.getAll();
         model.addAttribute("currentOption", currentOption);

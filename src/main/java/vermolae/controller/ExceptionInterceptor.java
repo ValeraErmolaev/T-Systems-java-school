@@ -14,25 +14,20 @@ public class ExceptionInterceptor {
 
     @ExceptionHandler(value = {ResourceNotFoundException.class, NoHandlerFoundException.class})
     public ModelAndView handleError404(HttpServletRequest request, Exception e)   {
-        ModelAndView mv = new ModelAndView("/404");
-        return mv;
+        return new ModelAndView("/404");
     }
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class})
     public ModelAndView handleError400(HttpServletRequest request, Exception e) {
-        ModelAndView mv = new ModelAndView("/400");
-        return mv;
+        return new ModelAndView("/400");
     }
 
     @ExceptionHandler(value = {  AccessDeniedException.class})
     public ModelAndView handleStatusException(HttpServletRequest request, Exception e) {
-        ModelAndView mv = new ModelAndView("/blocked");
-        return mv;
+        return new ModelAndView("/blocked");
     }
-//    @ResponseStatus(NullPointerException.class)
     @ExceptionHandler(value = { NullPointerException.class, PropertyNotFoundException.class,StackOverflowError.class})
     public ModelAndView notFoundHandler() {
-        ModelAndView mv = new ModelAndView("/500");
-        return mv;
+        return new ModelAndView("/500");
     }
 
 }
